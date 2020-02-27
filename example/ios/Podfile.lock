@@ -1,0 +1,22 @@
+PODS:
+  - beacons_plugin (0.0.1):
+    - Flutter
+  - Flutter (1.0.0)
+
+DEPENDENCIES:
+  - beacons_plugin (from `.symlinks/plugins/beacons_plugin/ios`)
+  - Flutter (from `Flutter`)
+
+EXTERNAL SOURCES:
+  beacons_plugin:
+    :path: ".symlinks/plugins/beacons_plugin/ios"
+  Flutter:
+    :path: Flutter
+
+SPEC CHECKSUMS:
+  beacons_plugin: 451bca1eea362d21793d61d58fa26d494cf19718
+  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+
+PODFILE CHECKSUM: 083258d7f5e80b42ea9bfee905fe93049bc04c64
+
+COCOAPODS: 1.8.3
