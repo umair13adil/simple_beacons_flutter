@@ -2,14 +2,23 @@ import Flutter
 import UIKit
 import CoreLocation
 
-public class SwiftBeaconsPlugin: NSObject, FlutterPlugin {
+public class SwiftBeaconsPlugin: NSObject, FlutterPlugin,FlutterStreamHandler {
     
+    private var eventSink: FlutterEventSink?
     let locationManager = CLLocationManager()
+    var eventChannel:FlutterEventChannel? = nil
+    
+    init(eventChannel: FlutterEventChannel) {
+      self.eventChannel = eventChannel
+    }
     
     public static func register(with registrar: FlutterPluginRegistrar) {
         let channel = FlutterMethodChannel(name: "beacons_plugin", binaryMessenger: registrar.messenger())
         
-        let instance = SwiftBeaconsPlugin()
+        let eventChannel = FlutterEventChannel(name: "beacons_plugin_stream", binaryMessenger: registrar.messenger())
+        
+        let instance = SwiftBeaconsPlugin(eventChannel: eventChannel)
+        eventChannel.setStreamHandler(instance)
         
         registrar.addMethodCallDelegate(instance, channel: channel)
     }
@@ -59,6 +68,16 @@ public class SwiftBeaconsPlugin: NSObject, FlutterPlugin {
         locationManager.stopRangingBeacons(in: beaconRegion)
         print("stopMonitoringItem")
     }
+    
+    public func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink) -> FlutterError? {
+        self.eventSink = events
+        return nil
+    }
+    
+    public func onCancel(withArguments arguments: Any?) -> FlutterError? {
+        eventSink = nil
+        return nil
+    }
 }
 
 // MARK: CLLocationManagerDelegate
@@ -80,6 +99,7 @@ extension SwiftBeaconsPlugin: CLLocationManagerDelegate {
         
         for beacon in beacons {
             print("Beacon: \(beacon)")
+            eventSink!("Beacon: \(beacon)")
         }
     }
 }
