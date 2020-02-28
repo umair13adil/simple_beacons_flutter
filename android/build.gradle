@@ -41,14 +41,4 @@ android {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-
-    //RxJava
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.9'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
-    implementation 'io.reactivex.rxjava2:rxkotlin:2.2.0'
-    implementation 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.5@aar'
-
-    //Android Beacon Library
-    implementation "com.polidea.rxandroidble2:rxandroidble:1.10.5"
-
 }

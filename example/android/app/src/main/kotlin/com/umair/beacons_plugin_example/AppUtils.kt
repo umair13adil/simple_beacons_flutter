@@ -1,4 +1,4 @@
-package com.umair.beacons_plugin
+package com.umair.beacons_plugin_example
 
 import android.app.Activity
 import android.bluetooth.BluetoothAdapter
@@ -18,16 +18,16 @@ internal val REQUEST_ENABLE_BT = 10323
 
 fun hasBLEFeature(activity: Activity): Boolean {
     activity.packageManager.takeIf { it.missingSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE) }
-        ?.also {
-            return false
-        }
+            ?.also {
+                return false
+            }
     return true
 }
 
 fun setUpBlueToothAdapter(activity: Activity): BluetoothAdapter? {
     val bluetoothAdapter: BluetoothAdapter? by lazy(LazyThreadSafetyMode.NONE) {
         val bluetoothManager =
-            activity.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
+                activity.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
         bluetoothManager.adapter
     }
     return bluetoothAdapter
@@ -44,22 +44,22 @@ fun isBluetoothEnabled(activity: Activity) {
     }
 }
 
-fun checkPermissions(activity: Activity) {
+fun checkPermissions(activity: Activity, isGranted: (Boolean) -> Unit) {
 
     try {
         //Request for storage permissions
         PermissionsHelper.requestLocationPermissions(activity)
-            .subscribeOn(AndroidSchedulers.mainThread())
-            .observeOn(AndroidSchedulers.mainThread())
-            .debounce(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
-            .subscribeBy(
-                onNext = { callback ->
-
-                },
-                onError = {
-                    it.printStackTrace()
-                }
-            )
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .debounce(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .subscribeBy(
+                        onNext = { callback ->
+                            isGranted.invoke(callback)
+                        },
+                        onError = {
+                            it.printStackTrace()
+                        }
+                )
     } catch (e: Exception) {
         e.printStackTrace()
     }

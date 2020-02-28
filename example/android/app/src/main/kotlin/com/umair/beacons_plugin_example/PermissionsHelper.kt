@@ -1,4 +1,4 @@
-package com.umair.beacons_plugin
+package com.umair.beacons_plugin_example
 
 import android.Manifest
 import android.app.Activity
@@ -14,32 +14,6 @@ import io.reactivex.rxkotlin.subscribeBy
 object PermissionsHelper {
 
     private val TAG = "PermissionsHelper"
-
-    fun requestStoragePermissions(activity: Activity): Observable<Boolean> {
-        val rxPermissions = RxPermissions(activity)
-
-        return Observable.create { emitter ->
-            rxPermissions
-                    .request(
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                            Manifest.permission.READ_EXTERNAL_STORAGE
-                    )
-                    .compose(
-                            rxPermissions.ensureEachCombined(
-                                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                                    Manifest.permission.READ_EXTERNAL_STORAGE
-                            )
-                    )
-                    .subscribeBy(
-                            onNext = { permission ->
-                                emitter.onNext(permission.granted)
-                            },
-                            onError = {
-                                it.printStackTrace()
-                            }
-                    )
-        }
-    }
 
     fun requestLocationPermissions(activity: Activity): Observable<Boolean> {
         val rxPermissions = RxPermissions(activity)

@@ -71,6 +71,6 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxkotlin:2.2.0'
     implementation 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.5@aar'
 
-    //Android Beacon Library
-    implementation "com.polidea.rxandroidble2:rxandroidble:1.10.5"
+    //Android Alt-Beacon Library
+    implementation 'org.altbeacon:android-beacon-library:2.16.4'
 }
