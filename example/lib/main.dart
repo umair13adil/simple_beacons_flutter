@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-
-import 'package:flutter/services.dart';
+import 'dart:io' show Platform;
 import 'package:beacons_plugin/beacons_plugin.dart';
 
 void main() => runApp(MyApp());
@@ -36,8 +35,13 @@ class _MyAppState extends State<MyApp> {
     BeaconsPlugin.listenToBeacons(beaconEventsController);
     BeaconsPlugin.listenToRegionEvents(beaconRegionController);
 
-    await BeaconsPlugin.addRegion("Beacon1");
-    await BeaconsPlugin.addRegion("Beacon2");
+    if (Platform.isAndroid) {
+      await BeaconsPlugin.addRegion("Beacon1");
+      await BeaconsPlugin.addRegion("Beacon2");
+    } else if (Platform.isIOS) {
+      await BeaconsPlugin.addRegionForIOS(
+          "fda50693-a4e2-4fb1-afcf-c6eb07647825", 10035, 56498, "WGX_iBeacon");
+    }
 
     beaconEventsController.stream.listen(
         (data) {

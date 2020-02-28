@@ -2,14 +2,17 @@ import Flutter
 import UIKit
 import CoreLocation
 
-public class SwiftBeaconsPlugin: NSObject, FlutterPlugin,FlutterStreamHandler {
+public class SwiftBeaconsPlugin: NSObject, FlutterPlugin {
     
-    private var eventSink: FlutterEventSink?
+    var eventSink: FlutterEventSink?
+    var regionEventSink: FlutterEventSink?
     let locationManager = CLLocationManager()
-    var eventChannel:FlutterEventChannel? = nil
     
-    init(eventChannel: FlutterEventChannel) {
-      self.eventChannel = eventChannel
+    var listOfRegions = [Item]()
+    
+    init(eventSink: FlutterEventSink?,regionEventSink: FlutterEventSink?) {
+        self.eventSink = eventSink
+        self.regionEventSink = regionEventSink
     }
     
     public static func register(with registrar: FlutterPluginRegistrar) {
@@ -17,66 +20,84 @@ public class SwiftBeaconsPlugin: NSObject, FlutterPlugin,FlutterStreamHandler {
         
         let eventChannel = FlutterEventChannel(name: "beacons_plugin_stream", binaryMessenger: registrar.messenger())
         
-        let instance = SwiftBeaconsPlugin(eventChannel: eventChannel)
-        eventChannel.setStreamHandler(instance)
+        let regionEventChannel = FlutterEventChannel(name: "beacons_region_stream", binaryMessenger: registrar.messenger())
         
+        let eventHandler = EventsStreamHandler()
+        eventChannel.setStreamHandler(eventHandler)
+        
+        let regionHandler = RegionStreamHandler()
+        regionEventChannel.setStreamHandler(regionHandler)
+        
+        let instance = SwiftBeaconsPlugin(eventSink: eventHandler.eventSink,regionEventSink: regionHandler.regionEventSink)
         registrar.addMethodCallDelegate(instance, channel: channel)
     }
     
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         
         // flutter cmds dispatched on iOS device :
-        if call.method == "sendParams" {
+        if call.method == "addRegionForIOS" {
             guard let args = call.arguments else {
                 return
             }
             if let myArgs = args as? [String: Any],
-                let someInfo1 = myArgs["someInfo1"] as? String,
-                let someInfo2 = myArgs["someInfo2"] as? Double {
-                result("Params received on iOS = \(someInfo1), \(someInfo2)")
+                let uuid = myArgs["uuid"] as? String,
+                let major = myArgs["major"] as? Int,
+                let minor = myArgs["minor"] as? Int,
+                let name = myArgs["name"] as? String
+            {
+                addRegion(uuid: uuid, major: major, minor: minor, name: name)
+                result("Region Added.")
             } else {
-                result("iOS could not extract flutter arguments in method: (sendParams)")
+                result("iOS could not extract flutter arguments in method: (addRegion)")
             }
-        } else if call.method == "getPlatformVersion" {
-            result("Now Running on: iOS " + UIDevice.current.systemVersion)
-        } else if call.method == "startMonitoringItem"{
+        } else if call.method == "startMonitoring"{
             locationManager.delegate = self
-            
-            let uuid = UUID(uuidString: "fda50693-a4e2-4fb1-afcf-c6eb07647825")
-            let major = 10035
-            let minor = 56498
-            let name = "WGX_iBeacon"
-            
-            let newItem = Item(name: name, uuid: uuid!, majorValue: major, minorValue: minor)
-            startMonitoringItem(newItem)
-            result("startMonitoringItem started.")
+            startScanning()
+            result("Started scanning Beacons.")
+        }else if call.method == "stopMonitoring"{
+            startScanning()
+            result("Stopped scanning Beacons.")
         }else {
             result("Flutter method not implemented on iOS")
         }
+    }
+    
+    func addRegion(uuid:String, major:Int, minor:Int, name:String){
+        let uuid = UUID(uuidString: uuid)
+        let major = major
+        let minor = minor
+        let name = name
+        
+        let newItem = Item(name: name, uuid: uuid!, majorValue: major, minorValue: minor)
+        listOfRegions.append(newItem)
     }
     
     func startMonitoringItem(_ item: Item) {
         let beaconRegion = item.asBeaconRegion()
         locationManager.startMonitoring(for: beaconRegion)
         locationManager.startRangingBeacons(in: beaconRegion)
-        print("startMonitoringItem")
     }
     
     func stopMonitoringItem(_ item: Item) {
         let beaconRegion = item.asBeaconRegion()
         locationManager.stopMonitoring(for: beaconRegion)
         locationManager.stopRangingBeacons(in: beaconRegion)
-        print("stopMonitoringItem")
     }
     
-    public func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink) -> FlutterError? {
-        self.eventSink = events
-        return nil
+    func startScanning() {
+        if (!listOfRegions.isEmpty) {
+            for item in listOfRegions {
+                startMonitoringItem(item)
+            }
+        }
     }
     
-    public func onCancel(withArguments arguments: Any?) -> FlutterError? {
-        eventSink = nil
-        return nil
+    func stopScanning() {
+        if (!listOfRegions.isEmpty) {
+            for item in listOfRegions {
+                stopMonitoringItem(item)
+            }
+        }
     }
 }
 
@@ -99,7 +120,38 @@ extension SwiftBeaconsPlugin: CLLocationManagerDelegate {
         
         for beacon in beacons {
             print("Beacon: \(beacon)")
-            eventSink!("Beacon: \(beacon)")
+            eventSink?("Beacon: \(beacon)")
         }
+    }
+}
+
+
+class EventsStreamHandler: NSObject, FlutterStreamHandler {
+    
+    var eventSink: FlutterEventSink?
+    
+    public func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink) -> FlutterError? {
+        eventSink = events
+        return nil
+    }
+    
+    public func onCancel(withArguments arguments: Any?) -> FlutterError? {
+        eventSink = nil
+        return nil
+    }
+}
+
+class RegionStreamHandler: NSObject, FlutterStreamHandler {
+    
+    var regionEventSink: FlutterEventSink?
+    
+    public func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink) -> FlutterError? {
+        regionEventSink = events
+        return nil
+    }
+    
+    public func onCancel(withArguments arguments: Any?) -> FlutterError? {
+        regionEventSink = nil
+        return nil
     }
 }

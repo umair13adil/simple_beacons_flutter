@@ -26,6 +26,19 @@ class BeaconsPlugin {
     return result;
   }
 
+  static Future<String> addRegionForIOS(
+      String uuid, int major, int minor, String name) async {
+    final String result = await _channel.invokeMethod(
+        'addRegionForIOS', <String, dynamic>{
+      'uuid': uuid,
+      'major': major,
+      'minor': minor,
+      'name': name
+    });
+    print(result);
+    return result;
+  }
+
   static listenToBeacons(StreamController controller) async {
     channel.receiveBroadcastStream().listen((dynamic event) {
       print('Received: $event');
