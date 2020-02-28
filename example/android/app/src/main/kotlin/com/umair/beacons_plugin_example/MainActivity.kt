@@ -67,6 +67,7 @@ class MainActivity : FlutterActivity(), MethodChannel.MethodCallHandler, BeaconC
     }
 
     override fun onBeaconServiceConnect() {
+        beaconManager.removeAllMonitorNotifiers()
         isBinded = true
 
         beaconManager.addMonitorNotifier(object : MonitorNotifier {
@@ -96,6 +97,8 @@ class MainActivity : FlutterActivity(), MethodChannel.MethodCallHandler, BeaconC
                 }
             }
         }
+
+        startMonitoringBeacons(Region("myBeacon", null, null, null))
     }
 
     private fun sendBeaconData(b: org.altbeacon.beacon.Beacon) {
@@ -138,6 +141,7 @@ class MainActivity : FlutterActivity(), MethodChannel.MethodCallHandler, BeaconC
     private fun startMonitoringBeacons(region: Region) {
         try {
             beaconManager.startMonitoringBeaconsInRegion(region)
+            beaconManager.startRangingBeaconsInRegion(region)
         } catch (e: RemoteException) {
             e.printStackTrace()
             Log.e(TAG, e.message)
@@ -166,6 +170,8 @@ class MainActivity : FlutterActivity(), MethodChannel.MethodCallHandler, BeaconC
             beaconManager = BeaconManager.getInstanceForApplication(this)
             beaconManager.beaconParsers.add(BeaconParser().setBeaconLayout("m:2-3=beac,i:4-19,i:20-21,i:22-23,p:24-24,d:25-25"))
             beaconManager.beaconParsers.add(BeaconParser().setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24"))
+            beaconManager.backgroundBetweenScanPeriod = 0
+            beaconManager.backgroundScanPeriod = 1100
             beaconManager.bind(this)
         } else {
             Log.e(TAG, "Location permissions are needed.")
