@@ -16,7 +16,7 @@ import java.util.ArrayList
 class MainActivity : FlutterActivity(), EventChannel.StreamHandler, BeaconConsumer {
 
     private val TAG = "MainActivity"
-    
+
     private lateinit var event_channel: EventChannel
     private var eventSink: EventChannel.EventSink? = null
     private lateinit var beaconManager: BeaconManager
@@ -45,7 +45,7 @@ class MainActivity : FlutterActivity(), EventChannel.StreamHandler, BeaconConsum
 
     override fun onBeaconServiceConnect() {
 
-        val region = Region("myBeaons", null, null, null)
+        val region = Region("beacons", null, null, null)
 
         beaconManager.addMonitorNotifier(object : MonitorNotifier {
 
@@ -105,10 +105,13 @@ class MainActivity : FlutterActivity(), EventChannel.StreamHandler, BeaconConsum
                     eventSink?.success(message)
                     arrayList.add(arr)
                 }
-
             }
         }
 
+        startMonitoringBeacons(region)
+    }
+
+    private fun startMonitoringBeacons(region: Region) {
         try {
             beaconManager.startMonitoringBeaconsInRegion(region)
         } catch (e: RemoteException) {
@@ -125,20 +128,21 @@ class MainActivity : FlutterActivity(), EventChannel.StreamHandler, BeaconConsum
     private fun setUpBLE(activity: Activity) {
         hasBLEFeature(activity)
         isBluetoothEnabled(activity)
-        checkPermissions(activity,::isPermissionGranted)
+        checkPermissions(activity, ::isPermissionGranted)
     }
 
-    private fun isPermissionGranted(isGranted:Boolean){
+    private fun isPermissionGranted(isGranted: Boolean) {
         setUpBeaconManager()
     }
 
-    private fun setUpBeaconManager(){
+    private fun setUpBeaconManager() {
         if (PermissionsHelper.isPermissionGranted(this, ACCESS_FINE_LOCATION)
                 || PermissionsHelper.isPermissionGranted(this, ACCESS_COARSE_LOCATION)) {
             BeaconsPlugin.setPermissionsFlag(true)
 
             beaconManager = BeaconManager.getInstanceForApplication(this)
             beaconManager.beaconParsers.add(BeaconParser().setBeaconLayout("m:2-3=beac,i:4-19,i:20-21,i:22-23,p:24-24,d:25-25"))
+            beaconManager.beaconParsers.add(BeaconParser().setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24"))
 
             try {
                 //Updates an already running scan
