@@ -2,7 +2,10 @@ package com.umair.beacons_plugin_example
 
 import android.Manifest.permission.ACCESS_COARSE_LOCATION
 import android.Manifest.permission.ACCESS_FINE_LOCATION
-import android.app.Activity
+import android.app.*
+import android.content.Context
+import android.content.Intent
+import android.os.Build
 import android.os.RemoteException
 import android.util.Log
 import com.umair.beacons_plugin.BeaconsPlugin
@@ -13,6 +16,8 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugins.GeneratedPluginRegistrant
 import org.altbeacon.beacon.*
+import java.util.*
+
 
 class MainActivity : FlutterActivity(), MethodChannel.MethodCallHandler, BeaconConsumer {
 
@@ -68,16 +73,18 @@ class MainActivity : FlutterActivity(), MethodChannel.MethodCallHandler, BeaconC
 
             override fun didEnterRegion(region: Region) {
                 regionEventSink?.success("Entered Region: ${region.uniqueId}")
+                startMonitoringBeacons(region)
             }
 
             override fun didExitRegion(region: Region) {
                 regionEventSink?.success("Exited Region: ${region.uniqueId}")
+                startMonitoringBeacons(region)
             }
 
             override fun didDetermineStateForRegion(state: Int, region: Region) {
-                if (state == 1)
+                if (state == 1) {
                     regionEventSink?.success("Found ${region.uniqueId}")
-                else
+                } else
                     regionEventSink?.success("No beacons found!")
             }
         })
@@ -139,7 +146,7 @@ class MainActivity : FlutterActivity(), MethodChannel.MethodCallHandler, BeaconC
 
     public override fun onDestroy() {
         super.onDestroy()
-
+        stopMonitoringBeacons()
     }
 
     private fun setUpBLE(activity: Activity) {
@@ -157,12 +164,37 @@ class MainActivity : FlutterActivity(), MethodChannel.MethodCallHandler, BeaconC
                 || PermissionsHelper.isPermissionGranted(this, ACCESS_COARSE_LOCATION)) {
 
             beaconManager = BeaconManager.getInstanceForApplication(this)
-            //beaconManager.beaconParsers.add(BeaconParser().setBeaconLayout("m:2-3=beac,i:4-19,i:20-21,i:22-23,p:24-24,d:25-25"))
+            beaconManager.beaconParsers.add(BeaconParser().setBeaconLayout("m:2-3=beac,i:4-19,i:20-21,i:22-23,p:24-24,d:25-25"))
             beaconManager.beaconParsers.add(BeaconParser().setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24"))
             beaconManager.bind(this)
         } else {
             Log.e(TAG, "Location permissions are needed.")
         }
+    }
+
+    private fun startForeGroundScanning() {
+        val builder = Notification.Builder(this)
+        builder.setSmallIcon(R.drawable.launch_background)
+        builder.setContentTitle("Content Title")
+        builder.setContentText("Content Text")
+
+        val intent = Intent(this, MainActivity::class.java)
+        val pendingIntent = PendingIntent.getActivity(
+                this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT
+        )
+        builder.setContentIntent(pendingIntent)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel("ChannelId", "ChannelName", NotificationManager.IMPORTANCE_LOW)
+            val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            Objects.requireNonNull(notificationManager).createNotificationChannel(channel)
+            builder.setChannelId(channel.id)
+        }
+
+        beaconManager.enableForegroundServiceScanning(builder.build(), 12345)
+        beaconManager.setEnableScheduledScanJobs(false)
+        beaconManager.backgroundBetweenScanPeriod = 0
+        beaconManager.backgroundScanPeriod = 1100
     }
 
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
