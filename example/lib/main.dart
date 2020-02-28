@@ -12,8 +12,11 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
-  String _beaconResult = 'Unknown';
+  String _beaconResult = 'Not Scanned Yet.';
+  String _regionResult = 'No Results Available.';
+
+  StreamController<String> beaconEventsController = new StreamController();
+  StreamController<String> beaconRegionController = new StreamController();
 
   @override
   void initState() {
@@ -21,35 +24,52 @@ class _MyAppState extends State<MyApp> {
     initPlatformState();
   }
 
+  @override
+  void dispose() {
+    beaconEventsController.close();
+    beaconRegionController.close();
+    super.dispose();
+  }
+
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
-    String platformVersion;
-    String result;
+    BeaconsPlugin.listenToBeacons(beaconEventsController);
+    BeaconsPlugin.listenToRegionEvents(beaconRegionController);
 
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-      platformVersion = await BeaconsPlugin.startMonitoringItem;
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
-    }
+    await BeaconsPlugin.addRegion("Beacon1");
+    await BeaconsPlugin.addRegion("Beacon2");
 
-    try {
-      result = await BeaconsPlugin.sendParamsTest;
-    } on PlatformException {
-      result = 'Failed to get platform version.';
-    }
+    beaconEventsController.stream.listen(
+        (data) {
+          if (data.isNotEmpty) {
+            setState(() {
+              _beaconResult = data;
+            });
+            print("Beacons DataReceived: " + data);
+          }
+        },
+        onDone: () {},
+        onError: (error) {
+          print("Error: $error");
+        });
 
-    BeaconsPlugin.listenToBeacons();
+    beaconRegionController.stream.listen(
+        (data) {
+          if (data.isNotEmpty) {
+            setState(() {
+              _regionResult = data;
+            });
+            print("Regions Events: " + data);
+          }
+        },
+        onDone: () {},
+        onError: (error) {
+          print("Error: $error");
+        });
 
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
+    await BeaconsPlugin.startMonitoring;
+
     if (!mounted) return;
-
-    setState(() {
-      _platformVersion = platformVersion;
-      _beaconResult = result;
-    });
   }
 
   @override
@@ -57,13 +77,18 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Plugin example app'),
+          title: const Text('Monitoring Beacons'),
         ),
         body: Center(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text('Running on: $_platformVersion\n'),
-              Text('Results: $_beaconResult\n')
+              Text('$_beaconResult'),
+              Padding(
+                padding: EdgeInsets.all(10.0),
+              ),
+              Text('$_regionResult')
             ],
           ),
         ),
