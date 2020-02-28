@@ -1,12 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.cubivue.beacons_plugin_example">
+    package="com.umair.beacons_plugin_example">
 
     <application
-        android:name=".Application"
+        android:name="com.umair.beacons_plugin_example.Application"
         android:label="beacons_plugin_example"
         android:icon="@mipmap/ic_launcher">
         <activity
-            android:name=".MainActivity"
+            android:name="com.umair.beacons_plugin_example.MainActivity"
             android:launchMode="singleTop"
             android:theme="@style/LaunchTheme"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"

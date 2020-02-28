@@ -1,4 +1,4 @@
-group 'com.cubivue.beacons_plugin'
+group 'com.umair.beacons_plugin'
 version '1.0-SNAPSHOT'
 
 buildscript {

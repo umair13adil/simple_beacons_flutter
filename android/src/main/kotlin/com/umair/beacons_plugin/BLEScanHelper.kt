@@ -1,5 +1,6 @@
-package com.cubivue.beacons_plugin
+package com.umair.beacons_plugin
 
+import android.util.Log
 import com.polidea.rxandroidble2.RxBleClient
 import com.polidea.rxandroidble2.scan.ScanFilter
 import com.polidea.rxandroidble2.scan.ScanResult
@@ -22,6 +23,9 @@ class BLEScanHelper() {
         val scanFilter = ScanFilter.Builder()
                 .build()
 
+        rxBleClient?.let {
+            Log.i(TAG,"scanBleDevices")
+        }
         return rxBleClient?.scanBleDevices(scanSettings, scanFilter)
     }
 

@@ -1,4 +1,4 @@
-name: beacons_plugin
+name: simple_beacons_flutter
 description: A new flutter plugin project.
 version: 0.0.1
 author: Umair Adil
@@ -27,7 +27,7 @@ flutter:
   plugin:
     platforms:
       android:
-        package: com.cubivue.beacons_plugin
+        package: com.umair.beacons_plugin
         pluginClass: BeaconsPlugin
       ios:
         pluginClass: BeaconsPlugin

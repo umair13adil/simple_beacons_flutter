@@ -1,4 +1,4 @@
-package com.cubivue.beacons_plugin
+package com.umair.beacons_plugin
 
 import android.app.Activity
 import android.bluetooth.BluetoothAdapter
@@ -7,7 +7,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.rxkotlin.Observables
 import io.reactivex.rxkotlin.subscribeBy
 import java.text.SimpleDateFormat
 import java.util.*
@@ -49,10 +48,7 @@ fun checkPermissions(activity: Activity) {
 
     try {
         //Request for storage permissions
-        Observables.zip(
-            PermissionsHelper.requestStoragePermissions(activity),
-            PermissionsHelper.requestLocationPermissions(activity)
-        )
+        PermissionsHelper.requestLocationPermissions(activity)
             .subscribeOn(AndroidSchedulers.mainThread())
             .observeOn(AndroidSchedulers.mainThread())
             .debounce(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
