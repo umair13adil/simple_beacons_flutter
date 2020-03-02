@@ -19,4 +19,18 @@ data class Beacon(
                 "  \"proximity\": \"$proximity\"\n" +
                 "}"
     }
+
+    companion object {
+        fun getProximityOfBeacon(beacon: org.altbeacon.beacon.Beacon): Proximity {
+            return if (beacon.distance < 0.5) {
+                Proximity.IMMEDIATE
+            } else if (beacon.distance > 0.5 && beacon.distance < 3.0) {
+                Proximity.NEAR
+            } else if (beacon.distance > 3.0) {
+                Proximity.FAR
+            } else {
+                Proximity.UNKNOWN
+            }
+        }
+    }
 }

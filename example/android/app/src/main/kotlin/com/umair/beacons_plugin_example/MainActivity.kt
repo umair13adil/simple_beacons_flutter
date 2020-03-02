@@ -97,7 +97,7 @@ class MainActivity : FlutterActivity(), MethodChannel.MethodCallHandler, BeaconC
                 major = major,
                 minor = minor,
                 distance = distance,
-                proximity = ""
+                proximity = Beacon.getProximityOfBeacon(b).value
         ).toString()
 
         eventSink?.success(message)
