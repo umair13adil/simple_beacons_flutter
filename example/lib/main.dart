@@ -38,6 +38,8 @@ class _MyAppState extends State<MyApp> {
     } else if (Platform.isIOS) {
       await BeaconsPlugin.addRegionForIOS(
           "fda50693-a4e2-4fb1-afcf-c6eb07647825", 10035, 56498, "WGX_iBeacon");
+      await BeaconsPlugin.addRegionForIOS(
+          "01022022-f88f-0000-00ae-9605fd9bb620", 1, 1, "BV5500Pro");
     }
 
     beaconEventsController.stream.listen(

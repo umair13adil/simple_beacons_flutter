@@ -50,15 +50,8 @@ class Item: NSObject, NSCoding {
   
   func locationString() -> String {
     guard let beacon = beacon else { return "Location: Unknown" }
-    let proximity = nameForProximity(beacon.proximity)
     let accuracy = String(format: "%.2f", beacon.accuracy)
-    
-    var location = "Location: \(proximity)"
-    if beacon.proximity != .unknown {
-      location += " (approx. \(accuracy)m)"
-    }
-    
-    return location
+    return "\(accuracy)"
   }
   
   func nameForProximity(_ proximity: CLProximity) -> String {

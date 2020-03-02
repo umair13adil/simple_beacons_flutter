@@ -52,13 +52,13 @@ public class SwiftBeaconsPlugin: NSObject, FlutterPlugin {
         }
     }
     
-    func addRegion(uuid:String, major:Int, minor:Int, name:String){
-        let uuid = UUID(uuidString: uuid)
+    func addRegion(uuid:String?, major:Int, minor:Int, name:String){
+        guard let uuid = UUID(uuidString: uuid ?? "") else { return; }
         let major = major
         let minor = minor
         let name = name
         
-        let newItem = Item(name: name, uuid: uuid!, majorValue: major, minorValue: minor)
+        let newItem = Item(name: name, uuid: uuid, majorValue: major, minorValue: minor)
         listOfRegions.append(newItem)
     }
     
@@ -109,8 +109,22 @@ extension SwiftBeaconsPlugin: CLLocationManagerDelegate {
     public func locationManager(_ manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], in region: CLBeaconRegion) {
         
         for beacon in beacons {
-            print("Beacon: \(beacon)")
-            eventSink?("Beacon: \(beacon)")
+          for row in 0..<listOfRegions.count {
+            if listOfRegions[row] == beacon {
+                  listOfRegions[row].beacon = beacon
+                  let data = "{\n" +
+                  "  \"name\": \"\(listOfRegions[row].name)\",\n" +
+                  "  \"uuid\": \"\(beacon.proximityUUID)\",\n" +
+                  "  \"major\": \"\(beacon.major)\",\n" +
+                  "  \"minor\": \"\(beacon.minor)\",\n" +
+                  "  \"distance\": \"\(listOfRegions[row].locationString())\",\n" +
+                  "  \"proximity\": \"\(listOfRegions[row].nameForProximity(beacon.proximity))\"\n" +
+                  "}"
+                  
+                  //Send data to flutter
+                  eventSink?("\(data)")
+            }
+          }
         }
     }
 }

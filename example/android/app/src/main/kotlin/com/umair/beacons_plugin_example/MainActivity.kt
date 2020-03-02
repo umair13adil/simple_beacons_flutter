@@ -93,13 +93,11 @@ class MainActivity : FlutterActivity(), MethodChannel.MethodCallHandler, BeaconC
 
         val message = Beacon(
                 name = name,
-                address = address,
-                identifier = identifier,
                 uuid = uuid,
                 major = major,
                 minor = minor,
                 distance = distance,
-                time = System.currentTimeMillis()
+                proximity = ""
         ).toString()
 
         eventSink?.success(message)
