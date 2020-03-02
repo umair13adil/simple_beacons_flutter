@@ -5,31 +5,21 @@ import CoreLocation
 public class SwiftBeaconsPlugin: NSObject, FlutterPlugin {
     
     var eventSink: FlutterEventSink?
-    var regionEventSink: FlutterEventSink?
     let locationManager = CLLocationManager()
     
     var listOfRegions = [Item]()
     
-    init(eventSink: FlutterEventSink?,regionEventSink: FlutterEventSink?) {
+    init(eventSink: FlutterEventSink?) {
         self.eventSink = eventSink
-        self.regionEventSink = regionEventSink
     }
     
     public static func register(with registrar: FlutterPluginRegistrar) {
-        let channel = FlutterMethodChannel(name: "beacons_plugin", binaryMessenger: registrar.messenger())
+        let fChannel = FlutterMethodChannel(name: "beacons_plugin", binaryMessenger: registrar.messenger())
         
         let eventChannel = FlutterEventChannel(name: "beacons_plugin_stream", binaryMessenger: registrar.messenger())
         
-        let regionEventChannel = FlutterEventChannel(name: "beacons_region_stream", binaryMessenger: registrar.messenger())
-        
-        let eventHandler = EventsStreamHandler()
+        let eventHandler = EventsStreamHandler(channel: fChannel, registrar: registrar)
         eventChannel.setStreamHandler(eventHandler)
-        
-        let regionHandler = RegionStreamHandler()
-        regionEventChannel.setStreamHandler(regionHandler)
-        
-        let instance = SwiftBeaconsPlugin(eventSink: eventHandler.eventSink,regionEventSink: regionHandler.regionEventSink)
-        registrar.addMethodCallDelegate(instance, channel: channel)
     }
     
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
@@ -128,30 +118,25 @@ extension SwiftBeaconsPlugin: CLLocationManagerDelegate {
 
 class EventsStreamHandler: NSObject, FlutterStreamHandler {
     
-    var eventSink: FlutterEventSink?
+    private var eventSink: FlutterEventSink?
+    
+    private var fChannel:FlutterMethodChannel
+    private var fRegistrar: FlutterPluginRegistrar?
+    
+    init(channel:FlutterMethodChannel,registrar: FlutterPluginRegistrar) {
+        self.fChannel = channel
+        self.fRegistrar = registrar
+    }
     
     public func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink) -> FlutterError? {
         eventSink = events
+        let instance = SwiftBeaconsPlugin(eventSink: eventSink)
+        fRegistrar?.addMethodCallDelegate(instance, channel: fChannel)
         return nil
     }
     
     public func onCancel(withArguments arguments: Any?) -> FlutterError? {
         eventSink = nil
-        return nil
-    }
-}
-
-class RegionStreamHandler: NSObject, FlutterStreamHandler {
-    
-    var regionEventSink: FlutterEventSink?
-    
-    public func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink) -> FlutterError? {
-        regionEventSink = events
-        return nil
-    }
-    
-    public func onCancel(withArguments arguments: Any?) -> FlutterError? {
-        regionEventSink = nil
         return nil
     }
 }
