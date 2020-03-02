@@ -15,7 +15,6 @@ class _MyAppState extends State<MyApp> {
   String _regionResult = 'No Results Available.';
 
   StreamController<String> beaconEventsController = new StreamController();
-  StreamController<String> beaconRegionController = new StreamController();
 
   @override
   void initState() {
@@ -26,14 +25,12 @@ class _MyAppState extends State<MyApp> {
   @override
   void dispose() {
     beaconEventsController.close();
-    beaconRegionController.close();
     super.dispose();
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
     BeaconsPlugin.listenToBeacons(beaconEventsController);
-    BeaconsPlugin.listenToRegionEvents(beaconRegionController);
 
     if (Platform.isAndroid) {
       await BeaconsPlugin.addRegion("Beacon1");
@@ -50,20 +47,6 @@ class _MyAppState extends State<MyApp> {
               _beaconResult = data;
             });
             print("Beacons DataReceived: " + data);
-          }
-        },
-        onDone: () {},
-        onError: (error) {
-          print("Error: $error");
-        });
-
-    beaconRegionController.stream.listen(
-        (data) {
-          if (data.isNotEmpty) {
-            setState(() {
-              _regionResult = data;
-            });
-            print("Regions Events: " + data);
           }
         },
         onDone: () {},

@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 class BeaconsPlugin {
   static const MethodChannel _channel = const MethodChannel('beacons_plugin');
   static const channel = EventChannel('beacons_plugin_stream');
-  static const region_events_channel = EventChannel('beacons_region_stream');
 
   static Future<String> get startMonitoring async {
     final String result = await _channel.invokeMethod('startMonitoring');
@@ -41,15 +40,6 @@ class BeaconsPlugin {
 
   static listenToBeacons(StreamController controller) async {
     channel.receiveBroadcastStream().listen((dynamic event) {
-      print('Received: $event');
-      controller.add(event);
-    }, onError: (dynamic error) {
-      print('Received error: ${error.message}');
-    });
-  }
-
-  static listenToRegionEvents(StreamController controller) async {
-    region_events_channel.receiveBroadcastStream().listen((dynamic event) {
       print('Received: $event');
       controller.add(event);
     }, onError: (dynamic error) {

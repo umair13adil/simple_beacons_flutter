@@ -25,9 +25,7 @@ class MainActivity : FlutterActivity(), MethodChannel.MethodCallHandler, BeaconC
 
     private lateinit var channel: MethodChannel
     private lateinit var event_channel: EventChannel
-    private lateinit var region_event_channel: EventChannel
     private var eventSink: EventChannel.EventSink? = null
-    private var regionEventSink: EventChannel.EventSink? = null
     private lateinit var beaconManager: BeaconManager
     private val listOfRegions = arrayListOf<Region>()
     private var isBinded = false
@@ -49,17 +47,6 @@ class MainActivity : FlutterActivity(), MethodChannel.MethodCallHandler, BeaconC
             }
         })
 
-        region_event_channel = EventChannel(flutterEngine.dartExecutor.binaryMessenger, "beacons_region_stream")
-        region_event_channel.setStreamHandler(object : EventChannel.StreamHandler {
-            override fun onListen(arguments: Any?, events: EventChannel.EventSink?) {
-                regionEventSink = events
-            }
-
-            override fun onCancel(arguments: Any?) {
-                regionEventSink = null
-            }
-        })
-
         GeneratedPluginRegistrant.registerWith(flutterEngine)
         BeaconsPlugin.registerWith(flutterEngine.dartExecutor.binaryMessenger, this)
 
@@ -69,26 +56,6 @@ class MainActivity : FlutterActivity(), MethodChannel.MethodCallHandler, BeaconC
     override fun onBeaconServiceConnect() {
         beaconManager.removeAllMonitorNotifiers()
         isBinded = true
-
-        beaconManager.addMonitorNotifier(object : MonitorNotifier {
-
-            override fun didEnterRegion(region: Region) {
-                regionEventSink?.success("Entered Region: ${region.uniqueId}")
-                startMonitoringBeacons(region)
-            }
-
-            override fun didExitRegion(region: Region) {
-                regionEventSink?.success("Exited Region: ${region.uniqueId}")
-                startMonitoringBeacons(region)
-            }
-
-            override fun didDetermineStateForRegion(state: Int, region: Region) {
-                if (state == 1) {
-                    regionEventSink?.success("Found ${region.uniqueId}")
-                } else
-                    regionEventSink?.success("No beacons found!")
-            }
-        })
 
         beaconManager.addRangeNotifier { beacons, region1 ->
             if (beacons.isNotEmpty()) {
@@ -246,6 +213,5 @@ class MainActivity : FlutterActivity(), MethodChannel.MethodCallHandler, BeaconC
         beaconManager.unbind(this)
         channel.setMethodCallHandler(null)
         event_channel.setStreamHandler(null)
-        region_event_channel.setStreamHandler(null)
     }
 }
