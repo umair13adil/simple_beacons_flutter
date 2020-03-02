@@ -1,14 +1,12 @@
 # beacons_plugin
 
-A new flutter plugin project.
+This plugin is developed to scan nearby iBeacons on both Android iOS.
 
-## Getting Started
+## Native Libraries
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
+* For iOS: [CoreLocation](https://developer.apple.com/documentation/corelocation/)
+* For Android: [Android-Beacon-Library](https://github.com/AltBeacon/android-beacon-library) 
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+# Author
+
+Flutter Beacons plugin is developed by Umair Adil. You can email me at umair_adil@live.com for any queries.
