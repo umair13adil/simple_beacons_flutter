@@ -1,14 +1,15 @@
 package com.umair.beacons_plugin
 
+import android.app.Activity
 import androidx.annotation.NonNull
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.BinaryMessenger
+import io.flutter.plugin.common.EventChannel
+import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 
 /** BeaconsPlugin */
-class BeaconsPlugin : FlutterPlugin{
-
-    private val TAG = "BeaconsPlugin"
+class BeaconsPlugin : FlutterPlugin {
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
 
@@ -16,15 +17,16 @@ class BeaconsPlugin : FlutterPlugin{
 
     companion object {
 
-        @JvmStatic
-        fun registerWith(messenger: BinaryMessenger, handler:MethodChannel.MethodCallHandler) {
+        private val TAG = "BeaconsPlugin"
 
-            val channel = MethodChannel(messenger, "beacons_plugin")
-            channel.setMethodCallHandler(handler)
+        @JvmStatic
+        fun registerWith(messenger: BinaryMessenger) {
+
+            
         }
     }
 
     override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
-
+        
     }
 }

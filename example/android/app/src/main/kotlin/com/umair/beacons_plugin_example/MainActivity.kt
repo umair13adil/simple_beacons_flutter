@@ -8,35 +8,58 @@ import android.content.Intent
 import android.os.Build
 import android.os.RemoteException
 import android.util.Log
-import com.umair.beacons_plugin.BeaconsPlugin
+import com.umair.beacons_plugin.*
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugins.GeneratedPluginRegistrant
-import org.altbeacon.beacon.*
+import org.altbeacon.beacon.BeaconConsumer
+import org.altbeacon.beacon.BeaconManager
+import org.altbeacon.beacon.BeaconParser
+import org.altbeacon.beacon.Region
 import java.util.*
 
 
-class MainActivity : FlutterActivity(), MethodChannel.MethodCallHandler, BeaconConsumer {
+class MainActivity : FlutterActivity(), BeaconConsumer {
 
     private val TAG = "MainActivity"
 
     private lateinit var channel: MethodChannel
     private lateinit var event_channel: EventChannel
     private var eventSink: EventChannel.EventSink? = null
+
     private lateinit var beaconManager: BeaconManager
     private val listOfRegions = arrayListOf<Region>()
-    private var isBinded = false
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
 
-        channel = MethodChannel(flutterEngine.dartExecutor.binaryMessenger, "beacons_plugin")
-        channel.setMethodCallHandler(this)
+        val messenger = flutterEngine.dartExecutor.binaryMessenger
 
-        event_channel = EventChannel(flutterEngine.dartExecutor.binaryMessenger, "beacons_plugin_stream")
+        GeneratedPluginRegistrant.registerWith(flutterEngine)
+        BeaconsPlugin.registerWith(messenger)
+
+        channel = MethodChannel(messenger, "beacons_plugin")
+        channel.setMethodCallHandler { call, result ->
+            when {
+                call.method == "startMonitoring" -> {
+                    startScanning()
+                    result.success("Started scanning Beacons.")
+                }
+                call.method == "stopMonitoring" -> {
+                    stopMonitoringBeacons()
+                    result.success("Stopped scanning Beacons.")
+                }
+                call.method == "addRegion" -> {
+                    addRegion(call, result)
+                }
+                else -> result.notImplemented()
+            }
+        }
+
+        event_channel = EventChannel(messenger, "beacons_plugin_stream")
         event_channel.setStreamHandler(object : EventChannel.StreamHandler {
             override fun onListen(arguments: Any?, events: EventChannel.EventSink?) {
                 eventSink = events
@@ -47,15 +70,11 @@ class MainActivity : FlutterActivity(), MethodChannel.MethodCallHandler, BeaconC
             }
         })
 
-        GeneratedPluginRegistrant.registerWith(flutterEngine)
-        BeaconsPlugin.registerWith(flutterEngine.dartExecutor.binaryMessenger, this)
-
         setUpBLE(this)
     }
 
     override fun onBeaconServiceConnect() {
         beaconManager.removeAllMonitorNotifiers()
-        isBinded = true
 
         beaconManager.addRangeNotifier { beacons, region1 ->
             if (beacons.isNotEmpty()) {
@@ -166,27 +185,6 @@ class MainActivity : FlutterActivity(), MethodChannel.MethodCallHandler, BeaconC
         beaconManager.setEnableScheduledScanJobs(false)
         beaconManager.backgroundBetweenScanPeriod = 0
         beaconManager.backgroundScanPeriod = 1100
-    }
-
-    override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
-        when {
-            call.method == "startMonitoring" -> {
-                if (isBinded) {
-                    startScanning()
-                    result.success("Started scanning Beacons.")
-                } else {
-                    result.success("Beacon manager hasn't bind yet.")
-                }
-            }
-            call.method == "stopMonitoring" -> {
-                stopMonitoringBeacons()
-                result.success("Stopped scanning Beacons.")
-            }
-            call.method == "addRegion" -> {
-                addRegion(call, result)
-            }
-            else -> result.notImplemented()
-        }
     }
 
     private fun addRegion(call: MethodCall, result: MethodChannel.Result) {
