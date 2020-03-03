@@ -21,7 +21,7 @@ In your pubspec.yaml
 
 ```yaml
 dependencies:
-  beacons_plugin: ^1.0.3
+  beacons_plugin: ^1.0.4
 ```
 
 ```dart
