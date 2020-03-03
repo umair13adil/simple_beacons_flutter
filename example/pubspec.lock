@@ -23,11 +23,11 @@ packages:
     source: hosted
     version: "2.4.0"
   beacons_plugin:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
-      name: beacons_plugin
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: ".."
+      relative: true
+    source: path
     version: "1.0.3"
   boolean_selector:
     dependency: transitive
