@@ -26,16 +26,36 @@ dependencies:
 
 ```dart
 import 'dart:io' show Platform;
+import 'package:flutter/services.dart';
 import 'package:beacons_plugin/beacons_plugin.dart';
 ```
 
 ## Ranging Beacons
 
 ```dart
+    static const MethodChannel methodChannel = const MethodChannel('beacons_plugin');
+    
+    static Future<String> addRegion(String identifier) async {
+        final String result = await methodChannel.invokeMethod('addRegion', <String, dynamic>{'identifier': identifier});
+        print(result);
+        return result;
+    }
+    
+    static Future<String> addRegionForIOS(String uuid, int major, int minor, String name) async {
+        final String result = await methodChannel.invokeMethod('addRegionForIOS', <String, dynamic>{
+          'uuid': uuid,
+          'major': major,
+          'minor': minor,
+          'name': name
+        });
+        print(result);
+        return result;
+    }
+
     if (Platform.isAndroid) {
-      await BeaconsPlugin.addRegion("Beacon1");
+      await addRegion("Beacon1");
     } else if (Platform.isIOS) {
-      await BeaconsPlugin.addRegionForIOS(
+      await addRegionForIOS(
           "01022022-f88f-0000-00ae-9605fd9bb620", 1, 1, "BeaconName");
     }
 ```
@@ -43,10 +63,10 @@ import 'package:beacons_plugin/beacons_plugin.dart';
 ## Listen To Beacon Scan Results
 
 ```dart
-    static const channel = EventChannel('beacons_plugin_stream');
+    static const eventChannel = EventChannel('beacons_plugin_stream');
     
     static listenToBeacons() async {
-        channel.receiveBroadcastStream().listen((dynamic event) {
+        eventChannel.receiveBroadcastStream().listen((dynamic event) {
           print('Received: $event');
         }, onError: (dynamic error) {
           print('Received error: ${error.message}');
