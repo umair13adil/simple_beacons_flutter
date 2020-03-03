@@ -14,6 +14,7 @@ dependencies:
 ```
 
 ```dart
+import 'dart:io' show Platform;
 import 'package:beacons_plugin/beacons_plugin.dart';
 ```
 
@@ -32,11 +33,10 @@ import 'package:beacons_plugin/beacons_plugin.dart';
 
 ```dart
     static const channel = EventChannel('beacons_plugin_stream');
-
-    static listenToBeacons(StreamController controller) async {
+    
+    static listenToBeacons() async {
         channel.receiveBroadcastStream().listen((dynamic event) {
           print('Received: $event');
-          controller.add(event);
         }, onError: (dynamic error) {
           print('Received error: ${error.message}');
         });
