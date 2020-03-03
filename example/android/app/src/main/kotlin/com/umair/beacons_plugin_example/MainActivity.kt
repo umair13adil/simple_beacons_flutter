@@ -22,16 +22,13 @@ import org.altbeacon.beacon.Region
 import java.util.*
 
 
-class MainActivity : FlutterActivity(), BeaconConsumer {
+class MainActivity : FlutterActivity(), BeaconConsumer, BeaconsPlugin.Companion.PluginImpl {
 
     private val TAG = "MainActivity"
 
-    private lateinit var channel: MethodChannel
-    private lateinit var event_channel: EventChannel
-    private var eventSink: EventChannel.EventSink? = null
-
     private lateinit var beaconManager: BeaconManager
     private val listOfRegions = arrayListOf<Region>()
+    private var eventSink: EventChannel.EventSink? = null
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
@@ -39,36 +36,7 @@ class MainActivity : FlutterActivity(), BeaconConsumer {
         val messenger = flutterEngine.dartExecutor.binaryMessenger
 
         GeneratedPluginRegistrant.registerWith(flutterEngine)
-        BeaconsPlugin.registerWith(messenger)
-
-        channel = MethodChannel(messenger, "beacons_plugin")
-        channel.setMethodCallHandler { call, result ->
-            when {
-                call.method == "startMonitoring" -> {
-                    startScanning()
-                    result.success("Started scanning Beacons.")
-                }
-                call.method == "stopMonitoring" -> {
-                    stopMonitoringBeacons()
-                    result.success("Stopped scanning Beacons.")
-                }
-                call.method == "addRegion" -> {
-                    addRegion(call, result)
-                }
-                else -> result.notImplemented()
-            }
-        }
-
-        event_channel = EventChannel(messenger, "beacons_plugin_stream")
-        event_channel.setStreamHandler(object : EventChannel.StreamHandler {
-            override fun onListen(arguments: Any?, events: EventChannel.EventSink?) {
-                eventSink = events
-            }
-
-            override fun onCancel(arguments: Any?) {
-                eventSink = null
-            }
-        })
+        BeaconsPlugin.registerWith(messenger, this)
 
         setUpBLE(this)
     }
@@ -187,7 +155,7 @@ class MainActivity : FlutterActivity(), BeaconConsumer {
         beaconManager.backgroundScanPeriod = 1100
     }
 
-    private fun addRegion(call: MethodCall, result: MethodChannel.Result) {
+    override fun addRegion(call: MethodCall, result: MethodChannel.Result) {
         var identifier = ""
         call.argument<String>("identifier")?.let {
             identifier = it
@@ -196,7 +164,7 @@ class MainActivity : FlutterActivity(), BeaconConsumer {
         result.success("Region Added: $identifier")
     }
 
-    private fun startScanning() {
+    override fun startScanning() {
         if (listOfRegions.isNotEmpty()) {
             Log.i(TAG, "Started Monitoring ${listOfRegions.size} regions.")
             listOfRegions.forEach {
@@ -205,9 +173,12 @@ class MainActivity : FlutterActivity(), BeaconConsumer {
         }
     }
 
-    private fun stopMonitoringBeacons() {
+    override fun stopMonitoringBeacons() {
         beaconManager.unbind(this)
-        channel.setMethodCallHandler(null)
-        event_channel.setStreamHandler(null)
+        eventSink = null
+    }
+
+    override fun setEventSink(events: EventChannel.EventSink?) {
+        this.eventSink = events
     }
 }
