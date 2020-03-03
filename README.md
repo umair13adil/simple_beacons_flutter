@@ -5,6 +5,17 @@
 
 This plugin is developed to scan nearby iBeacons on both Android iOS. This library makes it easier to scan & range nearby BLE beacons and read their proximity values.
 
+## Android
+For Android change min SDK version:
+
+```groovy
+defaultConfig {
+  ...
+  minSdkVersion 18
+  ...
+}
+```
+
 ## Install
 In your pubspec.yaml
 
