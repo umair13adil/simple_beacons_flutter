@@ -21,7 +21,7 @@ In your pubspec.yaml
 
 ```yaml
 dependencies:
-  beacons_plugin: ^1.0.1
+  beacons_plugin: ^1.0.3
 ```
 
 ```dart
@@ -33,7 +33,7 @@ import 'package:beacons_plugin/beacons_plugin.dart';
 ## Ranging Beacons
 
 ```dart
-    static const MethodChannel methodChannel = const MethodChannel('beacons_plugin');
+    static const MethodChannel methodChannel = const MethodChannel('com.umair.beacons_plugin_example/beacons_plugin');
     
     static Future<String> addRegion(String identifier) async {
         final String result = await methodChannel.invokeMethod('addRegion', <String, dynamic>{'identifier': identifier});
@@ -63,7 +63,7 @@ import 'package:beacons_plugin/beacons_plugin.dart';
 ## Listen To Beacon Scan Results
 
 ```dart
-    static const eventChannel = EventChannel('beacons_plugin_stream');
+    static const eventChannel = EventChannel('com.umair.beacons_plugin_example/beacons_plugin_stream');
     
     static listenToBeacons() async {
         eventChannel.receiveBroadcastStream().listen((dynamic event) {
