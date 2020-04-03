@@ -16,6 +16,30 @@ defaultConfig {
 }
 ```
 
+Change your Android Project's *MainActivity* class to following:
+
+```kotlin
+import com.umair.beacons_plugin.BeaconsActivity
+import io.flutter.embedding.engine.FlutterEngine
+import io.flutter.plugins.GeneratedPluginRegistrant
+
+class MainActivity : BeaconsActivity(){
+
+    override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
+        super.configureFlutterEngine(flutterEngine)
+        GeneratedPluginRegistrant.registerWith(flutterEngine)
+    }
+}
+```
+
+Add following dependency on build.gradle file:
+
+```groovy
+    implementation 'org.altbeacon:android-beacon-library:2.16.4'
+```
+
+*That's it for Android.*
+
 ## Install
 In your pubspec.yaml
 
