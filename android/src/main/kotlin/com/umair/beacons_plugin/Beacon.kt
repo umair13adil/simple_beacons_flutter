@@ -1,4 +1,4 @@
-package com.umair.beacons_plugin_example
+package com.umair.beacons_plugin
 
 data class Beacon(
         var name: String? = "",

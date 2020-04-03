@@ -1,4 +1,4 @@
-package com.umair.beacons_plugin_example
+package com.umair.beacons_plugin
 
 enum class Proximity(val value: String) {
     UNKNOWN("Unknown"),

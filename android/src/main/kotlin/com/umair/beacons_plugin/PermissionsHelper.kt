@@ -1,4 +1,4 @@
-package com.umair.beacons_plugin_example
+package com.umair.beacons_plugin
 
 import android.Manifest
 import android.app.Activity
@@ -22,14 +22,12 @@ object PermissionsHelper {
             rxPermissions
                     .request(
                             Manifest.permission.ACCESS_FINE_LOCATION,
-                            Manifest.permission.ACCESS_COARSE_LOCATION,
-                            Manifest.permission.ACCESS_BACKGROUND_LOCATION
+                            Manifest.permission.ACCESS_COARSE_LOCATION
                     )
                     .compose(
                             rxPermissions.ensureEachCombined(
                                     Manifest.permission.ACCESS_FINE_LOCATION,
-                                    Manifest.permission.ACCESS_COARSE_LOCATION,
-                                    Manifest.permission.ACCESS_BACKGROUND_LOCATION
+                                    Manifest.permission.ACCESS_COARSE_LOCATION
                             )
                     )
                     .subscribeBy(
