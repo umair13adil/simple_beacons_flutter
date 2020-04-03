@@ -45,7 +45,7 @@ In your pubspec.yaml
 
 ```yaml
 dependencies:
-  beacons_plugin: ^1.0.5
+  beacons_plugin: [Latest_Version]
 ```
 
 ```dart
