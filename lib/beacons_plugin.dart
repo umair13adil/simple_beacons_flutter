@@ -6,6 +6,9 @@ class BeaconsPlugin {
   static const MethodChannel _channel = const MethodChannel('beacons_plugin');
   static const channel = EventChannel('beacons_plugin_stream');
 
+  static const MethodChannel background =
+      MethodChannel('beacons_plugin_background');
+
   static Future<String> get startMonitoring async {
     final String result = await _channel.invokeMethod('startMonitoring');
     print(result);
@@ -46,4 +49,10 @@ class BeaconsPlugin {
       print('Received error: ${error.message}');
     });
   }
+
+  static Future<void> promoteToForeground() async =>
+      await background.invokeMethod('promoteToForeground');
+
+  static Future<void> demoteToBackground() async =>
+      await background.invokeMethod('demoteToBackground');
 }

@@ -1,6 +1,10 @@
+import 'dart:isolate';
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:io' show Platform;
+import 'package:beacons_plugin/callback_dispatcher.dart';
 import 'package:beacons_plugin/beacons_plugin.dart';
 
 void main() => runApp(MyApp());
@@ -15,10 +19,16 @@ class _MyAppState extends State<MyApp> {
   String _regionResult = 'No Results Available.';
 
   StreamController<String> beaconEventsController = new StreamController();
+  ReceivePort port = ReceivePort();
 
   @override
   void initState() {
     super.initState();
+    IsolateNameServer.registerPortWithName(
+        port.sendPort, 'geofencing_send_port');
+    port.listen((dynamic data) {
+      print('IsolateNameServer Event: $data');
+    });
     initPlatformState();
   }
 
@@ -30,6 +40,12 @@ class _MyAppState extends State<MyApp> {
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
+
+    final CallbackHandle callback =
+    PluginUtilities.getCallbackHandle(callbackDispatcher);
+    await BeaconsPlugin.background.invokeMethod('initializeService',
+        <dynamic>[callback.toRawHandle()]);
+
     BeaconsPlugin.listenToBeacons(beaconEventsController);
 
     if (Platform.isAndroid) {
