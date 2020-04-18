@@ -21,6 +21,15 @@ class BeaconsPlugin : FlutterPlugin {
 
         private val TAG = "BeaconsPlugin"
 
+        @JvmStatic
+        val CALLBACK_DISPATCHER_HANDLE_KEY = "callback_dispatch_handler"
+        
+        @JvmStatic
+        val CALLBACK_HANDLE_KEY = "callback_handle"
+
+        @JvmStatic
+        val SHARED_PREFERENCES_KEY = "geofencing_plugin_cache"
+        
         interface PluginImpl {
             fun startScanning()
             fun stopMonitoringBeacons()
