@@ -32,7 +32,7 @@ open class BeaconsActivity : FlutterActivity(), BeaconConsumer, BeaconsPlugin.Co
         super.configureFlutterEngine(flutterEngine)
 
         val messenger = flutterEngine.dartExecutor.binaryMessenger
-        BeaconsPlugin.registerWith(messenger, this)
+        BeaconsPlugin.registerWith(messenger, this, this)
 
         setUpBLE(this)
     }

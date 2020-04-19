@@ -23,5 +23,6 @@ void callbackDispatcher() {
 
     callback(triggeringGeofences);
   });
+  print("callbackDispatcher: _backgroundChannel.invokeMethod('initialized')");
   _backgroundChannel.invokeMethod('initialized');
 }

@@ -5,29 +5,28 @@ import android.content.Intent
 import android.util.Log
 import androidx.annotation.NonNull
 import io.flutter.embedding.engine.plugins.FlutterPlugin
+import io.flutter.embedding.engine.plugins.activity.ActivityAware
+import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
-import io.flutter.view.FlutterCallbackInformation
-import io.flutter.view.FlutterMain
 import io.flutter.view.FlutterNativeView
-import io.flutter.view.FlutterRunArguments
+
 
 /** BeaconsPlugin */
-class BeaconsPlugin : FlutterPlugin {
+class BeaconsPlugin : FlutterPlugin , ActivityAware {
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-
+        Log.i(TAG, "onAttachedToEngine")
     }
 
     companion object {
 
         private lateinit var channel: MethodChannel
         private lateinit var event_channel: EventChannel
-        private lateinit var mBackgroundChannel: MethodChannel
-        private var sBackgroundFlutterView: FlutterNativeView? = null
-        private var context: Context? = null
+        lateinit var mBackgroundChannel: MethodChannel
+        var sBackgroundFlutterView: FlutterNativeView? = null
 
         private val TAG = "BeaconsPlugin"
 
@@ -50,8 +49,9 @@ class BeaconsPlugin : FlutterPlugin {
         private var callBack: PluginImpl? = null
 
         @JvmStatic
-        fun registerWith(messenger: BinaryMessenger, callBack: PluginImpl?) {
+        fun registerWith(messenger: BinaryMessenger, callBack: PluginImpl?, context: Context) {
             this.callBack = callBack
+            sBackgroundFlutterView = FlutterNativeView(context, true)
 
             channel = MethodChannel(messenger, "beacons_plugin")
             channel.setMethodCallHandler { call, result ->
@@ -74,42 +74,17 @@ class BeaconsPlugin : FlutterPlugin {
             mBackgroundChannel = MethodChannel(messenger,
                     "beacons_plugin_background")
             mBackgroundChannel.setMethodCallHandler { call, result ->
+                val args = call.arguments<ArrayList<*>>()
                 when {
                     call.method == "initializeService" -> {
-                        Log.i(TAG, "initializeService")
-                        synchronized(BeaconsDiscoveryService.sServiceStarted) {
-                            /*while (!queue.isEmpty()) {
-                                mBackgroundChannel.invokeMethod("", queue.remove())
-                            }*/
-                            startBLEDiscoveryService()
-                            BeaconsDiscoveryService.sServiceStarted.set(true)
+                        context.let { context ->
+                            Log.i(TAG, "initializeService")
+                            initializeService(context, args)
+                            //BeaconsDiscoveryService.enqueueWork(context, Intent())
+                            val serviceIntent = Intent(context, BeaconsDiscoveryService::class.java)
+                            context.startService(serviceIntent)
+                            result.success(true)
                         }
-                    }
-                    call.method == "initialized" -> {
-                        Log.i(TAG, "initialized")
-                        synchronized(BeaconsDiscoveryService.sServiceStarted) {
-                            /*while (!queue.isEmpty()) {
-                                mBackgroundChannel.invokeMethod("", queue.remove())
-                            }*/
-                            BeaconsDiscoveryService.sServiceStarted.set(true)
-                        }
-                    }
-                    call.method == "promoteToForeground" -> {
-                        Log.i(TAG, "promoteToForeground")
-                        //mContext.startForegroundService(Intent(mContext, IsolateHolderService::class.java))
-                        try {
-                            val serviceIntent = Intent(context, IsolateHolderService::class.java)
-                            context?.startService(serviceIntent)
-                        } catch (e: Exception) {
-                            e.printStackTrace()
-                            Log.e(TAG, "promoteToForeground")
-                        }
-                    }
-                    call.method == "demoteToBackground" -> {
-                        Log.i(TAG, "demoteToBackground")
-                        val intent = Intent(context, IsolateHolderService::class.java)
-                        intent.setAction(IsolateHolderService.ACTION_SHUTDOWN)
-                        //mContext.startForegroundService(intent)
                     }
                     else -> result.notImplemented()
                 }
@@ -129,41 +104,35 @@ class BeaconsPlugin : FlutterPlugin {
         }
 
         @JvmStatic
-        private fun startBLEDiscoveryService() {
-            context?.let { context ->
-                synchronized(BeaconsDiscoveryService.sServiceStarted) {
-                    if (sBackgroundFlutterView == null) {
-                        val callbackHandle = context.getSharedPreferences(
-                                BeaconsPlugin.SHARED_PREFERENCES_KEY,
-                                Context.MODE_PRIVATE)
-                                .getLong(BeaconsPlugin.CALLBACK_DISPATCHER_HANDLE_KEY, 0)
-
-                        val callbackInfo = FlutterCallbackInformation.lookupCallbackInformation(callbackHandle)
-                        if (callbackInfo == null) {
-                            Log.e(TAG, "Fatal: failed to find callback")
-                            return
-                        }
-                        Log.i(TAG, "Starting BLEDiscoveryService...")
-                        sBackgroundFlutterView = FlutterNativeView(context, true)
-
-                        val args = FlutterRunArguments()
-                        args.bundlePath = FlutterMain.findAppBundlePath()
-                        args.entrypoint = callbackInfo.callbackName
-                        args.libraryPath = callbackInfo.callbackLibraryPath
-
-                        sBackgroundFlutterView!!.runFromBundle(args)
-                        IsolateHolderService.setBackgroundFlutterView(sBackgroundFlutterView)
-                    }
-                }
-            }
+        private fun initializeService(context: Context, args: ArrayList<*>?) {
+            val callbackHandle = args!![0] as Long
+            context.getSharedPreferences(SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE)
+                    .edit()
+                    .putLong(CALLBACK_DISPATCHER_HANDLE_KEY, callbackHandle)
+                    .apply()
         }
     }
 
     override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
+        Log.i(TAG, "onDetachedFromEngine")
         channel.setMethodCallHandler(null)
         mBackgroundChannel.setMethodCallHandler(null)
         event_channel.setStreamHandler(null)
-        context = binding.applicationContext
-        sBackgroundFlutterView = FlutterNativeView(binding.applicationContext, true)
+    }
+
+    override fun onAttachedToActivity(activityPluginBinding: ActivityPluginBinding) {
+        Log.i(TAG, "onDetachedFromEngine")
+    }
+
+    override fun onDetachedFromActivityForConfigChanges() {
+        Log.i(TAG, "onDetachedFromActivityForConfigChanges")
+    }
+
+    override fun onReattachedToActivityForConfigChanges(activityPluginBinding: ActivityPluginBinding) {
+        Log.i(TAG, "onReattachedToActivityForConfigChanges")
+    }
+
+    override fun onDetachedFromActivity() {
+        Log.i(TAG, "onDetachedFromActivity")
     }
 }

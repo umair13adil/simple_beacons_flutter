@@ -32,6 +32,13 @@ class _MyAppState extends State<MyApp> {
     initPlatformState();
   }
 
+  static void callback(List<String> ids) async {
+    print('Fences: $ids');
+    final SendPort send =
+    IsolateNameServer.lookupPortByName('geofencing_send_port');
+    send?.send("callback");
+  }
+
   @override
   void dispose() {
     beaconEventsController.close();
