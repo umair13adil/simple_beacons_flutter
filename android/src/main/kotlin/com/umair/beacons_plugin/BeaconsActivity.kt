@@ -22,7 +22,7 @@ import java.util.*
 
 open class BeaconsActivity : FlutterActivity(), BeaconConsumer, BeaconsPlugin.Companion.PluginImpl {
 
-    private val TAG = "MainActivity"
+    private val TAG = "BeaconsActivity"
 
     private lateinit var beaconManager: BeaconManager
     private val listOfRegions = arrayListOf<Region>()
@@ -176,5 +176,15 @@ open class BeaconsActivity : FlutterActivity(), BeaconConsumer, BeaconsPlugin.Co
 
     override fun setEventSink(events: EventChannel.EventSink?) {
         this.eventSink = events
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.i(TAG,"onPause")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.i(TAG,"onResume")
     }
 }

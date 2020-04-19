@@ -63,41 +63,6 @@ class BeaconsDiscoveryService : JobIntentService() {
                 Log.i(TAG,"sBackgroundFlutterView != null")
             }*/
         }
-
-        BeaconsPlugin.mBackgroundChannel.setMethodCallHandler { call, result ->
-            val args = call.arguments<ArrayList<*>>()
-            when {
-                call.method == "initialized" -> {
-                    Log.i(TAG, "initialized")
-                    synchronized(BeaconsDiscoveryService.sServiceStarted) {
-                        while (!queue.isEmpty()) {
-                            BeaconsPlugin.mBackgroundChannel.invokeMethod("", queue.remove())
-                        }
-                        sServiceStarted.set(true)
-                    }
-                }
-                call.method == "promoteToForeground" -> {
-                    Log.i(TAG, "promoteToForeground")
-                    //mContext.startForegroundService(Intent(mContext, IsolateHolderService::class.java))
-                    try {
-                        val serviceIntent = Intent(this, IsolateHolderService::class.java)
-                        startService(serviceIntent)
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                        Log.e(TAG, "promoteToForeground")
-                    }
-                }
-                call.method == "demoteToBackground" -> {
-                    Log.i(TAG, "demoteToBackground")
-                    val intent = Intent(this, IsolateHolderService::class.java)
-                    intent.setAction(IsolateHolderService.ACTION_SHUTDOWN)
-                    startService(intent)
-                    //mContext.startForegroundService(intent)
-                }
-                else -> result.notImplemented()
-            }
-        }
-
     }
 
     override fun onHandleWork(intent: Intent) {

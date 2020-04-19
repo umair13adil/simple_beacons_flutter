@@ -15,10 +15,13 @@ import io.flutter.view.FlutterNativeView
 
 
 /** BeaconsPlugin */
-class BeaconsPlugin : FlutterPlugin , ActivityAware {
+class BeaconsPlugin : FlutterPlugin, ActivityAware {
+
+    private var context: Context? = null
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         Log.i(TAG, "onAttachedToEngine")
+        context = flutterPluginBinding.applicationContext
     }
 
     companion object {
@@ -86,6 +89,33 @@ class BeaconsPlugin : FlutterPlugin , ActivityAware {
                             result.success(true)
                         }
                     }
+                    call.method == "initialized" -> {
+                        Log.i(TAG, "initialized")
+                        synchronized(BeaconsDiscoveryService.sServiceStarted) {
+                           /* while (!queue.isEmpty()) {
+                                BeaconsPlugin.mBackgroundChannel.invokeMethod("", queue.remove())
+                            }*/
+                            BeaconsDiscoveryService.sServiceStarted.set(true)
+                        }
+                    }
+                    call.method == "promoteToForeground" -> {
+                        Log.i(TAG, "promoteToForeground")
+                        //mContext.startForegroundService(Intent(mContext, IsolateHolderService::class.java))
+                        try {
+                            val serviceIntent = Intent(context, IsolateHolderService::class.java)
+                            context.startService(serviceIntent)
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                            Log.e(TAG, "promoteToForeground")
+                        }
+                    }
+                    call.method == "demoteToBackground" -> {
+                        Log.i(TAG, "demoteToBackground")
+                        val intent = Intent(context, IsolateHolderService::class.java)
+                        intent.setAction(IsolateHolderService.ACTION_SHUTDOWN)
+                        context.startService(intent)
+                        //mContext.startForegroundService(intent)
+                    }
                     else -> result.notImplemented()
                 }
             }
@@ -134,5 +164,8 @@ class BeaconsPlugin : FlutterPlugin , ActivityAware {
 
     override fun onDetachedFromActivity() {
         Log.i(TAG, "onDetachedFromActivity")
+
+        val serviceIntent = Intent(context, BeaconsDiscoveryService::class.java)
+        context?.startService(serviceIntent)
     }
 }
