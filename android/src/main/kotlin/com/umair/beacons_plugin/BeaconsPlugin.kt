@@ -69,6 +69,7 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware {
                         call.argument<Boolean>("background")?.let {
                             runInBackground = it
                         }
+                        result.success("App will run in background? $runInBackground")
                     }
                     else -> result.notImplemented()
                 }

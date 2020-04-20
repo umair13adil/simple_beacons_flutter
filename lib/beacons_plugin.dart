@@ -26,9 +26,11 @@ class BeaconsPlugin {
     return result;
   }
 
-  static Future<Void> runInBackground(bool runInBackground) async {
-    return await channel.invokeMethod(
+  static Future<String> runInBackground(bool runInBackground) async {
+    final String result = await channel.invokeMethod(
         'runInBackground', <String, dynamic>{'background': runInBackground});
+    print(result);
+    return result;
   }
 
   static Future<String> addRegionForIOS(
