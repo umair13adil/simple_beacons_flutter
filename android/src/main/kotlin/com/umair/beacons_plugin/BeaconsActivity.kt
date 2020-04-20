@@ -1,12 +1,15 @@
 package com.umair.beacons_plugin
 
 import android.util.Log
+import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 
 
-open class BeaconsActivity : BeaconScannerImplActivity() {
+open class BeaconsActivity : FlutterActivity() {
 
     private val TAG = "BeaconsActivity"
+
+    private lateinit var beaconHelper: BeaconHelper
 
     companion object {
 
@@ -17,6 +20,8 @@ open class BeaconsActivity : BeaconScannerImplActivity() {
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
         mFlutterEngine = flutterEngine
+
+        beaconHelper = BeaconHelper(this)
 
         attachMethodChannels()
     }
@@ -31,7 +36,7 @@ open class BeaconsActivity : BeaconScannerImplActivity() {
 
     private fun attachMethodChannels() {
         mFlutterEngine?.dartExecutor?.binaryMessenger?.let { messenger ->
-            BeaconsPlugin.registerWith(messenger, this, this)
+            BeaconsPlugin.registerWith(messenger, beaconHelper, this)
         }
     }
 
@@ -39,7 +44,7 @@ open class BeaconsActivity : BeaconScannerImplActivity() {
         super.onDestroy()
 
         if (!BeaconsPlugin.runInBackground)
-            stopMonitoringBeacons()
+            beaconHelper.stopMonitoringBeacons()
     }
 
 

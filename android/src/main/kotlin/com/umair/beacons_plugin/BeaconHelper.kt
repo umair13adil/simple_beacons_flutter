@@ -1,10 +1,10 @@
 package com.umair.beacons_plugin
 
 import android.content.Context
-import android.os.Bundle
+import android.content.Intent
+import android.content.ServiceConnection
 import android.os.RemoteException
 import android.util.Log
-import io.flutter.embedding.android.FlutterActivity
 import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
@@ -12,7 +12,19 @@ import org.altbeacon.beacon.*
 import java.util.*
 
 
-open class BeaconScannerImplActivity() : FlutterActivity(), BeaconConsumer, BeaconsPlugin.Companion.PluginImpl {
+open class BeaconHelper(var context: Context) : BeaconConsumer, BeaconsPlugin.Companion.PluginImpl {
+
+    override fun getApplicationContext(): Context {
+        return context.applicationContext
+    }
+
+    override fun unbindService(p0: ServiceConnection) {
+        context.unbindService(p0)
+    }
+
+    override fun bindService(p0: Intent?, p1: ServiceConnection, p2: Int): Boolean {
+        return context.bindService(p0, p1, p2)
+    }
 
     private var eventSink: EventChannel.EventSink? = null
 
@@ -22,7 +34,7 @@ open class BeaconScannerImplActivity() : FlutterActivity(), BeaconConsumer, Beac
         private val listOfRegions = arrayListOf<Region>()
     }
 
-    private val TAG = "BeaconScannerImpl"
+    private val TAG = "BeaconHelper"
 
     private var beaconManager: BeaconManager? = null
 
@@ -181,8 +193,8 @@ open class BeaconScannerImplActivity() : FlutterActivity(), BeaconConsumer, Beac
 
     override fun startScanning() {
 
-        setUpBLE(this)
-        setUpBeaconManager(this)
+        setUpBLE(context)
+        setUpBeaconManager(context)
 
         if (listOfRegions.isNotEmpty()) {
             Log.i(TAG, "Started Monitoring ${listOfRegions.size} regions.")
