@@ -3,6 +3,7 @@ package com.umair.beacons_plugin
 import android.util.Log
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
+import io.flutter.plugin.common.BinaryMessenger
 
 
 open class BeaconsActivity : FlutterActivity() {
@@ -15,6 +16,9 @@ open class BeaconsActivity : FlutterActivity() {
 
         @JvmStatic
         var mFlutterEngine: FlutterEngine? = null
+
+        @JvmStatic
+        var binaryMessenger: BinaryMessenger? = null
     }
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
@@ -36,6 +40,7 @@ open class BeaconsActivity : FlutterActivity() {
 
     private fun attachMethodChannels() {
         mFlutterEngine?.dartExecutor?.binaryMessenger?.let { messenger ->
+            binaryMessenger = messenger
             BeaconsPlugin.registerWith(messenger, beaconHelper, this)
         }
     }

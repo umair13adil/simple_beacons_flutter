@@ -8,14 +8,27 @@ import java.util.concurrent.atomic.AtomicBoolean
 
 class BeaconsDiscoveryService : Service() {
 
+    private lateinit var beaconHelper: BeaconHelper
+
     companion object {
+
         @JvmStatic
         private val TAG = "BeaconsDiscoveryService"
+
+        @JvmStatic
+        private var serviceRunning = false
     }
 
     override fun onCreate() {
         super.onCreate()
-        Log.i(TAG, "$TAG service running.")
+        beaconHelper = BeaconHelper(this)
+
+        BeaconsActivity.binaryMessenger?.let {
+            Log.i(TAG, "$TAG service running.")
+            BeaconsPlugin.registerWith(it, beaconHelper, this)
+            BeaconsPlugin.sendBLEScannerReadyCallback()
+            serviceRunning = true
+        }
     }
 
     override fun onBind(intent: Intent?): IBinder? {
@@ -32,5 +45,11 @@ class BeaconsDiscoveryService : Service() {
     override fun onDestroy() {
         super.onDestroy()
         Log.i(TAG, "$TAG service stopped.")
+
+        if (serviceRunning) {
+            beaconHelper.stopMonitoringBeacons()
+        }
+
+        serviceRunning = false
     }
 }
