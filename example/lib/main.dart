@@ -1,10 +1,8 @@
-import 'dart:isolate';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:io' show Platform;
-import 'package:beacons_plugin/callback_dispatcher.dart';
 import 'package:beacons_plugin/beacons_plugin.dart';
 
 void main() => runApp(MyApp());
@@ -19,24 +17,11 @@ class _MyAppState extends State<MyApp> {
   String _regionResult = 'No Results Available.';
 
   StreamController<String> beaconEventsController = new StreamController();
-  ReceivePort port = ReceivePort();
 
   @override
   void initState() {
     super.initState();
-    IsolateNameServer.registerPortWithName(
-        port.sendPort, 'geofencing_send_port');
-    port.listen((dynamic data) {
-      print('IsolateNameServer Event: $data');
-    });
     initPlatformState();
-  }
-
-  static void callback(List<String> ids) async {
-    print('Fences: $ids');
-    final SendPort send =
-        IsolateNameServer.lookupPortByName('geofencing_send_port');
-    send?.send("callback");
   }
 
   @override
@@ -75,16 +60,14 @@ class _MyAppState extends State<MyApp> {
           print("Error: $error");
         });
 
+    //Send 'true' to run in background
+    await BeaconsPlugin.runInBackground(false);
+
     BeaconsPlugin.channel.setMethodCallHandler((call) async {
       if (call.method == 'scannerReady') {
         await BeaconsPlugin.startMonitoring;
       }
     });
-
-    final CallbackHandle callback =
-        PluginUtilities.getCallbackHandle(callbackDispatcher);
-    await BeaconsPlugin.background
-        .invokeMethod('initializeService', <dynamic>[callback.toRawHandle()]);
 
     if (!mounted) return;
   }

@@ -39,7 +39,6 @@ open class BeaconScannerImplActivity() : FlutterActivity(), BeaconConsumer, Beac
     }
 
     override fun setEventSink(events: EventChannel.EventSink?) {
-        Log.i(TAG, "setEventSink")
         this.eventSink = events
     }
 

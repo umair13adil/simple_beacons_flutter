@@ -1,13 +1,11 @@
 import 'dart:async';
+import 'dart:ffi';
 
 import 'package:flutter/services.dart';
 
 class BeaconsPlugin {
   static const MethodChannel channel = const MethodChannel('beacons_plugin');
   static const event_channel = EventChannel('beacons_plugin_stream');
-
-  static const MethodChannel background =
-      MethodChannel('beacons_plugin_background');
 
   static Future<String> get startMonitoring async {
     final String result = await channel.invokeMethod('startMonitoring');
@@ -26,6 +24,11 @@ class BeaconsPlugin {
         'addRegion', <String, dynamic>{'identifier': identifier, 'uuid': uuid});
     print(result);
     return result;
+  }
+
+  static Future<Void> runInBackground(bool runInBackground) async {
+    return await channel.invokeMethod(
+        'runInBackground', <String, dynamic>{'background': runInBackground});
   }
 
   static Future<String> addRegionForIOS(
@@ -49,10 +52,4 @@ class BeaconsPlugin {
       print('Received error: ${error.message}');
     });
   }
-
-  static Future<void> promoteToForeground() async =>
-      await background.invokeMethod('promoteToForeground');
-
-  static Future<void> demoteToBackground() async =>
-      await background.invokeMethod('demoteToBackground');
 }

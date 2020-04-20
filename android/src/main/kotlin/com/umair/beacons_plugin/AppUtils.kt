@@ -89,6 +89,9 @@ fun Service.createNotification(channelId: String, channelName: String, wakeLockT
             .setContentTitle(title)
             .setContentText(content)
             .setSmallIcon(imageId)
+            .setOngoing(true)
+            .setWhen(System.currentTimeMillis())
+            .setOnlyAlertOnce(true)
             .setPriority(NotificationCompat.PRIORITY_LOW)
             .build()
 
@@ -98,7 +101,7 @@ fun Service.createNotification(channelId: String, channelName: String, wakeLockT
             acquire(360000)
         }
     }
-    startForeground(1, notification)
+    startForeground(18237, notification)
 }
 
 private fun Service.createNotificationChannel(channelId: String, channelName: String) {
@@ -112,7 +115,7 @@ private fun Service.createNotificationChannel(channelId: String, channelName: St
     }
 }
 
-fun Service.aquireWakeLock(intent: Intent?, wakeLockTAG: String) {
+fun Service.acquireWakeLock(intent: Intent?, wakeLockTAG: String) {
     if (intent?.action == "SHUTDOWN") {
         (getSystemService(Context.POWER_SERVICE) as PowerManager).run {
             newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, wakeLockTAG).apply {

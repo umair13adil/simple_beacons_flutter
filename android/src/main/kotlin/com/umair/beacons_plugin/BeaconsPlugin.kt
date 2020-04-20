@@ -32,19 +32,11 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware {
 
         private lateinit var channel: MethodChannel
         private lateinit var event_channel: EventChannel
-        var mBackgroundChannel: MethodChannel?=null
-        var sBackgroundFlutterView: FlutterNativeView? = null
 
         private val TAG = "BeaconsPlugin"
 
         @JvmStatic
-        val CALLBACK_DISPATCHER_HANDLE_KEY = "callback_dispatch_handler"
-
-        @JvmStatic
-        val CALLBACK_HANDLE_KEY = "callback_handle"
-
-        @JvmStatic
-        val SHARED_PREFERENCES_KEY = "geofencing_plugin_cache"
+        var runInBackground = false
 
         interface PluginImpl {
             fun startScanning()
@@ -58,7 +50,6 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware {
         @JvmStatic
         fun registerWith(messenger: BinaryMessenger, callBack: PluginImpl?, context: Context) {
             this.callBack = callBack
-            sBackgroundFlutterView = FlutterNativeView(context, true)
 
             channel = MethodChannel(messenger, "beacons_plugin")
             channel.setMethodCallHandler { call, result ->
@@ -74,20 +65,10 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware {
                     call.method == "addRegion" -> {
                         callBack?.addRegion(call, result)
                     }
-                    else -> result.notImplemented()
-                }
-            }
-
-            mBackgroundChannel = MethodChannel(messenger,
-                    "beacons_plugin_background")
-            mBackgroundChannel?.setMethodCallHandler { call, result ->
-                val args = call.arguments<ArrayList<*>>()
-                when {
-                    call.method == "initializeService" -> {
-
-                    }
-                    call.method == "initialized" -> {
-
+                    call.method == "runInBackground" -> {
+                        call.argument<Boolean>("background")?.let {
+                            runInBackground = it
+                        }
                     }
                     else -> result.notImplemented()
                 }
@@ -106,34 +87,28 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware {
 
         }
 
-        @JvmStatic
-        private fun initializeService(context: Context, args: ArrayList<*>?) {
-            val callbackHandle = args!![0] as Long
-            context.getSharedPreferences(SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE)
-                    .edit()
-                    .putLong(CALLBACK_DISPATCHER_HANDLE_KEY, callbackHandle)
-                    .apply()
-        }
-        
-        fun sendBLEScannerReadyCallback(){
-            channel.invokeMethod("scannerReady","")
+        fun sendBLEScannerReadyCallback() {
+            channel.invokeMethod("scannerReady", "")
         }
 
         fun startBackgroundService(context: Context) {
-            val serviceIntent1 = Intent(context, BeaconsDiscoveryService::class.java)
-            context.startService(serviceIntent1)
+            if (runInBackground) {
+                val serviceIntent1 = Intent(context, BeaconsDiscoveryService::class.java)
+                context.startService(serviceIntent1)
+            }
         }
 
         fun stopBackgroundService(context: Context) {
-            val serviceIntent = Intent(context, BeaconsDiscoveryService::class.java)
-            context.stopService(serviceIntent)
+            if (runInBackground) {
+                val serviceIntent = Intent(context, BeaconsDiscoveryService::class.java)
+                context.stopService(serviceIntent)
+            }
         }
     }
 
     override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
         Log.i(TAG, "onDetachedFromEngine")
         channel.setMethodCallHandler(null)
-        mBackgroundChannel?.setMethodCallHandler(null)
         event_channel.setStreamHandler(null)
     }
 
