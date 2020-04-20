@@ -3,34 +3,34 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 
 class BeaconsPlugin {
-  static const MethodChannel _channel = const MethodChannel('beacons_plugin');
-  static const channel = EventChannel('beacons_plugin_stream');
+  static const MethodChannel channel = const MethodChannel('beacons_plugin');
+  static const event_channel = EventChannel('beacons_plugin_stream');
 
   static const MethodChannel background =
       MethodChannel('beacons_plugin_background');
 
   static Future<String> get startMonitoring async {
-    final String result = await _channel.invokeMethod('startMonitoring');
+    final String result = await channel.invokeMethod('startMonitoring');
     print(result);
     return result;
   }
 
   static Future<String> get stopMonitoring async {
-    final String result = await _channel.invokeMethod('stopMonitoring');
+    final String result = await channel.invokeMethod('stopMonitoring');
     print(result);
     return result;
   }
 
-  static Future<String> addRegion(String identifier) async {
-    final String result = await _channel
-        .invokeMethod('addRegion', <String, dynamic>{'identifier': identifier});
+  static Future<String> addRegion(String identifier, String uuid) async {
+    final String result = await channel.invokeMethod(
+        'addRegion', <String, dynamic>{'identifier': identifier, 'uuid': uuid});
     print(result);
     return result;
   }
 
   static Future<String> addRegionForIOS(
       String uuid, int major, int minor, String name) async {
-    final String result = await _channel.invokeMethod(
+    final String result = await channel.invokeMethod(
         'addRegionForIOS', <String, dynamic>{
       'uuid': uuid,
       'major': major,
@@ -42,7 +42,7 @@ class BeaconsPlugin {
   }
 
   static listenToBeacons(StreamController controller) async {
-    channel.receiveBroadcastStream().listen((dynamic event) {
+    event_channel.receiveBroadcastStream().listen((dynamic event) {
       print('Received: $event');
       controller.add(event);
     }, onError: (dynamic error) {

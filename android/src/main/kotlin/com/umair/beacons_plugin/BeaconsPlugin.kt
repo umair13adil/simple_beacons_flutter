@@ -114,6 +114,10 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware {
                     .putLong(CALLBACK_DISPATCHER_HANDLE_KEY, callbackHandle)
                     .apply()
         }
+        
+        fun sendBLEScannerReadyCallback(){
+            channel.invokeMethod("scannerReady","")
+        }
 
         fun startBackgroundService(context: Context) {
             val serviceIntent1 = Intent(context, BeaconsDiscoveryService::class.java)

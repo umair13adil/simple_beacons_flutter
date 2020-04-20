@@ -35,7 +35,7 @@ class _MyAppState extends State<MyApp> {
   static void callback(List<String> ids) async {
     print('Fences: $ids');
     final SendPort send =
-    IsolateNameServer.lookupPortByName('geofencing_send_port');
+        IsolateNameServer.lookupPortByName('geofencing_send_port');
     send?.send("callback");
   }
 
@@ -47,17 +47,13 @@ class _MyAppState extends State<MyApp> {
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
-
-    final CallbackHandle callback =
-    PluginUtilities.getCallbackHandle(callbackDispatcher);
-    await BeaconsPlugin.background.invokeMethod('initializeService',
-        <dynamic>[callback.toRawHandle()]);
-
     BeaconsPlugin.listenToBeacons(beaconEventsController);
 
     if (Platform.isAndroid) {
-      await BeaconsPlugin.addRegion("Beacon1");
-      await BeaconsPlugin.addRegion("Beacon2");
+       await BeaconsPlugin.addRegion(
+          "Beacon1", "fda50693-a4e2-4fb1-afcf-c6eb07647825");
+      await BeaconsPlugin.addRegion(
+          "Beacon2", "01022022-f88f-0000-00ae-9605fd9bb620");
     } else if (Platform.isIOS) {
       await BeaconsPlugin.addRegionForIOS(
           "fda50693-a4e2-4fb1-afcf-c6eb07647825", 10035, 56498, "WGX_iBeacon");
@@ -79,7 +75,16 @@ class _MyAppState extends State<MyApp> {
           print("Error: $error");
         });
 
-    await BeaconsPlugin.startMonitoring;
+    BeaconsPlugin.channel.setMethodCallHandler((call) async {
+      if (call.method == 'scannerReady') {
+        await BeaconsPlugin.startMonitoring;
+      }
+    });
+
+    final CallbackHandle callback =
+        PluginUtilities.getCallbackHandle(callbackDispatcher);
+    await BeaconsPlugin.background
+        .invokeMethod('initializeService', <dynamic>[callback.toRawHandle()]);
 
     if (!mounted) return;
   }

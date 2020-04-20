@@ -16,13 +16,6 @@ open class BeaconScannerImplActivity() : FlutterActivity(), BeaconConsumer, Beac
 
     private var eventSink: EventChannel.EventSink? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        setUpBLE(this)
-        setUpBeaconManager(this)
-    }
-
     companion object {
 
         @JvmStatic
@@ -188,6 +181,10 @@ open class BeaconScannerImplActivity() : FlutterActivity(), BeaconConsumer, Beac
     }
 
     override fun startScanning() {
+
+        setUpBLE(this)
+        setUpBeaconManager(this)
+
         if (listOfRegions.isNotEmpty()) {
             Log.i(TAG, "Started Monitoring ${listOfRegions.size} regions.")
             listOfRegions.forEach {

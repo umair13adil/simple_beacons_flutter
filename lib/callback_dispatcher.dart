@@ -3,12 +3,13 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'beacons_plugin.dart';
+
 void callbackDispatcher() {
-  const MethodChannel _backgroundChannel =
-      MethodChannel('beacons_plugin_background');
+
   WidgetsFlutterBinding.ensureInitialized();
 
-  _backgroundChannel.setMethodCallHandler((MethodCall call) async {
+  BeaconsPlugin.background.setMethodCallHandler((MethodCall call) async {
     final List<dynamic> args = call.arguments;
     final Function callback = PluginUtilities.getCallbackFromHandle(
         CallbackHandle.fromRawHandle(args[0]));
@@ -24,5 +25,5 @@ void callbackDispatcher() {
     callback(triggeringGeofences);
   });
   print("callbackDispatcher: _backgroundChannel.invokeMethod('initialized')");
-  _backgroundChannel.invokeMethod('initialized');
+  //BeaconsPlugin.background.invokeMethod('initialized');
 }

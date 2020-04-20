@@ -17,11 +17,18 @@ open class BeaconsActivity : BeaconScannerImplActivity() {
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
         mFlutterEngine = flutterEngine
+
+        attachMethodChannels()
     }
 
     private fun isPermissionGranted() {
         Log.i(TAG, "isPermissionGranted")
-        
+        attachMethodChannels()
+
+        BeaconsPlugin.sendBLEScannerReadyCallback()
+    }
+    
+    private fun attachMethodChannels(){
         mFlutterEngine?.dartExecutor?.binaryMessenger?.let { messenger ->
             BeaconsPlugin.registerWith(messenger, this, this)
         }
