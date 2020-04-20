@@ -13,6 +13,6 @@ class BeaconsBroadcastReceiver : BroadcastReceiver() {
     }
     override fun onReceive(context: Context, intent: Intent) {
         FlutterMain.ensureInitializationComplete(context, null)
-        BeaconsDiscoveryService.enqueueWork(context, intent)
+        //BeaconsDiscoveryService.enqueueWork(context, intent)
     }
 }

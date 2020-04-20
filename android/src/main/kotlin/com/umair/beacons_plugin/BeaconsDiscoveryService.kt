@@ -1,54 +1,57 @@
 package com.umair.beacons_plugin
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.Service
 import android.content.Context
 import android.content.Intent
+import android.os.Build
+import android.os.Handler
+import android.os.IBinder
+import android.os.PowerManager
 import android.util.Log
 import androidx.core.app.JobIntentService
+import androidx.core.app.NotificationCompat
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.view.FlutterCallbackInformation
 import io.flutter.view.FlutterMain
 import io.flutter.view.FlutterNativeView
 import io.flutter.view.FlutterRunArguments
+import java.lang.Exception
 import java.util.*
 import java.util.concurrent.atomic.AtomicBoolean
 
-class BeaconsDiscoveryService : JobIntentService() {
+class BeaconsDiscoveryService : Service() {
     private val queue = ArrayDeque<List<Any>>()
 
     companion object {
         @JvmStatic
-        private val TAG = "GeofencingService"
-        @JvmStatic
-        private val JOB_ID = UUID.randomUUID().mostSignificantBits.toInt()
-        @JvmStatic
-        val sServiceStarted = AtomicBoolean(false)
+        private val TAG = "BeaconsDiscoveryService"
 
         @JvmStatic
-        fun enqueueWork(context: Context, work: Intent) {
-            enqueueWork(context, BeaconsDiscoveryService::class.java, JOB_ID, work)
-        }
+        val sServiceStarted = AtomicBoolean(false)
     }
 
     override fun onCreate() {
         super.onCreate()
         Log.i(TAG, "onCreate")
-        startBLEDiscoveryService(this)
+    }
+
+    override fun onBind(intent: Intent?): IBinder? {
+        return null
     }
 
     private fun startBLEDiscoveryService(mContext: Context) {
-        synchronized(sServiceStarted) {
-            Log.i(TAG,"startBLEDiscoveryService")
-            //if (BeaconsPlugin.sBackgroundFlutterView == null) {
+        try {
+            synchronized(sServiceStarted) {
+                Log.i(TAG, "startBLEDiscoveryService")
                 val callbackHandle = mContext.getSharedPreferences(
                         BeaconsPlugin.SHARED_PREFERENCES_KEY,
                         Context.MODE_PRIVATE)
                         .getLong(BeaconsPlugin.CALLBACK_DISPATCHER_HANDLE_KEY, 0)
 
                 val callbackInfo = FlutterCallbackInformation.lookupCallbackInformation(callbackHandle)
-                if (callbackInfo == null) {
-                    Log.e(TAG, "Fatal: failed to find callback")
-                    return
-                }
+
                 Log.i(TAG, "Starting BLEDiscoveryService...")
                 BeaconsPlugin.sBackgroundFlutterView = FlutterNativeView(mContext, true)
 
@@ -58,15 +61,20 @@ class BeaconsDiscoveryService : JobIntentService() {
                 args.libraryPath = callbackInfo.callbackLibraryPath
 
                 BeaconsPlugin.sBackgroundFlutterView!!.runFromBundle(args)
-                IsolateHolderService.setBackgroundFlutterView(BeaconsPlugin.sBackgroundFlutterView)
-           /* }else{
-                Log.i(TAG,"sBackgroundFlutterView != null")
-            }*/
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Log.e(TAG, "$TAG: ${e.message}")
         }
     }
 
-    override fun onHandleWork(intent: Intent) {
-        val callbackHandle = intent.getLongExtra(BeaconsPlugin.CALLBACK_HANDLE_KEY, 0)
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        createNotification("${TAG}_ID", TAG, "${TAG}::WAKE_LOCK", "Beacons Service", "Looking for nearby beacons")
+        aquireWakeLock(intent, "${TAG}::WAKE_LOCK")
+
+        //startBLEDiscoveryService(this)
+
+        val callbackHandle = intent?.getLongExtra(BeaconsPlugin.CALLBACK_HANDLE_KEY, 0)
 
         //TODO: Send Callback Handle with Result
         synchronized(sServiceStarted) {
@@ -75,9 +83,11 @@ class BeaconsDiscoveryService : JobIntentService() {
                 //queue.add()
             } else {
                 // Callback method name is intentionally left blank.
-                //Handler(mContext.mainLooper).post { mBackgroundChannel.invokeMethod("", geofenceUpdateList) }
+                Handler(mainLooper).post { BeaconsPlugin.mBackgroundChannel.invokeMethod("", "onHandleWork") }
             }
         }
+        
+        return START_STICKY
     }
 
     override fun onDestroy() {

@@ -22,6 +22,10 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware {
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         Log.i(TAG, "onAttachedToEngine")
         context = flutterPluginBinding.applicationContext
+
+        context?.let {
+            stopBackgroundService(it)
+        }
     }
 
     companion object {
@@ -80,41 +84,10 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware {
                 val args = call.arguments<ArrayList<*>>()
                 when {
                     call.method == "initializeService" -> {
-                        context.let { context ->
-                            Log.i(TAG, "initializeService")
-                            initializeService(context, args)
-                            //BeaconsDiscoveryService.enqueueWork(context, Intent())
-                            val serviceIntent = Intent(context, BeaconsDiscoveryService::class.java)
-                            context.startService(serviceIntent)
-                            result.success(true)
-                        }
+
                     }
                     call.method == "initialized" -> {
-                        Log.i(TAG, "initialized")
-                        synchronized(BeaconsDiscoveryService.sServiceStarted) {
-                           /* while (!queue.isEmpty()) {
-                                BeaconsPlugin.mBackgroundChannel.invokeMethod("", queue.remove())
-                            }*/
-                            BeaconsDiscoveryService.sServiceStarted.set(true)
-                        }
-                    }
-                    call.method == "promoteToForeground" -> {
-                        Log.i(TAG, "promoteToForeground")
-                        //mContext.startForegroundService(Intent(mContext, IsolateHolderService::class.java))
-                        try {
-                            val serviceIntent = Intent(context, IsolateHolderService::class.java)
-                            context.startService(serviceIntent)
-                        } catch (e: Exception) {
-                            e.printStackTrace()
-                            Log.e(TAG, "promoteToForeground")
-                        }
-                    }
-                    call.method == "demoteToBackground" -> {
-                        Log.i(TAG, "demoteToBackground")
-                        val intent = Intent(context, IsolateHolderService::class.java)
-                        intent.setAction(IsolateHolderService.ACTION_SHUTDOWN)
-                        context.startService(intent)
-                        //mContext.startForegroundService(intent)
+
                     }
                     else -> result.notImplemented()
                 }
@@ -141,6 +114,16 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware {
                     .putLong(CALLBACK_DISPATCHER_HANDLE_KEY, callbackHandle)
                     .apply()
         }
+
+        fun startBackgroundService(context: Context) {
+            val serviceIntent1 = Intent(context, BeaconsDiscoveryService::class.java)
+            context.startService(serviceIntent1)
+        }
+
+        fun stopBackgroundService(context: Context) {
+            val serviceIntent = Intent(context, BeaconsDiscoveryService::class.java)
+            context.stopService(serviceIntent)
+        }
     }
 
     override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
@@ -165,7 +148,8 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware {
     override fun onDetachedFromActivity() {
         Log.i(TAG, "onDetachedFromActivity")
 
-        val serviceIntent = Intent(context, BeaconsDiscoveryService::class.java)
-        context?.startService(serviceIntent)
+        context?.let {
+            startBackgroundService(it)
+        }
     }
 }

@@ -180,11 +180,19 @@ open class BeaconsActivity : FlutterActivity(), BeaconConsumer, BeaconsPlugin.Co
 
     override fun onPause() {
         super.onPause()
-        Log.i(TAG,"onPause")
+
+        BeaconsDiscoveryService.sServiceStarted.set(true)
+        
+        //Start Background service to scan BLE devices
+        BeaconsPlugin.startBackgroundService(this)
     }
 
     override fun onResume() {
         super.onResume()
-        Log.i(TAG,"onResume")
+
+        BeaconsDiscoveryService.sServiceStarted.set(false)
+        
+        //Stop Background service, app is in foreground
+        BeaconsPlugin.stopBackgroundService(this)
     }
 }
