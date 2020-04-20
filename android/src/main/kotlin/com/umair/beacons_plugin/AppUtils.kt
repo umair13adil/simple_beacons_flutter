@@ -1,5 +1,6 @@
 package com.umair.beacons_plugin
 
+import android.Manifest
 import android.app.Activity
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -18,11 +19,9 @@ import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-private val TAG = "AppUtils"
 private fun PackageManager.missingSystemFeature(name: String): Boolean = !hasSystemFeature(name)
-internal val REQUEST_ENABLE_BT = 10323
 
-fun hasBLEFeature(activity: Activity): Boolean {
+fun hasBLEFeature(activity: Context): Boolean {
     activity.packageManager.takeIf { it.missingSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE) }
             ?.also {
                 return false
@@ -30,10 +29,10 @@ fun hasBLEFeature(activity: Activity): Boolean {
     return true
 }
 
-fun setUpBlueToothAdapter(activity: Activity): BluetoothAdapter? {
+fun setUpBlueToothAdapter(content: Context): BluetoothAdapter? {
     val bluetoothAdapter: BluetoothAdapter? by lazy(LazyThreadSafetyMode.NONE) {
         val bluetoothManager =
-                activity.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
+                content.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
         bluetoothManager.adapter
     }
     return bluetoothAdapter
@@ -42,15 +41,15 @@ fun setUpBlueToothAdapter(activity: Activity): BluetoothAdapter? {
 private val BluetoothAdapter.isDisabled: Boolean
     get() = !isEnabled
 
-fun isBluetoothEnabled(activity: Activity) {
+fun isBluetoothEnabled(content: Context) {
 
-    setUpBlueToothAdapter(activity)?.takeIf { it.isDisabled }?.apply {
+    setUpBlueToothAdapter(content)?.takeIf { it.isDisabled }?.apply {
         val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
-        activity.startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT)
+        content.startActivity(enableBtIntent)
     }
 }
 
-fun checkPermissions(activity: Activity, isGranted: (Boolean) -> Unit) {
+fun checkPermissions(activity: Activity, isGranted: () -> Unit) {
 
     try {
         //Request for storage permissions
@@ -60,7 +59,7 @@ fun checkPermissions(activity: Activity, isGranted: (Boolean) -> Unit) {
                 .debounce(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
                 .subscribeBy(
                         onNext = { callback ->
-                            isGranted.invoke(callback)
+                            isGranted.invoke()
                         },
                         onError = {
                             it.printStackTrace()
@@ -125,4 +124,9 @@ fun Service.aquireWakeLock(intent: Intent?, wakeLockTAG: String) {
         stopForeground(true)
         stopSelf()
     }
+}
+
+fun isLocationPermissionGranted(context: Context): Boolean {
+    return (PermissionsHelper.isPermissionGranted(context, Manifest.permission.ACCESS_FINE_LOCATION)
+            || PermissionsHelper.isPermissionGranted(context, Manifest.permission.ACCESS_COARSE_LOCATION))
 }

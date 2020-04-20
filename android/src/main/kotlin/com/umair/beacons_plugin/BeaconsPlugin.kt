@@ -32,7 +32,7 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware {
 
         private lateinit var channel: MethodChannel
         private lateinit var event_channel: EventChannel
-        lateinit var mBackgroundChannel: MethodChannel
+        var mBackgroundChannel: MethodChannel?=null
         var sBackgroundFlutterView: FlutterNativeView? = null
 
         private val TAG = "BeaconsPlugin"
@@ -80,7 +80,7 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware {
 
             mBackgroundChannel = MethodChannel(messenger,
                     "beacons_plugin_background")
-            mBackgroundChannel.setMethodCallHandler { call, result ->
+            mBackgroundChannel?.setMethodCallHandler { call, result ->
                 val args = call.arguments<ArrayList<*>>()
                 when {
                     call.method == "initializeService" -> {
@@ -129,7 +129,7 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware {
     override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
         Log.i(TAG, "onDetachedFromEngine")
         channel.setMethodCallHandler(null)
-        mBackgroundChannel.setMethodCallHandler(null)
+        mBackgroundChannel?.setMethodCallHandler(null)
         event_channel.setStreamHandler(null)
     }
 

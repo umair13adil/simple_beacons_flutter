@@ -1,28 +1,20 @@
 package com.umair.beacons_plugin
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
 import android.app.Service
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Handler
 import android.os.IBinder
-import android.os.PowerManager
 import android.util.Log
-import androidx.core.app.JobIntentService
-import androidx.core.app.NotificationCompat
-import io.flutter.plugin.common.MethodChannel
 import io.flutter.view.FlutterCallbackInformation
 import io.flutter.view.FlutterMain
 import io.flutter.view.FlutterNativeView
 import io.flutter.view.FlutterRunArguments
-import java.lang.Exception
-import java.util.*
 import java.util.concurrent.atomic.AtomicBoolean
 
 class BeaconsDiscoveryService : Service() {
-    private val queue = ArrayDeque<List<Any>>()
+
+    private lateinit var beaconScannerImplActivity: BeaconScannerImplActivity
 
     companion object {
         @JvmStatic
@@ -34,6 +26,7 @@ class BeaconsDiscoveryService : Service() {
 
     override fun onCreate() {
         super.onCreate()
+        //beaconScannerImplActivity = BeaconScannerImplActivity(this as Activity)
         Log.i(TAG, "onCreate")
     }
 
@@ -83,7 +76,7 @@ class BeaconsDiscoveryService : Service() {
                 //queue.add()
             } else {
                 // Callback method name is intentionally left blank.
-                Handler(mainLooper).post { BeaconsPlugin.mBackgroundChannel.invokeMethod("", "onHandleWork") }
+                Handler(mainLooper).post { BeaconsPlugin.mBackgroundChannel?.invokeMethod("", "onHandleWork") }
             }
         }
         
@@ -92,6 +85,7 @@ class BeaconsDiscoveryService : Service() {
 
     override fun onDestroy() {
         super.onDestroy()
+        //beaconScannerImplActivity.stopMonitoringBeacons()
         Log.i(TAG, "onDestroy")
     }
 }

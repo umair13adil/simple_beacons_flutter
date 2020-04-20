@@ -6,17 +6,25 @@ data class Beacon(
         var major: String = "",
         var minor: String = "",
         var distance: String = "",
-        var proximity: String = ""
+        var proximity: String = "",
+        var scanTime: String = "",
+        var macAddress: String = "",
+        var rssi: String = "",
+        var txPower: String = ""
 ) {
 
     override fun toString(): String {
         return "{\n" +
                 "  \"name\": \"$name\",\n" +
                 "  \"uuid\": \"$uuid\",\n" +
+                "  \"macAddress\": \"$macAddress\"\n" +
                 "  \"major\": \"$major\",\n" +
                 "  \"minor\": \"$minor\",\n" +
                 "  \"distance\": \"$distance\",\n" +
                 "  \"proximity\": \"$proximity\"\n" +
+                "  \"scanTime\": \"$scanTime\"\n" +
+                "  \"rssi\": \"$rssi\"\n" +
+                "  \"txPower\": \"$txPower\"\n" +
                 "}"
     }
 
