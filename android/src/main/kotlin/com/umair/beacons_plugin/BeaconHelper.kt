@@ -140,7 +140,7 @@ open class BeaconHelper(var context: Context) : BeaconConsumer, BeaconsPlugin.Co
                 scanTime = getReadableTime(System.currentTimeMillis())
         ).toString()
 
-        Log.i(TAG, "sendBeaconData: $message")
+        //Log.i(TAG, "sendBeaconData: $message")
 
         eventSink?.success(message)
     }

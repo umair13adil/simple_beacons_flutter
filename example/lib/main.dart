@@ -61,7 +61,7 @@ class _MyAppState extends State<MyApp> {
         });
 
     //Send 'true' to run in background
-    await BeaconsPlugin.runInBackground(false);
+    await BeaconsPlugin.runInBackground(true);
 
     BeaconsPlugin.channel.setMethodCallHandler((call) async {
       if (call.method == 'scannerReady') {
