@@ -136,62 +136,48 @@ dependencies:
 ```
 
 ```dart
+import 'dart:async';
 import 'dart:io' show Platform;
 import 'package:flutter/services.dart';
 import 'package:beacons_plugin/beacons_plugin.dart';
 ```
 
-## Ranging Beacons
+## Ranging Beacons & Setting Up
 
 ```dart
-      static const MethodChannel methodChannel = const MethodChannel('beacons_plugin');
-    
-    static Future<String> addRegion(String identifier, String uuid) async {
-        final String result = await methodChannel.invokeMethod(
-            'addRegion', <String, dynamic>{'identifier': identifier, 'uuid': uuid});
-        print(result);
-        return result;
-    }
-    
-    static Future<String> addRegionForIOS(String uuid, int major, int minor, String name) async {
-            final String result = await methodChannel.invokeMethod('addRegionForIOS', <String, dynamic>{
-              'uuid': uuid,
-              'major': major,
-              'minor': minor,
-              'name': name
-            });
-            print(result);
-    return result;
-    }
 
     if (Platform.isAndroid) {
-      await BeaconsPlugin.addRegion(
-               "Beacon1", "fda50693-a4e2-4fb1-afcf-c6eb07647825");
+      BeaconsPlugin.addRegion(
+              "myBeacon", "01022022-f88f-0000-00ae-9605fd9bb620")
+          .then((result) {
+        print(result);
+      });
     } else if (Platform.isIOS) {
-      await addRegionForIOS(
-          "01022022-f88f-0000-00ae-9605fd9bb620", 1, 1, "BeaconName");
+      BeaconsPlugin.addRegionForIOS(
+              "01022022-f88f-0000-00ae-9605fd9bb620", 1, 1, "BeaconName")
+          .then((result) {
+        print(result);
+      });
     }
     
     //Send 'true' to run in background
-    static Future<String> runInBackground(bool runInBackground) async {
-        final String result = await methodChannel.invokeMethod(
-            'runInBackground', <String, dynamic>{'background': runInBackground});
-        print(result);
-        return result;
-    }
-
-    //Run once Scanner is setup & ready
-    methodChannel.setMethodCallHandler((call) async {
+    await BeaconsPlugin.runInBackground(true);
+    
+    //IMPORTANT: Start monitoring once scanner is setup & ready
+    BeaconsPlugin.channel.setMethodCallHandler((call) async {
       if (call.method == 'scannerReady') {
         await BeaconsPlugin.startMonitoring;
       }
     });
+    
 ```
 
-## Listen To Beacon Scan Results
+## Listen To Beacon Scan Results as Stream
 
 ```dart
-    static const eventChannel = EventChannel('beacons_plugin_stream');
+    
+    StreamController<String> beaconEventsController = new StreamController();
+    BeaconsPlugin.listenToBeacons(beaconEventsController);
     
     static listenToBeacons() async {
         eventChannel.receiveBroadcastStream().listen((dynamic event) {
@@ -200,6 +186,20 @@ import 'package:beacons_plugin/beacons_plugin.dart';
           print('Received error: ${error.message}');
         });
     }
+    
+    beaconEventsController.stream.listen(
+        (data) {
+          if (data.isNotEmpty) {
+            setState(() {
+              _beaconResult = data;
+            });
+            print("Beacons DataReceived: " + data);
+          }
+        },
+        onDone: () {},
+        onError: (error) {
+          print("Error: $error");
+        });
 ```
 
 ## Scan Results
