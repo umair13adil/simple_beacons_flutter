@@ -4,43 +4,12 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b7b9ec39-f1d6-4277-a85a-8c6c793e0ff7" name="Default Changelist" comment="Initial Commit.">
+    <list default="true" id="b7b9ec39-f1d6-4277-a85a-8c6c793e0ff7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/example/ios/Podfile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/example/ios/Podfile.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/example/ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/example/ios/Runner.xcodeproj/project.pbxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/example/ios/Runner.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/example/ios/Runner.xcodeproj/project.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/example/ios/Runner.xcworkspace/contents.xcworkspacedata" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/example/ios/Runner.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/example/ios/Runner.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/example/ios/Runner/AppDelegate.swift" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/example/ios/Runner/AppDelegate.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/example/ios/Runner/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/example/ios/Runner/Info.plist" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/example/ios/Runner/Runner-Bridging-Header.h" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/example/ios/Runner/Runner-Bridging-Header.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/example/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/example/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/ios/Classes/BeaconsPlugin.m" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/ios/Classes/BeaconsPlugin.m" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/ios/Classes/Items.swift" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/ios/Classes/Items.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/ios/Classes/SwiftBeaconsPlugin.swift" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/ios/Classes/SwiftBeaconsPlugin.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/ios/beacons_plugin.podspec" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/ios/beacons_plugin.podspec" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/pubspec.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/Podfile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/Podfile.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Runner.xcodeproj/project.pbxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/Runner.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/Runner.xcodeproj/project.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/Runner.xcworkspace/contents.xcworkspacedata" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/Runner.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/Runner.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/example/ios/Runner/AppDelegate.swift" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Runner/AppDelegate.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/ios/Runner/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Runner/Info.plist" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/Runner/Runner-Bridging-Header.h" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Runner/Runner-Bridging-Header.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/BeaconsPlugin.m" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/BeaconsPlugin.m" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/Items.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/Items.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ios/Classes/SwiftBeaconsPlugin.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/SwiftBeaconsPlugin.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/beacons_plugin.podspec" beforeDir="false" afterPath="$PROJECT_DIR$/ios/beacons_plugin.podspec" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
     <ignored path="$PROJECT_DIR$/.idea/" />
@@ -59,7 +28,7 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="Nexus_S_API_R" />
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf />
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -97,7 +66,6 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/ios/Classes/BeaconsPlugin.m" />
-        <option value="$PROJECT_DIR$/example/ios/Runner/AppDelegate.swift" />
         <option value="$PROJECT_DIR$/ios/Classes/AppDelegate.swift" />
         <option value="$PROJECT_DIR$/android/src/main/kotlin/com/cubivue/beacons_plugin/BeaconsPlugin.kt" />
         <option value="$PROJECT_DIR$/.packages" />
@@ -117,6 +85,8 @@
         <option value="$PROJECT_DIR$/example/ios/Podfile" />
         <option value="$PROJECT_DIR$/ios/beacons_plugin.podspec" />
         <option value="$PROJECT_DIR$/ios/Classes/SwiftBeaconsPlugin.swift" />
+        <option value="$PROJECT_DIR$/example/ios/Runner/AppDelegate.swift" />
+        <option value="$PROJECT_DIR$/example/ios/Runner/Info.plist" />
       </list>
     </option>
   </component>
@@ -132,48 +102,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView" />
+      <pane id="ProjectPane" />
       <pane id="PackagesPane" />
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="beacons_plugin_old copy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="beacons_plugin_old copy" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="beacons_plugin_old copy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="beacons_plugin_old copy" type="462c0819:PsiDirectoryNode" />
-              <item name="example" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="beacons_plugin_old copy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="beacons_plugin_old copy" type="462c0819:PsiDirectoryNode" />
-              <item name="example" type="462c0819:PsiDirectoryNode" />
-              <item name="ios" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="beacons_plugin_old copy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="beacons_plugin_old copy" type="462c0819:PsiDirectoryNode" />
-              <item name="example" type="462c0819:PsiDirectoryNode" />
-              <item name="ios" type="462c0819:PsiDirectoryNode" />
-              <item name="Runner" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="beacons_plugin_old copy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="beacons_plugin_old copy" type="462c0819:PsiDirectoryNode" />
-              <item name="ios" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="beacons_plugin_old copy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="beacons_plugin_old copy" type="462c0819:PsiDirectoryNode" />
-              <item name="ios" type="462c0819:PsiDirectoryNode" />
-              <item name="Classes" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
+      <pane id="AndroidView" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -181,12 +112,13 @@
     <property name="com.developerphil.adbidea.ui.ModuleChooserDialogHelper-SELECTED_MODULE" value="beacons_plugin_example_android" />
     <property name="dart.analysis.tool.window.force.activate" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/ios/Classes" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/ios/Classes" />
       <recent name="$PROJECT_DIR$/lib" />
       <recent name="$PROJECT_DIR$/android/src/main/kotlin/com/umair/beacons_plugin" />
     </key>
@@ -389,7 +321,14 @@
       <option name="project" value="LOCAL" />
       <updated>1587479336919</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Fixed iOS build issue.">
+      <created>1587484275061</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1587484275061</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -405,15 +344,15 @@
       <window_info id="Capture Tool" order="7" />
       <window_info id="Favorites" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Dart Analysis" order="0" weight="0.32907802" />
-      <window_info active="true" anchor="bottom" id="Run" order="1" sideWeight="0.49713877" visible="true" weight="0.45531914" />
+      <window_info active="true" anchor="bottom" id="Run" order="1" sideWeight="0.49713877" visible="true" weight="0.52056736" />
       <window_info anchor="bottom" id="TODO" order="2" />
       <window_info anchor="bottom" id="Android Profiler" order="3" show_stripe_button="false" />
       <window_info anchor="bottom" id="Logcat" order="4" weight="0.1875" />
       <window_info anchor="bottom" id="Debug" order="5" weight="0.32907802" />
       <window_info anchor="bottom" id="Terminal" order="6" weight="0.5475177" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5028612" side_tool="true" weight="0.24742268" />
-      <window_info anchor="bottom" id="Version Control" order="8" weight="0.32907802" />
-      <window_info anchor="bottom" id="Messages" order="9" sideWeight="0.4996232" weight="0.13475177" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.1" />
+      <window_info anchor="bottom" id="Messages" order="9" sideWeight="0.4996232" weight="0.43373495" />
       <window_info anchor="bottom" id="Find" order="10" />
       <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
       <window_info anchor="right" id="Capture Analysis" order="1" />
@@ -438,7 +377,8 @@
     <MESSAGE value="Fixed method channel issue." />
     <MESSAGE value="- Added Background service implementation." />
     <MESSAGE value="Fixed ios build issue." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed ios build issue." />
+    <MESSAGE value="Fixed iOS build issue." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed iOS build issue." />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/example/ios/Runner/GeneratedPluginRegistrant.m">
@@ -455,9 +395,6 @@
           <caret line="4" selection-start-line="4" selection-end-line="16" selection-end-column="40" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example/ios/Runner/Info.plist">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/example/ios/Runner/Items.swift" />
     <entry file="file://$PROJECT_DIR$/example/ios/Runner/BeaconsPlugin.swift" />
@@ -511,24 +448,10 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/callback_dispatcher.dart" />
-    <entry file="file://$PROJECT_DIR$/android/src/main/kotlin/com/umair/beacons_plugin/BeaconsPlugin.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="130">
-          <caret line="67" column="40" selection-start-line="67" selection-start-column="40" selection-end-line="67" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/android/src/main/kotlin/com/umair/beacons_plugin/BeaconHelper.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="59">
           <caret line="45" column="37" selection-start-line="45" selection-start-column="37" selection-end-line="45" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example/android/app/src/main/kotlin/com/umair/beacons_plugin_example/MainActivity.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="10" column="24" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
         </state>
       </provider>
     </entry>
@@ -586,13 +509,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/example/ios/Pods/Manifest.lock" />
-    <entry file="file://$PROJECT_DIR$/example/pubspec.yaml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="2" selection-start-line="20" selection-start-column="2" selection-end-line="21" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/android/src/main/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -618,16 +534,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
           <caret line="15" lean-forward="true" selection-end-line="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/beacons_plugin.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="28" column="33" selection-start-line="28" selection-start-column="33" selection-end-line="28" selection-end-column="33" />
-          <folding>
-            <element signature="e#0#20#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -673,13 +579,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/example/ios/Runner/AppDelegate.swift">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" selection-end-line="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ios/Classes/Items.swift">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="149">
@@ -705,6 +604,51 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/example/ios/Runner/Info.plist">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="44" lean-forward="true" selection-start-line="16" selection-start-column="44" selection-end-line="16" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/example/ios/Runner/AppDelegate.swift">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" selection-start-line="21" selection-end-line="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/example/pubspec.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="16" lean-forward="true" selection-start-line="18" selection-start-column="16" selection-end-line="18" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/example/android/app/src/main/kotlin/com/umair/beacons_plugin_example/MainActivity.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="10" column="24" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/android/src/main/kotlin/com/umair/beacons_plugin/BeaconsPlugin.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="22" column="40" lean-forward="true" selection-start-line="22" selection-start-column="40" selection-end-line="22" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/beacons_plugin.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="413">
+          <caret line="30" column="24" selection-start-line="30" selection-start-column="9" selection-end-line="30" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#20#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
