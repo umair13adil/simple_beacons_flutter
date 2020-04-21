@@ -1,3 +1,8 @@
+## 1.0.7
+
+* Added Background scan mode 
+* Fixed iOS build issue
+
 ## 1.0.5 - 1.0.6
 
 * Fixed Method channel not found issue.
