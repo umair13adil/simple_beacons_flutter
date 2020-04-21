@@ -64,6 +64,8 @@ class Item: NSObject, NSCoding {
       return "Near"
     case .far:
       return "Far"
+    @unknown default:
+        return "Unknown"
     }
   }
   
@@ -71,7 +73,7 @@ class Item: NSObject, NSCoding {
 
 func ==(item: Item, beacon: CLBeacon) -> Bool {
     return ((beacon.proximityUUID.uuidString == item.uuid.uuidString)
-        && (Int(beacon.major) == Int(item.majorValue))
-        && (Int(beacon.minor) == Int(item.minorValue)))
+        && (Int(truncating: beacon.major) == Int(item.majorValue))
+        && (Int(truncating: beacon.minor) == Int(item.minorValue)))
 }
 

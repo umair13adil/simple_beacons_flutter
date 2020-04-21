@@ -14,7 +14,7 @@ EXTERNAL SOURCES:
     :path: Flutter
 
 SPEC CHECKSUMS:
-  beacons_plugin: 451bca1eea362d21793d61d58fa26d494cf19718
+  beacons_plugin: 9ea59d8f0f7dafe04565ca82e8dcd87b76c64679
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
 
 PODFILE CHECKSUM: 083258d7f5e80b42ea9bfee905fe93049bc04c64
