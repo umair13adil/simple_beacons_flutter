@@ -6,6 +6,7 @@ public class SwiftBeaconsPlugin: NSObject, FlutterPlugin {
 
     var eventSink: FlutterEventSink?
     let locationManager = CLLocationManager()
+    var runInBackground = false
 
     var listOfRegions = [Item]()
 
@@ -47,6 +48,9 @@ public class SwiftBeaconsPlugin: NSObject, FlutterPlugin {
         }else if call.method == "stopMonitoring"{
             startScanning()
             result("Stopped scanning Beacons.")
+        }else if call.method == "runInBackground"{
+            runInBackground = true
+            result("App will run in background? \(runInBackground)")
         }else {
             result("Flutter method not implemented on iOS")
         }
@@ -117,6 +121,7 @@ extension SwiftBeaconsPlugin: CLLocationManagerDelegate {
                   "  \"uuid\": \"\(beacon.proximityUUID)\",\n" +
                   "  \"major\": \"\(beacon.major)\",\n" +
                   "  \"minor\": \"\(beacon.minor)\",\n" +
+                  "  \"rssi\": \"\(beacon.rssi)\",\n" +
                   "  \"distance\": \"\(listOfRegions[row].locationString())\",\n" +
                   "  \"proximity\": \"\(listOfRegions[row].nameForProximity(beacon.proximity))\"\n" +
                   "}"
