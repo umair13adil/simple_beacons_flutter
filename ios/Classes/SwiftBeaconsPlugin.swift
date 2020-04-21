@@ -3,27 +3,27 @@ import UIKit
 import CoreLocation
 
 public class SwiftBeaconsPlugin: NSObject, FlutterPlugin {
-    
+
     var eventSink: FlutterEventSink?
     let locationManager = CLLocationManager()
-    
+
     var listOfRegions = [Item]()
-    
+
     init(eventSink: FlutterEventSink?) {
         self.eventSink = eventSink
     }
-    
+
     public static func register(with registrar: FlutterPluginRegistrar) {
         let fChannel = FlutterMethodChannel(name: "beacons_plugin", binaryMessenger: registrar.messenger())
-        
+
         let eventChannel = FlutterEventChannel(name: "beacons_plugin_stream", binaryMessenger: registrar.messenger())
-        
+
         let eventHandler = EventsStreamHandler(channel: fChannel, registrar: registrar)
         eventChannel.setStreamHandler(eventHandler)
     }
-    
+
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-        
+
         // flutter cmds dispatched on iOS device :
         if call.method == "addRegionForIOS" {
             guard let args = call.arguments else {
@@ -51,29 +51,29 @@ public class SwiftBeaconsPlugin: NSObject, FlutterPlugin {
             result("Flutter method not implemented on iOS")
         }
     }
-    
+
     func addRegion(uuid:String?, major:Int, minor:Int, name:String){
         guard let uuid = UUID(uuidString: uuid ?? "") else { return; }
         let major = major
         let minor = minor
         let name = name
-        
+
         let newItem = Item(name: name, uuid: uuid, majorValue: major, minorValue: minor)
         listOfRegions.append(newItem)
     }
-    
+
     func startMonitoringItem(_ item: Item) {
         let beaconRegion = item.asBeaconRegion()
         locationManager.startMonitoring(for: beaconRegion)
         locationManager.startRangingBeacons(in: beaconRegion)
     }
-    
+
     func stopMonitoringItem(_ item: Item) {
         let beaconRegion = item.asBeaconRegion()
         locationManager.stopMonitoring(for: beaconRegion)
         locationManager.stopRangingBeacons(in: beaconRegion)
     }
-    
+
     func startScanning() {
         if (!listOfRegions.isEmpty) {
             for item in listOfRegions {
@@ -81,7 +81,7 @@ public class SwiftBeaconsPlugin: NSObject, FlutterPlugin {
             }
         }
     }
-    
+
     func stopScanning() {
         if (!listOfRegions.isEmpty) {
             for item in listOfRegions {
@@ -93,21 +93,21 @@ public class SwiftBeaconsPlugin: NSObject, FlutterPlugin {
 
 // MARK: CLLocationManagerDelegate
 extension SwiftBeaconsPlugin: CLLocationManagerDelegate {
-    
+
     public func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
         guard region is CLBeaconRegion else { return }
     }
-    
+
     public func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
         print("Failed monitoring region: \(error.localizedDescription)")
     }
-    
+
     public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Location manager failed: \(error.localizedDescription)")
     }
-    
+
     public func locationManager(_ manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], in region: CLBeaconRegion) {
-        
+
         for beacon in beacons {
           for row in 0..<listOfRegions.count {
             if listOfRegions[row] == beacon {
@@ -120,7 +120,7 @@ extension SwiftBeaconsPlugin: CLLocationManagerDelegate {
                   "  \"distance\": \"\(listOfRegions[row].locationString())\",\n" +
                   "  \"proximity\": \"\(listOfRegions[row].nameForProximity(beacon.proximity))\"\n" +
                   "}"
-                  
+
                   //Send data to flutter
                   eventSink?("\(data)")
             }
@@ -131,24 +131,24 @@ extension SwiftBeaconsPlugin: CLLocationManagerDelegate {
 
 
 class EventsStreamHandler: NSObject, FlutterStreamHandler {
-    
+
     private var eventSink: FlutterEventSink?
-    
+
     private var fChannel:FlutterMethodChannel
     private var fRegistrar: FlutterPluginRegistrar?
-    
+
     init(channel:FlutterMethodChannel,registrar: FlutterPluginRegistrar) {
         self.fChannel = channel
         self.fRegistrar = registrar
     }
-    
+
     public func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink) -> FlutterError? {
         eventSink = events
         let instance = SwiftBeaconsPlugin(eventSink: eventSink)
         fRegistrar?.addMethodCallDelegate(instance, channel: fChannel)
         return nil
     }
-    
+
     public func onCancel(withArguments arguments: Any?) -> FlutterError? {
         eventSink = nil
         return nil
