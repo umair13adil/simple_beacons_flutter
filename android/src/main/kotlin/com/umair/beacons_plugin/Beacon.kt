@@ -17,13 +17,13 @@ data class Beacon(
         return "{\n" +
                 "  \"name\": \"$name\",\n" +
                 "  \"uuid\": \"$uuid\",\n" +
-                "  \"macAddress\": \"$macAddress\"\n" +
+                "  \"macAddress\": \"$macAddress\",\n" +
                 "  \"major\": \"$major\",\n" +
                 "  \"minor\": \"$minor\",\n" +
                 "  \"distance\": \"$distance\",\n" +
-                "  \"proximity\": \"$proximity\"\n" +
-                "  \"scanTime\": \"$scanTime\"\n" +
-                "  \"rssi\": \"$rssi\"\n" +
+                "  \"proximity\": \"$proximity\",\n" +
+                "  \"scanTime\": \"$scanTime\",\n" +
+                "  \"rssi\": \"$rssi\",\n" +
                 "  \"txPower\": \"$txPower\"\n" +
                 "}"
     }
