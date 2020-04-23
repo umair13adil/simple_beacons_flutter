@@ -1,3 +1,7 @@
+## 1.0.9
+
+* Fixed 'Beacon' JSON issue.
+
 ## 1.0.7
 
 * Added Background scan mode 
