@@ -4,6 +4,7 @@ import 'dart:ffi';
 import 'package:flutter/services.dart';
 
 class BeaconsPlugin {
+
   static const MethodChannel channel = const MethodChannel('beacons_plugin');
   static const event_channel = EventChannel('beacons_plugin_stream');
 
