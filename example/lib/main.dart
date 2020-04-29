@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:io' show Platform;
@@ -14,7 +12,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String _beaconResult = 'Not Scanned Yet.';
-  String _regionResult = 'No Results Available.';
+  int _nrMessaggesReceived = 0;
 
   StreamController<String> beaconEventsController = new StreamController();
 
@@ -34,23 +32,15 @@ class _MyAppState extends State<MyApp> {
   Future<void> initPlatformState() async {
     BeaconsPlugin.listenToBeacons(beaconEventsController);
 
-    if (Platform.isAndroid) {
-       await BeaconsPlugin.addRegion(
-          "Beacon1", "fda50693-a4e2-4fb1-afcf-c6eb07647825");
-      await BeaconsPlugin.addRegion(
-          "Beacon2", "01022022-f88f-0000-00ae-9605fd9bb620");
-    } else if (Platform.isIOS) {
-      await BeaconsPlugin.addRegionForIOS(
-          "fda50693-a4e2-4fb1-afcf-c6eb07647825", 10035, 56498, "WGX_iBeacon");
-      await BeaconsPlugin.addRegionForIOS(
-          "01022022-f88f-0000-00ae-9605fd9bb620", 1, 1, "BV5500Pro");
-    }
+    await BeaconsPlugin.addRegion("BeaconType1", "909c3cf9-fc5c-4841-b695-380958a51a5a");
+    await BeaconsPlugin.addRegion("BeaconType2", "6a84c716-0f2a-1ce9-f210-6a63bd873dd9");
 
     beaconEventsController.stream.listen(
         (data) {
           if (data.isNotEmpty) {
             setState(() {
               _beaconResult = data;
+              _nrMessaggesReceived++;
             });
             print("Beacons DataReceived: " + data);
           }
@@ -63,11 +53,15 @@ class _MyAppState extends State<MyApp> {
     //Send 'true' to run in background
     await BeaconsPlugin.runInBackground(true);
 
-    BeaconsPlugin.channel.setMethodCallHandler((call) async {
-      if (call.method == 'scannerReady') {
-        await BeaconsPlugin.startMonitoring;
-      }
-    });
+    if (Platform.isAndroid) {
+      BeaconsPlugin.channel.setMethodCallHandler((call) async {
+        if (call.method == 'scannerReady') {
+          await BeaconsPlugin.startMonitoring;
+        }
+      });
+    } else if (Platform.isIOS) {
+      await BeaconsPlugin.startMonitoring;
+    }
 
     if (!mounted) return;
   }
@@ -88,7 +82,7 @@ class _MyAppState extends State<MyApp> {
               Padding(
                 padding: EdgeInsets.all(10.0),
               ),
-              Text('$_regionResult')
+              Text('$_nrMessaggesReceived')
             ],
           ),
         ),

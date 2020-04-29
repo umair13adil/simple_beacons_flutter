@@ -116,8 +116,8 @@ In your *Info.plist* file add following lines:
 ```swift
     <dict>
     	<key>UIBackgroundModes</key>
-        <string>location</string>
-        <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+      <string>location</string>
+      <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
     	<string>App needs location permissions to scan nearby beacons.</string>
     	<key>NSLocationWhenInUseUsageDescription</key>
     	<string>App needs location permissions to scan nearby beacons.</string>
@@ -132,7 +132,9 @@ In your pubspec.yaml
 
 ```yaml
 dependencies:
-  beacons_plugin: [Latest_Version]
+  beacons_plugin:
+    git:
+      url: https://github.com/dariocavada/simple_beacons_flutter.git
 ```
 
 ```dart
@@ -145,30 +147,25 @@ import 'package:beacons_plugin/beacons_plugin.dart';
 ## Ranging Beacons & Setting Up
 
 ```dart
-
-    if (Platform.isAndroid) {
-      BeaconsPlugin.addRegion(
-              "myBeacon", "01022022-f88f-0000-00ae-9605fd9bb620")
-          .then((result) {
-        print(result);
-      });
-    } else if (Platform.isIOS) {
-      BeaconsPlugin.addRegionForIOS(
-              "01022022-f88f-0000-00ae-9605fd9bb620", 1, 1, "BeaconName")
-          .then((result) {
-        print(result);
-      });
-    }
+    // if you need to monitor also major and minor use the original version and not this fork
+    BeaconsPlugin.addRegion("myBeacon", "01022022-f88f-0000-00ae-9605fd9bb620")
+        .then((result) {
+          print(result);
+        });
     
     //Send 'true' to run in background
     await BeaconsPlugin.runInBackground(true);
     
-    //IMPORTANT: Start monitoring once scanner is setup & ready
-    BeaconsPlugin.channel.setMethodCallHandler((call) async {
-      if (call.method == 'scannerReady') {
-        await BeaconsPlugin.startMonitoring;
-      }
-    });
+    //IMPORTANT: Start monitoring once scanner is setup & ready (only for Android)
+    if (Platform.isAndroid) {
+      BeaconsPlugin.channel.setMethodCallHandler((call) async {
+        if (call.method == 'scannerReady') {
+          await BeaconsPlugin.startMonitoring;
+        }
+      });
+    } else if (Platform.isIOS) {
+      await BeaconsPlugin.startMonitoring;
+    }
     
 ```
 
@@ -225,3 +222,5 @@ import 'package:beacons_plugin/beacons_plugin.dart';
 # Author
 
 Flutter Beacons plugin is developed by Umair Adil. You can email me at <m.umair.adil@gmail.com> for any queries.
+
+This forked version is adapted by Dario Cavada. https://www.dariocavada.com
