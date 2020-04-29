@@ -222,5 +222,3 @@ import 'package:beacons_plugin/beacons_plugin.dart';
 # Author
 
 Flutter Beacons plugin is developed by Umair Adil. You can email me at <m.umair.adil@gmail.com> for any queries.
-
-This forked version is adapted by Dario Cavada. https://www.dariocavada.com
