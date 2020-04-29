@@ -173,7 +173,7 @@ import 'package:beacons_plugin/beacons_plugin.dart';
 
 ```dart
     
-    StreamController<String> beaconEventsController = new StreamController();
+    final StreamController<String> beaconEventsController = StreamController<String>.broadcast();
     BeaconsPlugin.listenToBeacons(beaconEventsController);
     
     static listenToBeacons() async {
