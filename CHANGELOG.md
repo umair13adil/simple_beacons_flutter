@@ -1,3 +1,8 @@
+## 1.0.10
+
+* Fixed Beacons not detected in iOS.
+* Fixed background service not stopped issue on stop scanning event.
+
 ## 1.0.9
 
 * Fixed 'Beacon' JSON issue.

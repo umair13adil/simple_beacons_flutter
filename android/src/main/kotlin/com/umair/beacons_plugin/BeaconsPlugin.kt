@@ -38,6 +38,9 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware {
         @JvmStatic
         var runInBackground = false
 
+        @JvmStatic
+        var stopService = false
+
         interface PluginImpl {
             fun startScanning()
             fun stopMonitoringBeacons()
@@ -55,10 +58,19 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware {
             channel.setMethodCallHandler { call, result ->
                 when {
                     call.method == "startMonitoring" -> {
+                        stopService = false
                         callBack?.startScanning()
                         result.success("Started scanning Beacons.")
                     }
                     call.method == "stopMonitoring" -> {
+
+                        if (runInBackground) {
+                            stopService = true
+                            context.let {
+                                stopBackgroundService(it)
+                            }
+                        }
+
                         callBack?.stopMonitoringBeacons()
                         result.success("Stopped scanning Beacons.")
                     }
@@ -93,14 +105,14 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware {
         }
 
         fun startBackgroundService(context: Context) {
-            if (runInBackground) {
+            if (runInBackground && !stopService) {
                 val serviceIntent1 = Intent(context, BeaconsDiscoveryService::class.java)
                 context.startService(serviceIntent1)
             }
         }
 
         fun stopBackgroundService(context: Context) {
-            if (runInBackground) {
+            if (runInBackground && !stopService) {
                 val serviceIntent = Intent(context, BeaconsDiscoveryService::class.java)
                 context.stopService(serviceIntent)
             }

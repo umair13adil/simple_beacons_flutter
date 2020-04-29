@@ -13,8 +13,10 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   String _beaconResult = 'Not Scanned Yet.';
   int _nrMessaggesReceived = 0;
+  var isRunning = false;
 
-  StreamController<String> beaconEventsController = new StreamController();
+  final StreamController<String> beaconEventsController =
+      StreamController<String>.broadcast();
 
   @override
   void initState() {
@@ -32,8 +34,10 @@ class _MyAppState extends State<MyApp> {
   Future<void> initPlatformState() async {
     BeaconsPlugin.listenToBeacons(beaconEventsController);
 
-    await BeaconsPlugin.addRegion("BeaconType1", "909c3cf9-fc5c-4841-b695-380958a51a5a");
-    await BeaconsPlugin.addRegion("BeaconType2", "6a84c716-0f2a-1ce9-f210-6a63bd873dd9");
+    await BeaconsPlugin.addRegion(
+        "BeaconType1", "909c3cf9-fc5c-4841-b695-380958a51a5a");
+    await BeaconsPlugin.addRegion(
+        "BeaconType2", "6a84c716-0f2a-1ce9-f210-6a63bd873dd9");
 
     beaconEventsController.stream.listen(
         (data) {
@@ -57,10 +61,16 @@ class _MyAppState extends State<MyApp> {
       BeaconsPlugin.channel.setMethodCallHandler((call) async {
         if (call.method == 'scannerReady') {
           await BeaconsPlugin.startMonitoring;
+          setState(() {
+            isRunning = true;
+          });
         }
       });
     } else if (Platform.isIOS) {
       await BeaconsPlugin.startMonitoring;
+      setState(() {
+        isRunning = true;
+      });
     }
 
     if (!mounted) return;
@@ -82,7 +92,42 @@ class _MyAppState extends State<MyApp> {
               Padding(
                 padding: EdgeInsets.all(10.0),
               ),
-              Text('$_nrMessaggesReceived')
+              Text('$_nrMessaggesReceived'),
+              SizedBox(
+                height: 20.0,
+              ),
+              Visibility(
+                visible: isRunning,
+                child: RaisedButton(
+                  onPressed: () async {
+                    if (Platform.isAndroid) {
+                      await BeaconsPlugin.stopMonitoring;
+
+                      setState(() {
+                        isRunning = false;
+                      });
+                    }
+                  },
+                  child: Text('Stop Scanning', style: TextStyle(fontSize: 20)),
+                ),
+              ),
+              SizedBox(
+                height: 20.0,
+              ),
+              Visibility(
+                visible: !isRunning,
+                child: RaisedButton(
+                  onPressed: () async {
+                    initPlatformState();
+                    await BeaconsPlugin.startMonitoring;
+
+                    setState(() {
+                      isRunning = true;
+                    });
+                  },
+                  child: Text('Start Scanning', style: TextStyle(fontSize: 20)),
+                ),
+              )
             ],
           ),
         ),
