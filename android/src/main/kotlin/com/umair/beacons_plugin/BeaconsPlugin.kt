@@ -30,8 +30,8 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware {
 
     companion object {
 
-        private lateinit var channel: MethodChannel
-        private lateinit var event_channel: EventChannel
+        private var channel: MethodChannel? = null
+        private var event_channel: EventChannel? = null
 
         private val TAG = "BeaconsPlugin"
 
@@ -55,7 +55,7 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware {
             this.callBack = callBack
 
             channel = MethodChannel(messenger, "beacons_plugin")
-            channel.setMethodCallHandler { call, result ->
+            channel?.setMethodCallHandler { call, result ->
                 when {
                     call.method == "startMonitoring" -> {
                         stopService = false
@@ -88,7 +88,7 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware {
             }
 
             event_channel = EventChannel(messenger, "beacons_plugin_stream")
-            event_channel.setStreamHandler(object : EventChannel.StreamHandler {
+            event_channel?.setStreamHandler(object : EventChannel.StreamHandler {
                 override fun onListen(arguments: Any?, events: EventChannel.EventSink?) {
                     callBack?.setEventSink(events)
                 }
@@ -101,7 +101,7 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware {
         }
 
         fun sendBLEScannerReadyCallback() {
-            channel.invokeMethod("scannerReady", "")
+            channel?.invokeMethod("scannerReady", "")
         }
 
         fun startBackgroundService(context: Context) {
@@ -121,8 +121,8 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware {
 
     override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
         Log.i(TAG, "onDetachedFromEngine")
-        channel.setMethodCallHandler(null)
-        event_channel.setStreamHandler(null)
+        channel?.setMethodCallHandler(null)
+        event_channel?.setStreamHandler(null)
     }
 
     override fun onAttachedToActivity(activityPluginBinding: ActivityPluginBinding) {

@@ -1,3 +1,7 @@
+## 1.0.11
+
+* Handled initialization exception
+
 ## 1.0.10
 
 * Fixed Beacons not detected in iOS.
