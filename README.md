@@ -11,7 +11,7 @@ For Android change min *SDK version*:
 ```groovy
 defaultConfig {
   ...
-  minSdkVersion 18
+  minSdkVersion 19
   ...
 }
 ```
@@ -132,9 +132,7 @@ In your pubspec.yaml
 
 ```yaml
 dependencies:
-  beacons_plugin:
-    git:
-      url: https://github.com/dariocavada/simple_beacons_flutter.git
+  beacons_plugin: [LATEST_VERSION]
 ```
 
 ```dart
