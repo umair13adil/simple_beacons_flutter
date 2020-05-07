@@ -1,4 +1,4 @@
-## 1.0.11
+## 1.0.112
 
 * Handled initialization exception
 

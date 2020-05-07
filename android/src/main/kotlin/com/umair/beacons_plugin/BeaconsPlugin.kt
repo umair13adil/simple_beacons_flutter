@@ -52,6 +52,8 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware {
 
         @JvmStatic
         fun registerWith(messenger: BinaryMessenger, callBack: PluginImpl?, context: Context) {
+            Log.i(TAG, "registerWith: beacons_plugin")
+
             this.callBack = callBack
 
             channel = MethodChannel(messenger, "beacons_plugin")
@@ -101,6 +103,7 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware {
         }
 
         fun sendBLEScannerReadyCallback() {
+            Log.i(TAG, "sendBLEScannerReadyCallback")
             channel?.invokeMethod("scannerReady", "")
         }
 

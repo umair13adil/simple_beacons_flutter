@@ -1,8 +1,10 @@
 package com.umair.beacons_plugin
 
+import android.os.Bundle
 import android.util.Log
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
+import io.flutter.embedding.engine.renderer.FlutterUiDisplayListener
 import io.flutter.plugin.common.BinaryMessenger
 
 
@@ -21,15 +23,6 @@ open class BeaconsActivity : FlutterActivity() {
         var binaryMessenger: BinaryMessenger? = null
     }
 
-    override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
-        super.configureFlutterEngine(flutterEngine)
-        mFlutterEngine = flutterEngine
-
-        beaconHelper = BeaconHelper(this)
-
-        attachMethodChannels()
-    }
-
     private fun isPermissionGranted() {
         Log.i(TAG, "Location permissions are granted.")
 
@@ -39,6 +32,8 @@ open class BeaconsActivity : FlutterActivity() {
     }
 
     private fun attachMethodChannels() {
+        Log.i(TAG, "attachMethodChannels")
+
         mFlutterEngine?.dartExecutor?.binaryMessenger?.let { messenger ->
             binaryMessenger = messenger
             BeaconsPlugin.registerWith(messenger, beaconHelper, this)
@@ -67,5 +62,18 @@ open class BeaconsActivity : FlutterActivity() {
 
         //Stop Background service, app is in foreground
         BeaconsPlugin.stopBackgroundService(this)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        flutterEngine?.let {
+
+            mFlutterEngine = flutterEngine
+
+            beaconHelper = BeaconHelper(this)
+
+            attachMethodChannels()
+        }
     }
 }
