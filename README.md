@@ -151,7 +151,7 @@ import 'package:beacons_plugin/beacons_plugin.dart';
           print(result);
         });
     
-    //Send 'true' to run in background
+    //Send 'true' to run in background [OPTIONAL]
     await BeaconsPlugin.runInBackground(true);
     
     //IMPORTANT: Start monitoring once scanner is setup & ready (only for Android)
@@ -174,14 +174,6 @@ import 'package:beacons_plugin/beacons_plugin.dart';
     final StreamController<String> beaconEventsController = StreamController<String>.broadcast();
     BeaconsPlugin.listenToBeacons(beaconEventsController);
     
-    static listenToBeacons() async {
-        eventChannel.receiveBroadcastStream().listen((dynamic event) {
-          print('Received: $event');
-        }, onError: (dynamic error) {
-          print('Received error: ${error.message}');
-        });
-    }
-    
     beaconEventsController.stream.listen(
         (data) {
           if (data.isNotEmpty) {
@@ -195,6 +187,19 @@ import 'package:beacons_plugin/beacons_plugin.dart';
         onError: (error) {
           print("Error: $error");
         });
+```
+
+## Stop Listening to Beacons
+
+```dart
+     await BeaconsPlugin.stopMonitoring;
+```
+
+## Run in Background
+
+```dart
+    //Send 'true' to run in background
+     await BeaconsPlugin.runInBackground(true);
 ```
 
 ## Scan Results
