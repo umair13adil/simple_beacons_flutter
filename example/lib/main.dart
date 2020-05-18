@@ -2,8 +2,14 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:io' show Platform;
 import 'package:beacons_plugin/beacons_plugin.dart';
+import 'package:background_fetch/background_fetch.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(MyApp());
+  BeaconsPlugin.scanPeriodically(true, const Duration(minutes: 1));
+  BackgroundFetch.registerHeadlessTask(
+      BeaconsPlugin.backgroundFetchHeadlessTask);
+}
 
 class MyApp extends StatefulWidget {
   @override
@@ -14,6 +20,8 @@ class _MyAppState extends State<MyApp> {
   String _beaconResult = 'Not Scanned Yet.';
   int _nrMessaggesReceived = 0;
   var isRunning = false;
+  int _status = 0;
+  List<DateTime> _events = [];
 
   final StreamController<String> beaconEventsController =
       StreamController<String>.broadcast();
@@ -22,6 +30,28 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     initPlatformState();
+
+    BeaconsPlugin.setupBackgroundFetch((String taskId) async {
+      // This is the fetch-event callback.
+      print("[${BeaconsPlugin.TAG}] [BackgroundFetch] Event received $taskId");
+      setState(() {
+        _events.insert(0, new DateTime.now());
+      });
+      // IMPORTANT:  You must signal completion of your task or the OS can punish your app
+      // for taking too long in the background.
+      BackgroundFetch.finish(taskId);
+    }).then((int status) {
+      print(
+          '[${BeaconsPlugin.TAG}] [BackgroundFetch] configure success: $status');
+      setState(() {
+        _status = status;
+      });
+    }).catchError((e) {
+      print('[${BeaconsPlugin.TAG}] [BackgroundFetch] configure ERROR: $e');
+      setState(() {
+        _status = e;
+      });
+    });
   }
 
   @override
@@ -46,12 +76,12 @@ class _MyAppState extends State<MyApp> {
               _beaconResult = data;
               _nrMessaggesReceived++;
             });
-            print("Beacons DataReceived: " + data);
+            print("[${BeaconsPlugin.TAG}] Beacons DataReceived: " + data);
           }
         },
         onDone: () {},
         onError: (error) {
-          print("Error: $error");
+          print("[${BeaconsPlugin.TAG}] Error: $error");
         });
 
     //Send 'true' to run in background
