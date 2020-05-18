@@ -202,6 +202,13 @@ import 'package:beacons_plugin/beacons_plugin.dart';
      await BeaconsPlugin.runInBackground(true);
 ```
 
+## Scan after delay
+
+```dart
+    //Scan after specific delay [1 min]
+    await BeaconsPlugin.scanPeriodically(delayInMilliseconds: 1000 * 60);
+```
+
 ## Scan Results
 
 | Data | Android | iOS |
