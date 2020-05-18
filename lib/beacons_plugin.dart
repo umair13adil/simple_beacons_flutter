@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:isolate';
-
 import 'package:background_fetch/background_fetch.dart';
 import 'package:flutter/services.dart';
 
@@ -69,25 +67,9 @@ class BeaconsPlugin {
     });
   }
 
-  static void runOnTrigger() async {
-    await channel.invokeMethod('startMonitoring');
-    final DateTime now = DateTime.now();
-    final int isolateId = Isolate.current.hashCode;
-    print("[$TAG] [$now] Starting scanning beacons. $isolateId");
-
-    Timer.periodic(Duration(seconds: 10), (time) async {
-      await channel.invokeMethod('stopMonitoring');
-
-      print("[$TAG] [$now] Beacons scanning stopped. $isolateId");
-    });
-  }
-
-  static Future<String> scanPeriodically(
-      {int delayInMilliseconds}) async {
-    final String result = await channel.invokeMethod(
-        'scanPeriodically', <String, dynamic>{
-      'delayInMilliseconds': delayInMilliseconds
-    });
+  static Future<String> scanPeriodically({int delayInMilliseconds}) async {
+    final String result = await channel.invokeMethod('scanPeriodically',
+        <String, dynamic>{'delayInMilliseconds': delayInMilliseconds});
     print(result);
     return result;
   }
@@ -109,6 +91,10 @@ class BeaconsPlugin {
   /// This "Headless Task" is run when app is terminated.
   static void backgroundFetchHeadlessTask(String taskId) async {
     print('[$TAG] [BackgroundFetch] Headless event received.');
+
+    //Start Monitoring
+    await startMonitoring;
+
     BackgroundFetch.finish(taskId);
   }
 }
