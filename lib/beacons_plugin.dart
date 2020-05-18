@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:isolate';
 
-import 'package:android_alarm_manager/android_alarm_manager.dart';
 import 'package:background_fetch/background_fetch.dart';
 import 'package:flutter/services.dart';
 
@@ -70,16 +69,27 @@ class BeaconsPlugin {
     });
   }
 
-  static void printHello() {
+  static void runOnTrigger() async {
+    await channel.invokeMethod('startMonitoring');
     final DateTime now = DateTime.now();
     final int isolateId = Isolate.current.hashCode;
-    print("[$TAG] [$now] Hello, world! isolate=${isolateId} function='$printHello'");
+    print("[$TAG] [$now] Starting scanning beacons. $isolateId");
+
+    Timer.periodic(Duration(seconds: 10), (time) async {
+      await channel.invokeMethod('stopMonitoring');
+
+      print("[$TAG] [$now] Beacons scanning stopped. $isolateId");
+    });
   }
 
-  static void scanPeriodically(bool scanPeriodically, Duration duration) async {
-    final int helloAlarmID = 0;
-    await AndroidAlarmManager.initialize();
-    await AndroidAlarmManager.periodic(duration, helloAlarmID, printHello);
+  static Future<String> scanPeriodically(
+      {int delayInMilliseconds}) async {
+    final String result = await channel.invokeMethod(
+        'scanPeriodically', <String, dynamic>{
+      'delayInMilliseconds': delayInMilliseconds
+    });
+    print(result);
+    return result;
   }
 
   static Future<int> setupBackgroundFetch(Function callback) async {
@@ -87,7 +97,7 @@ class BeaconsPlugin {
         BackgroundFetchConfig(
             minimumFetchInterval: 15,
             stopOnTerminate: false,
-            enableHeadless: false,
+            enableHeadless: true,
             requiresBatteryNotLow: false,
             requiresCharging: false,
             requiresStorageNotLow: false,

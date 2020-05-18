@@ -5,12 +5,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b7b9ec39-f1d6-4277-a85a-8c6c793e0ff7" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/com/umair/beacons_plugin/AppUtils.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/umair/beacons_plugin/AppUtils.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/com/umair/beacons_plugin/BeaconHelper.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/umair/beacons_plugin/BeaconHelper.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/com/umair/beacons_plugin/BeaconsActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/umair/beacons_plugin/BeaconsActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/com/umair/beacons_plugin/BeaconsPlugin.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/umair/beacons_plugin/BeaconsPlugin.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/android/src/main/kotlin/com/umair/beacons_plugin/AppUtils.kt" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/android/src/main/kotlin/com/umair/beacons_plugin/AppUtils.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/android/src/main/kotlin/com/umair/beacons_plugin/BeaconHelper.kt" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/android/src/main/kotlin/com/umair/beacons_plugin/BeaconHelper.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/android/src/main/kotlin/com/umair/beacons_plugin/BeaconsActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/android/src/main/kotlin/com/umair/beacons_plugin/BeaconsActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/android/src/main/kotlin/com/umair/beacons_plugin/BeaconsPlugin.kt" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/android/src/main/kotlin/com/umair/beacons_plugin/BeaconsPlugin.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/example/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/example/android/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/example/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/example/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/example/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/lib/beacons_plugin.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/lib/beacons_plugin.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/pubspec.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/pubspec.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/beacons_plugin.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/beacons_plugin.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -19,54 +38,25 @@
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="Nexus_S_API_R" />
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>getPlatformVersion</find>
-      <find>Plugin Ex</find>
-      <find>_platformVersion</find>
-      <find>handle</find>
-      <find>startMonitoringItem</find>
-      <find>cubivue</find>
-      <find>simple_beacons_flutter</find>
-      <find>DataReceived:</find>
-      <find>dispose</find>
-      <find>[</find>
-      <find>beacon</find>
-      <find>addRegion</find>
-      <find>plugins.flutter.io/geofencing_plugin_background</find>
-      <find>geofencing_plugin_background</find>
-      <find>initialized</find>
-      <find>BeaconsPlugin</find>
-      <find>Started scanning Beacons.</find>
-      <find>Beacons DataReceived:</find>
-      <find>setEventSink</find>
-      <find>startMonitoring</find>
-      <find>AppDelegate.o</find>
-    </findStrings>
-    <replaceStrings>
-      <replace>umair</replace>
-    </replaceStrings>
-  </component>
   <component name="Git.Settings">
     <option name="ROOT_SYNC" value="SYNC" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_COMMON_BRANCH" value="test_ios" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="y" value="23" />
-    <option name="width" value="1440" />
-    <option name="height" value="797" />
-  </component>
+  <component name="ProjectId" id="1c5sOWBlGURSqwMJ1qk4OqqUak4" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="com.developerphil.adbidea.ui.ModuleChooserDialogHelper-SELECTED_MODULE" value="beacons_plugin_example_android" />
     <property name="dart.analysis.tool.window.force.activate" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="flutter.settings" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
@@ -75,18 +65,6 @@
       <recent name="$PROJECT_DIR$/lib" />
       <recent name="$PROJECT_DIR$/android/src/main/kotlin/com/umair/beacons_plugin" />
     </key>
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -355,6 +333,33 @@
     <MESSAGE value="Fixed iOS build issue." />
     <MESSAGE value="* Fixed Beacons not detected in iOS.&#10;* Fixed background service not stopped issue on stop scanning event." />
     <MESSAGE value="Updated ReadMe." />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated ReadMe." />
+    <MESSAGE value="- Added background_fetch &amp; alarm_manger plugins." />
+    <option name="LAST_COMMIT_MESSAGE" value="- Added background_fetch &amp; alarm_manger plugins." />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="320" y="87" key="#Console" timestamp="1589829982746">
+      <screen x="0" y="23" width="1440" height="797" />
+    </state>
+    <state x="320" y="87" key="#Console/0.23.1440.797@0.23.1440.797" timestamp="1589829982746" />
+    <state x="264" y="24" key="CommitChangelistDialog2" timestamp="1589830246660">
+      <screen x="0" y="23" width="1440" height="797" />
+    </state>
+    <state x="264" y="24" key="CommitChangelistDialog2/0.23.1440.797@0.23.1440.797" timestamp="1589830246660" />
+    <state width="1398" height="473" key="GridCell.Tab.0.bottom" timestamp="1589830062506">
+      <screen x="0" y="23" width="1440" height="797" />
+    </state>
+    <state width="1398" height="473" key="GridCell.Tab.0.bottom/0.23.1440.797@0.23.1440.797" timestamp="1589830062506" />
+    <state width="1398" height="473" key="GridCell.Tab.0.center" timestamp="1589830062505">
+      <screen x="0" y="23" width="1440" height="797" />
+    </state>
+    <state width="1398" height="473" key="GridCell.Tab.0.center/0.23.1440.797@0.23.1440.797" timestamp="1589830062505" />
+    <state width="1398" height="473" key="GridCell.Tab.0.left" timestamp="1589830062505">
+      <screen x="0" y="23" width="1440" height="797" />
+    </state>
+    <state width="1398" height="473" key="GridCell.Tab.0.left/0.23.1440.797@0.23.1440.797" timestamp="1589830062505" />
+    <state width="1398" height="473" key="GridCell.Tab.0.right" timestamp="1589830062506">
+      <screen x="0" y="23" width="1440" height="797" />
+    </state>
+    <state width="1398" height="473" key="GridCell.Tab.0.right/0.23.1440.797@0.23.1440.797" timestamp="1589830062506" />
   </component>
 </project>

@@ -39,6 +39,12 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware {
         var runInBackground = false
 
         @JvmStatic
+        var scanDelayMilliseconds = 0L
+
+        @JvmStatic
+        var lastScanTime = System.currentTimeMillis()
+
+        @JvmStatic
         var stopService = false
 
         interface PluginImpl {
@@ -83,7 +89,16 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware {
                         call.argument<Boolean>("background")?.let {
                             runInBackground = it
                         }
-                        result.success("App will run in background? $runInBackground")
+                        result.success("Plugin should run in background? $runInBackground")
+                    }
+                    call.method == "scanPeriodically" -> {
+                        call.argument<Int>("delayInMilliseconds")?.let {
+                            scanDelayMilliseconds = it.toLong()
+                        }
+                        if (scanDelayMilliseconds > 0L)
+                            result.success("Plugin will scan periodically after $scanDelayMilliseconds milliseconds delay.")
+                        else
+                            result.success("Plugin will scan immediately.")
                     }
                     else -> result.notImplemented()
                 }

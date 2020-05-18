@@ -14,8 +14,6 @@ dependencies:
 
   background_fetch: ^0.5.5
 
-  android_alarm_manager: ^0.4.5+11
-
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -6,7 +6,7 @@ import 'package:background_fetch/background_fetch.dart';
 
 void main() {
   runApp(MyApp());
-  BeaconsPlugin.scanPeriodically(true, const Duration(minutes: 1));
+
   BackgroundFetch.registerHeadlessTask(
       BeaconsPlugin.backgroundFetchHeadlessTask);
 }
@@ -86,6 +86,9 @@ class _MyAppState extends State<MyApp> {
 
     //Send 'true' to run in background
     await BeaconsPlugin.runInBackground(true);
+
+    //Scan after specific delay [1 min]
+    await BeaconsPlugin.scanPeriodically(delayInMilliseconds: 1000 * 60);
 
     if (Platform.isAndroid) {
       BeaconsPlugin.channel.setMethodCallHandler((call) async {

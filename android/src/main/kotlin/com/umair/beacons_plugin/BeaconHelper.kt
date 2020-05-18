@@ -142,7 +142,13 @@ open class BeaconHelper(var context: Context) : BeaconConsumer, BeaconsPlugin.Co
 
         //Log.i(TAG, "sendBeaconData: $message")
 
-        eventSink?.success(message)
+        if (BeaconsPlugin.scanDelayMilliseconds > 0L) {
+            if (shouldScanNow()) {
+                eventSink?.success(message)
+            }
+        } else {
+            eventSink?.success(message)
+        }
     }
 
     private fun startMonitoringBeacons(region: Region) {
@@ -164,7 +170,9 @@ open class BeaconHelper(var context: Context) : BeaconConsumer, BeaconsPlugin.Co
             beaconManager?.beaconParsers?.add(BeaconParser().setBeaconLayout("m:2-3=beac,i:4-19,i:20-21,i:22-23,p:24-24,d:25-25"))
             beaconManager?.beaconParsers?.add(BeaconParser().setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24"))
             beaconManager?.backgroundBetweenScanPeriod = 0
-            beaconManager?.backgroundScanPeriod = 1100
+            beaconManager?.backgroundScanPeriod = BeaconsPlugin.scanDelayMilliseconds
+            beaconManager?.foregroundScanPeriod = BeaconsPlugin.scanDelayMilliseconds
+            beaconManager?.foregroundBetweenScanPeriod = BeaconsPlugin.scanDelayMilliseconds
             beaconManager?.bind(this)
         } else {
             Log.e(TAG, "Location permissions are needed.")

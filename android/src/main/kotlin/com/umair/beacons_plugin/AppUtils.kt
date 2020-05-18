@@ -18,6 +18,7 @@ import io.reactivex.rxkotlin.subscribeBy
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
+import kotlin.math.abs
 
 private fun PackageManager.missingSystemFeature(name: String): Boolean = !hasSystemFeature(name)
 
@@ -132,4 +133,23 @@ fun Service.acquireWakeLock(intent: Intent?, wakeLockTAG: String) {
 fun isLocationPermissionGranted(context: Context): Boolean {
     return (PermissionsHelper.isPermissionGranted(context, Manifest.permission.ACCESS_FINE_LOCATION)
             || PermissionsHelper.isPermissionGranted(context, Manifest.permission.ACCESS_COARSE_LOCATION))
+}
+
+fun shouldScanNow(): Boolean {
+
+    try {
+        val savedTime = BeaconsPlugin.lastScanTime
+
+        //milliseconds
+        val different = Date().time - savedTime
+
+        if (abs(different) >= BeaconsPlugin.scanDelayMilliseconds) {
+            BeaconsPlugin.lastScanTime = System.currentTimeMillis()
+            return true
+        }
+    } catch (e: Exception) {
+        //e.printStackTrace();
+    }
+
+    return false
 }
