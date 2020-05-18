@@ -153,3 +153,13 @@ fun shouldScanNow(): Boolean {
 
     return false
 }
+
+fun formatTime(endTime: Long): String {
+
+    val dateFormat = SimpleDateFormat("HH:mm:ss", Locale.US)
+    dateFormat.timeZone = TimeZone.getTimeZone("UTC")
+
+    val date = Date(endTime)
+
+    return dateFormat.format(date)
+}

@@ -4,31 +4,14 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b7b9ec39-f1d6-4277-a85a-8c6c793e0ff7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
+    <list default="true" id="b7b9ec39-f1d6-4277-a85a-8c6c793e0ff7" name="Default Changelist" comment="- Added background_fetch &amp; alarm_manger plugins.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/com/umair/beacons_plugin/AppUtils.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/umair/beacons_plugin/AppUtils.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/com/umair/beacons_plugin/BeaconHelper.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/umair/beacons_plugin/BeaconHelper.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/com/umair/beacons_plugin/BeaconsActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/umair/beacons_plugin/BeaconsActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/com/umair/beacons_plugin/BeaconsPlugin.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/umair/beacons_plugin/BeaconsPlugin.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/android/src/main/kotlin/com/umair/beacons_plugin/AppUtils.kt" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/android/src/main/kotlin/com/umair/beacons_plugin/AppUtils.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/android/src/main/kotlin/com/umair/beacons_plugin/BeaconHelper.kt" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/android/src/main/kotlin/com/umair/beacons_plugin/BeaconHelper.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/android/src/main/kotlin/com/umair/beacons_plugin/BeaconsActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/android/src/main/kotlin/com/umair/beacons_plugin/BeaconsActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/android/src/main/kotlin/com/umair/beacons_plugin/BeaconsPlugin.kt" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/android/src/main/kotlin/com/umair/beacons_plugin/BeaconsPlugin.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/example/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/example/android/app/src/main/AndroidManifest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/example/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/example/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/example/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/lib/beacons_plugin.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/lib/beacons_plugin.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/pubspec.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/beacons_plugin.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/beacons_plugin.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -334,32 +317,41 @@
     <MESSAGE value="* Fixed Beacons not detected in iOS.&#10;* Fixed background service not stopped issue on stop scanning event." />
     <MESSAGE value="Updated ReadMe." />
     <MESSAGE value="- Added background_fetch &amp; alarm_manger plugins." />
-    <option name="LAST_COMMIT_MESSAGE" value="- Added background_fetch &amp; alarm_manger plugins." />
+    <MESSAGE value="- Added scan after delay logic." />
+    <option name="LAST_COMMIT_MESSAGE" value="- Added scan after delay logic." />
   </component>
   <component name="WindowStateProjectService">
-    <state x="320" y="87" key="#Console" timestamp="1589829982746">
+    <state x="320" y="87" key="#Console" timestamp="1589831211773">
       <screen x="0" y="23" width="1440" height="797" />
     </state>
-    <state x="320" y="87" key="#Console/0.23.1440.797@0.23.1440.797" timestamp="1589829982746" />
-    <state x="264" y="24" key="CommitChangelistDialog2" timestamp="1589830246660">
+    <state x="320" y="87" key="#Console/0.23.1440.797@0.23.1440.797" timestamp="1589831211773" />
+    <state x="264" y="24" key="CommitChangelistDialog2" timestamp="1589830266693">
       <screen x="0" y="23" width="1440" height="797" />
     </state>
-    <state x="264" y="24" key="CommitChangelistDialog2/0.23.1440.797@0.23.1440.797" timestamp="1589830246660" />
-    <state width="1398" height="473" key="GridCell.Tab.0.bottom" timestamp="1589830062506">
+    <state x="264" y="24" key="CommitChangelistDialog2/0.23.1440.797@0.23.1440.797" timestamp="1589830266693" />
+    <state width="1398" height="253" key="GridCell.Tab.0.bottom" timestamp="1589832069328">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="253" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1589832069328" />
+    <state width="1398" height="470" key="GridCell.Tab.0.bottom/0.23.1440.797@0.23.1440.797" timestamp="1589831261861" />
+    <state width="1398" height="253" key="GridCell.Tab.0.center" timestamp="1589832069327">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="253" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1589832069327" />
+    <state width="1398" height="470" key="GridCell.Tab.0.center/0.23.1440.797@0.23.1440.797" timestamp="1589831261860" />
+    <state width="1398" height="253" key="GridCell.Tab.0.left" timestamp="1589832069326">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="253" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1589832069326" />
+    <state width="1398" height="470" key="GridCell.Tab.0.left/0.23.1440.797@0.23.1440.797" timestamp="1589831261860" />
+    <state width="1398" height="253" key="GridCell.Tab.0.right" timestamp="1589832069327">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="253" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1589832069327" />
+    <state width="1398" height="470" key="GridCell.Tab.0.right/0.23.1440.797@0.23.1440.797" timestamp="1589831261861" />
+    <state x="320" y="161" key="Vcs.Push.Dialog.v2" timestamp="1589830277512">
       <screen x="0" y="23" width="1440" height="797" />
     </state>
-    <state width="1398" height="473" key="GridCell.Tab.0.bottom/0.23.1440.797@0.23.1440.797" timestamp="1589830062506" />
-    <state width="1398" height="473" key="GridCell.Tab.0.center" timestamp="1589830062505">
-      <screen x="0" y="23" width="1440" height="797" />
-    </state>
-    <state width="1398" height="473" key="GridCell.Tab.0.center/0.23.1440.797@0.23.1440.797" timestamp="1589830062505" />
-    <state width="1398" height="473" key="GridCell.Tab.0.left" timestamp="1589830062505">
-      <screen x="0" y="23" width="1440" height="797" />
-    </state>
-    <state width="1398" height="473" key="GridCell.Tab.0.left/0.23.1440.797@0.23.1440.797" timestamp="1589830062505" />
-    <state width="1398" height="473" key="GridCell.Tab.0.right" timestamp="1589830062506">
-      <screen x="0" y="23" width="1440" height="797" />
-    </state>
-    <state width="1398" height="473" key="GridCell.Tab.0.right/0.23.1440.797@0.23.1440.797" timestamp="1589830062506" />
+    <state x="320" y="161" key="Vcs.Push.Dialog.v2/0.23.1440.797@0.23.1440.797" timestamp="1589830277512" />
   </component>
 </project>

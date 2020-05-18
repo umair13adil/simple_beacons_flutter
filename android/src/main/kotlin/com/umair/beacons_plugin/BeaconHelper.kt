@@ -142,13 +142,7 @@ open class BeaconHelper(var context: Context) : BeaconConsumer, BeaconsPlugin.Co
 
         //Log.i(TAG, "sendBeaconData: $message")
 
-        if (BeaconsPlugin.scanDelayMilliseconds > 0L) {
-            if (shouldScanNow()) {
-                eventSink?.success(message)
-            }
-        } else {
-            eventSink?.success(message)
-        }
+        eventSink?.success(message)
     }
 
     private fun startMonitoringBeacons(region: Region) {
@@ -169,9 +163,17 @@ open class BeaconHelper(var context: Context) : BeaconConsumer, BeaconsPlugin.Co
             beaconManager = BeaconManager.getInstanceForApplication(context)
             beaconManager?.beaconParsers?.add(BeaconParser().setBeaconLayout("m:2-3=beac,i:4-19,i:20-21,i:22-23,p:24-24,d:25-25"))
             beaconManager?.beaconParsers?.add(BeaconParser().setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24"))
-            beaconManager?.backgroundBetweenScanPeriod = 0
-            beaconManager?.backgroundScanPeriod = BeaconsPlugin.scanDelayMilliseconds
-            beaconManager?.foregroundScanPeriod = BeaconsPlugin.scanDelayMilliseconds
+            beaconManager?.backgroundBetweenScanPeriod = if (BeaconsPlugin.scanDelayMilliseconds > 300000L) {
+                BeaconsPlugin.scanDelayMilliseconds
+            } else {
+                300000L
+            }
+            beaconManager?.backgroundScanPeriod = if (BeaconsPlugin.scanDelayMilliseconds > 10000L) {
+                BeaconsPlugin.scanDelayMilliseconds
+            } else {
+                10000L
+            }
+            beaconManager?.foregroundScanPeriod = 1100L
             beaconManager?.foregroundBetweenScanPeriod = BeaconsPlugin.scanDelayMilliseconds
             beaconManager?.bind(this)
         } else {
