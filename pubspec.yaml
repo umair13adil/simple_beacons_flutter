@@ -19,9 +19,6 @@ dev_dependencies:
     sdk: flutter
 
 flutter:
-  assets:
-    - success_01.mp3
-
   plugin:
     platforms:
       android:
