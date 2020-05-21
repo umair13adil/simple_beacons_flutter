@@ -78,6 +78,10 @@ Add following in *Android Manifest* file:
                 <service
                     android:name="org.altbeacon.beacon.BeaconIntentProcessor"
                     android:enabled="true" />
+            
+                
+
+
         </application>
 ```
 

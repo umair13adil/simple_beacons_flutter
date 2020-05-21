@@ -19,7 +19,11 @@ dev_dependencies:
     sdk: flutter
 
   beacons_plugin:
-    path: ../
+    git:
+      url: https://github.com/umair13adil/simple_beacons_flutter.git
+      ref: f82178288d6803cad4f6b94be96480a9babf5694
+#  beacons_plugin:
+#    path: ../
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

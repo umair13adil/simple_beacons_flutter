@@ -1,22 +1,28 @@
 PODS:
+  - background_fetch (0.5.5):
+    - Flutter
   - beacons_plugin (0.0.1):
     - Flutter
   - Flutter (1.0.0)
 
 DEPENDENCIES:
+  - background_fetch (from `.symlinks/plugins/background_fetch/ios`)
   - beacons_plugin (from `.symlinks/plugins/beacons_plugin/ios`)
   - Flutter (from `Flutter`)
 
 EXTERNAL SOURCES:
+  background_fetch:
+    :path: ".symlinks/plugins/background_fetch/ios"
   beacons_plugin:
     :path: ".symlinks/plugins/beacons_plugin/ios"
   Flutter:
     :path: Flutter
 
 SPEC CHECKSUMS:
+  background_fetch: 733393ca9893eadff0f7297a3818afe57fd68cb1
   beacons_plugin: 451bca1eea362d21793d61d58fa26d494cf19718
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
 
 PODFILE CHECKSUM: 1b66dae606f75376c5f2135a8290850eeb09ae83
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.8.3

@@ -32,6 +32,16 @@ class _MyAppState extends State<MyApp> {
     initPlatformState();
 
     BeaconsPlugin.setupBackgroundFetch((String taskId) async {
+      // Use a switch statement to route task-handling.
+      switch (taskId) {
+        case 'com.transistorsoft.customtask':
+          print(
+              "[${BeaconsPlugin.TAG}] [BackgroundFetch] Received custom task");
+          break;
+        default:
+          print("[${BeaconsPlugin.TAG}] [BackgroundFetch] Default fetch task");
+      }
+
       // This is the fetch-event callback.
       print("[${BeaconsPlugin.TAG}] [BackgroundFetch] Event received $taskId");
       setState(() {
@@ -52,6 +62,11 @@ class _MyAppState extends State<MyApp> {
         _status = e;
       });
     });
+
+    // Step 2:  Schedule a custom "oneshot" task "com.transistorsoft.customtask" to execute 5000ms from now.
+    /*BackgroundFetch.scheduleTask(TaskConfig(
+        taskId: "com.transistorsoft.customtask", delay: 5000 // <-- milliseconds
+        ));*/
   }
 
   @override
