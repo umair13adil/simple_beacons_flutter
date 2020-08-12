@@ -19,66 +19,25 @@ defaultConfig {
 Change your Android Project's *MainActivity* class to following:
 
 ```kotlin
-import com.umair.beacons_plugin.BeaconsActivity
-import io.flutter.embedding.engine.FlutterEngine
-import io.flutter.plugins.GeneratedPluginRegistrant
+import com.umair.beacons_plugin.BeaconsPlugin
+import io.flutter.embedding.android.FlutterActivity
 
-class MainActivity : BeaconsActivity(){
+class MainActivity : FlutterActivity(){
 
-    override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
-        super.configureFlutterEngine(flutterEngine)
-        GeneratedPluginRegistrant.registerWith(flutterEngine)
+    override fun onPause() {
+        super.onPause()
+
+        //Start Background service to scan BLE devices
+        BeaconsPlugin.startBackgroundService(this)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        //Stop Background service, app is in foreground
+        BeaconsPlugin.stopBackgroundService(this)
     }
 }
-```
-
-Add following dependency on *build.gradle* file:
-
-```groovy
-    implementation 'org.altbeacon:android-beacon-library:2.16.4'
-```
-
-Add following in *Android Manifest* file:
-
-```xml
-    
-        <uses-permission android:name="android.permission.BLUETOOTH" />
-        <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-        <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-        <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-        <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
-        <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-        <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-        <uses-permission android:name="android.permission.WAKE_LOCK" />
-    
-        <uses-feature
-            android:name="android.hardware.bluetooth_le"
-            android:required="true" />
-            
-        <application
-                android:icon="@mipmap/ic_launcher"
-                android:label="beacons_plugin_example">
-                <receiver
-                    android:name="com.umair.beacons_plugin.RebootBroadcastReceiver"
-                    android:enabled="true">
-                    <intent-filter>
-                        <action android:name="android.intent.action.BOOT_COMPLETED"></action>
-                    </intent-filter>
-                </receiver>
-        
-                <service
-                    android:name="com.umair.beacons_plugin.BeaconsDiscoveryService"
-                    android:exported="true" />
-        
-                <service
-                    android:name="org.altbeacon.beacon.service.BeaconService"
-                    android:enabled="true"
-                    android:isolatedProcess="false"
-                    android:label="beacon" />
-                <service
-                    android:name="org.altbeacon.beacon.BeaconIntentProcessor"
-                    android:enabled="true" />
-        </application>
 ```
 
 *That's it for Android.*
