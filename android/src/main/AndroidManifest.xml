@@ -14,9 +14,7 @@
         android:name="android.hardware.bluetooth_le"
         android:required="true" />
 
-    <application
-        android:icon="@mipmap/ic_launcher"
-        android:label="beacons_plugin_example">
+    <application>
         <receiver
             android:name="com.umair.beacons_plugin.BeaconsBroadcastReceiver"
             android:enabled="true"

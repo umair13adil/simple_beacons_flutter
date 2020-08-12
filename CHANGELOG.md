@@ -1,6 +1,10 @@
+## 1.0.15
+
+* Removed unecessary application attributes (Android)
+
 ## 1.0.14
 
-* Fixed missing new activity FLAG issue
+* Fixed missing new activity FLAG issue (Android)
 
 ## 1.0.13
 
