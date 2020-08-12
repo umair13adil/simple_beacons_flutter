@@ -23,7 +23,7 @@ class BeaconsDiscoveryService : Service() {
         super.onCreate()
         beaconHelper = BeaconHelper(this)
 
-        BeaconsActivity.binaryMessenger?.let {
+        BeaconsPlugin.messenger?.let {
             Log.i(TAG, "$TAG service running.")
             BeaconsPlugin.registerWith(it, beaconHelper, this)
             BeaconsPlugin.sendBLEScannerReadyCallback()

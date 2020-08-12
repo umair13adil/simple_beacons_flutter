@@ -43,12 +43,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
-    
-    //RxJava
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.9'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
-    implementation 'io.reactivex.rxjava2:rxkotlin:2.2.0'
-    implementation 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.5@aar'
+    implementation 'com.jakewharton.timber:timber:4.7.1'
 
     //Android Alt-Beacon Library
     implementation 'org.altbeacon:android-beacon-library:2.16.4'

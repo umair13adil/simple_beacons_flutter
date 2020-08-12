@@ -157,7 +157,7 @@ open class BeaconHelper(var context: Context) : BeaconConsumer, BeaconsPlugin.Co
     }
 
     private fun setUpBeaconManager(context: Context) {
-        if (isLocationPermissionGranted(context)) {
+        if (BeaconsPlugin.permissionsGranted(context)) {
 
             Log.i(TAG, "setUpBeaconManager")
             beaconManager = BeaconManager.getInstanceForApplication(context)

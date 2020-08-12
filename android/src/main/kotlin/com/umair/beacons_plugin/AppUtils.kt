@@ -1,7 +1,5 @@
 package com.umair.beacons_plugin
 
-import android.Manifest
-import android.app.Activity
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.Service
@@ -13,11 +11,8 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.PowerManager
 import androidx.core.app.NotificationCompat
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.rxkotlin.subscribeBy
 import java.text.SimpleDateFormat
 import java.util.*
-import java.util.concurrent.TimeUnit
 
 private fun PackageManager.missingSystemFeature(name: String): Boolean = !hasSystemFeature(name)
 
@@ -46,27 +41,6 @@ fun isBluetoothEnabled(content: Context) {
     setUpBlueToothAdapter(content)?.takeIf { it.isDisabled }?.apply {
         val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
         content.startActivity(enableBtIntent)
-    }
-}
-
-fun checkPermissions(activity: Activity, isGranted: () -> Unit) {
-
-    try {
-        //Request for storage permissions
-        PermissionsHelper.requestLocationPermissions(activity)
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .debounce(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
-                .subscribeBy(
-                        onNext = { callback ->
-                            isGranted.invoke()
-                        },
-                        onError = {
-                            it.printStackTrace()
-                        }
-                )
-    } catch (e: Exception) {
-        e.printStackTrace()
     }
 }
 
@@ -127,9 +101,4 @@ fun Service.acquireWakeLock(intent: Intent?, wakeLockTAG: String) {
         stopForeground(true)
         stopSelf()
     }
-}
-
-fun isLocationPermissionGranted(context: Context): Boolean {
-    return (PermissionsHelper.isPermissionGranted(context, Manifest.permission.ACCESS_FINE_LOCATION)
-            || PermissionsHelper.isPermissionGranted(context, Manifest.permission.ACCESS_COARSE_LOCATION))
 }

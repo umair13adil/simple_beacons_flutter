@@ -1,4 +1,9 @@
-## 1.0.112
+## 1.0.13
+
+* Updated client side code for Android
+* Added feature to stop background service on app killed (Android)
+
+## 1.0.12
 
 * Handled initialization exception
 

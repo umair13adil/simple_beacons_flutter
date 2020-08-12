@@ -1,19 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.umair.beacons_plugin_example">
 
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-
-    <uses-feature
-        android:name="android.hardware.bluetooth_le"
-        android:required="true" />
-
     <application
         android:icon="@mipmap/ic_launcher"
         android:label="beacons_plugin_example">
@@ -50,30 +37,5 @@
             android:name="flutterEmbedding"
             android:value="2" />
 
-        <receiver
-            android:name="com.umair.beacons_plugin.BeaconsBroadcastReceiver"
-            android:enabled="true"
-            android:exported="true" />
-
-        <receiver
-            android:name="com.umair.beacons_plugin.RebootBroadcastReceiver"
-            android:enabled="true">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"></action>
-            </intent-filter>
-        </receiver>
-
-        <service
-            android:name="com.umair.beacons_plugin.BeaconsDiscoveryService"
-            android:exported="true" />
-
-        <service
-            android:name="org.altbeacon.beacon.service.BeaconService"
-            android:enabled="true"
-            android:isolatedProcess="false"
-            android:label="beacon" />
-        <service
-            android:name="org.altbeacon.beacon.BeaconIntentProcessor"
-            android:enabled="true" />
     </application>
 </manifest>
