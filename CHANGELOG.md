@@ -1,3 +1,7 @@
+## 1.0.14
+
+* Fixed missing new activity FLAG issue
+
 ## 1.0.13
 
 * Updated client side code for Android

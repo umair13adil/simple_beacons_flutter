@@ -7,6 +7,7 @@ import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothManager
 import android.content.Context
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.PowerManager
@@ -40,6 +41,7 @@ fun isBluetoothEnabled(content: Context) {
 
     setUpBlueToothAdapter(content)?.takeIf { it.isDisabled }?.apply {
         val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+        enableBtIntent.addFlags(FLAG_ACTIVITY_NEW_TASK)
         content.startActivity(enableBtIntent)
     }
 }
