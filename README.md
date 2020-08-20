@@ -161,6 +161,13 @@ import 'package:beacons_plugin/beacons_plugin.dart';
      await BeaconsPlugin.runInBackground(true);
 ```
 
+## Set the level of debug messages 
+
+```dart
+    //Valid values: 0 = no messages, 1 = errors, 2 = all messages
+    await BeaconsPlugin.setDebugLevel(int value);
+```
+
 ## Scan Results
 
 | Data | Android | iOS |
