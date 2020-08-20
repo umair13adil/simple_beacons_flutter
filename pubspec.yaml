@@ -1,6 +1,6 @@
 name: beacons_plugin
 description: This plugin makes it easier to scan nearby iBeacons and range them in flutter app. Scaned beacons will provide proximity values.
-version: 1.0.15
+version: 1.0.16
 homepage: https://github.com/umair13adil/simple_beacons_flutter
 
 environment:
@@ -13,7 +13,7 @@ dependencies:
 
 dev_dependencies:
   flutter_test:
-    sdk: flutter
+    sdk: flutter 
 
 flutter:
   plugin:
