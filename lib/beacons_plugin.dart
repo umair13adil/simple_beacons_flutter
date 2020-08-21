@@ -67,8 +67,8 @@ class BeaconsPlugin {
 
   static listenToBeacons(StreamController controller) async {
     event_channel.receiveBroadcastStream().listen((dynamic event) {
-      printDebugMessage(event, 2);
-      controller.add('Received: $event');
+      printDebugMessage('Received: $event', 2);
+      controller.add(event);
     }, onError: (dynamic error) {
       printDebugMessage('Received error: ${error.message}', 1);
     });
