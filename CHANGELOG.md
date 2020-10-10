@@ -1,3 +1,7 @@
+## 1.0.17
+
+* Minor bug fixing
+
 ## 1.0.15
 
 * Removed unecessary application attributes (Android)
