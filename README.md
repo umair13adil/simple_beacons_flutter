@@ -74,8 +74,6 @@ In your *Info.plist* file add following lines:
 
 ```swift
     <dict>
-    	<key>UIBackgroundModes</key>
-      <string>location</string>
       <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
     	<string>App needs location permissions to scan nearby beacons.</string>
     	<key>NSLocationWhenInUseUsageDescription</key>
