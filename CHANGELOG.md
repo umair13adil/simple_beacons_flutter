@@ -1,3 +1,7 @@
+## 1.0.18
+- (Android) Removed ACCESS_BACKGROUND_LOCATION permission from plugin to prevent App Rejection
+- (iOS) Removed UIBackgroundModes key from info.pList from Plugin to prevent App Rejection
+
 ## 1.0.17
 
 * Minor bug fixing

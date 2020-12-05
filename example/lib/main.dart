@@ -3,7 +3,10 @@ import 'dart:async';
 import 'dart:io' show Platform;
 import 'package:beacons_plugin/beacons_plugin.dart';
 
-void main() => runApp(MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(MyApp());
+}
 
 class MyApp extends StatefulWidget {
   @override
