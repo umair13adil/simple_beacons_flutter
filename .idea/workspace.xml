@@ -36,21 +36,17 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b7b9ec39-f1d6-4277-a85a-8c6c793e0ff7" name="Default Changelist" comment="Released v1.13">
-      <change afterPath="$PROJECT_DIR$/android/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/.idea/runConfigurations.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="b7b9ec39-f1d6-4277-a85a-8c6c793e0ff7" name="Default Changelist" comment="Released v1.18&#10;&#10;- (Android) Removed ACCESS_BACKGROUND_LOCATION permission from plugin to prevent App Rejection&#10;- (iOS) Removed UIBackgroundModes key from info.pList from Plugin to prevent App Rejection">
+      <change afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/umair/beacons_plugin/BeaconPreferences.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/com/umair/beacons_plugin/AppUtils.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/umair/beacons_plugin/AppUtils.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/com/umair/beacons_plugin/BeaconsPlugin.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/umair/beacons_plugin/BeaconsPlugin.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/Runner/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Runner/Info.plist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/ios/Classes/SwiftBeaconsPlugin.swift" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/ios/Classes/SwiftBeaconsPlugin.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/beacons_plugin.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/beacons_plugin.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -347,7 +343,21 @@
       <option name="project" value="LOCAL" />
       <updated>1602335943320</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="Released v1.18&#10;&#10;- (Android) Removed ACCESS_BACKGROUND_LOCATION permission from plugin to prevent App Rejection&#10;- (iOS) Removed UIBackgroundModes key from info.pList from Plugin to prevent App Rejection">
+      <created>1607190137085</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1607190137085</updated>
+    </task>
+    <task id="LOCAL-00037" summary="Released v1.18&#10;&#10;- (Android) Removed ACCESS_BACKGROUND_LOCATION permission from plugin to prevent App Rejection&#10;- (iOS) Removed UIBackgroundModes key from info.pList from Plugin to prevent App Rejection">
+      <created>1607190178099</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1607190178099</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -396,7 +406,8 @@
     <MESSAGE value="Released v1.14" />
     <MESSAGE value="Released v1.15" />
     <MESSAGE value="Released v1.0.17" />
-    <option name="LAST_COMMIT_MESSAGE" value="Released v1.0.17" />
+    <MESSAGE value="Released v1.18&#10;&#10;- (Android) Removed ACCESS_BACKGROUND_LOCATION permission from plugin to prevent App Rejection&#10;- (iOS) Removed UIBackgroundModes key from info.pList from Plugin to prevent App Rejection" />
+    <option name="LAST_COMMIT_MESSAGE" value="Released v1.18&#10;&#10;- (Android) Removed ACCESS_BACKGROUND_LOCATION permission from plugin to prevent App Rejection&#10;- (iOS) Removed UIBackgroundModes key from info.pList from Plugin to prevent App Rejection" />
   </component>
   <component name="WindowStateProjectService">
     <state x="254" y="23" key="CommitChangelistDialog2" timestamp="1602335943107">
@@ -407,37 +418,38 @@
       <screen x="0" y="23" width="1440" height="797" />
     </state>
     <state x="100" y="123" width="1240" height="597" key="DiffContextDialog/0.23.1440.797@0.23.1440.797" timestamp="1602335894948" />
-    <state width="1398" height="174" key="GridCell.Tab.0.bottom" timestamp="1607189978404">
+    <state width="1398" height="151" key="GridCell.Tab.0.bottom" timestamp="1607711637076">
       <screen x="0" y="23" width="1440" height="797" />
     </state>
     <state width="1398" height="362" key="GridCell.Tab.0.bottom/0.23.1440.797/1440.23.1600.877/-1050.-195.1050.1657@0.23.1440.797" timestamp="1603178765686" />
-    <state width="1398" height="174" key="GridCell.Tab.0.bottom/0.23.1440.797@0.23.1440.797" timestamp="1607189978404" />
-    <state width="1398" height="174" key="GridCell.Tab.0.center" timestamp="1607189978404">
+    <state width="1398" height="151" key="GridCell.Tab.0.bottom/0.23.1440.797@0.23.1440.797" timestamp="1607711637076" />
+    <state width="1398" height="151" key="GridCell.Tab.0.center" timestamp="1607711637075">
       <screen x="0" y="23" width="1440" height="797" />
     </state>
     <state width="1398" height="362" key="GridCell.Tab.0.center/0.23.1440.797/1440.23.1600.877/-1050.-195.1050.1657@0.23.1440.797" timestamp="1603178765685" />
-    <state width="1398" height="174" key="GridCell.Tab.0.center/0.23.1440.797@0.23.1440.797" timestamp="1607189978404" />
-    <state width="1398" height="174" key="GridCell.Tab.0.left" timestamp="1607189978403">
+    <state width="1398" height="151" key="GridCell.Tab.0.center/0.23.1440.797@0.23.1440.797" timestamp="1607711637075" />
+    <state width="1398" height="151" key="GridCell.Tab.0.left" timestamp="1607711637075">
       <screen x="0" y="23" width="1440" height="797" />
     </state>
     <state width="1398" height="362" key="GridCell.Tab.0.left/0.23.1440.797/1440.23.1600.877/-1050.-195.1050.1657@0.23.1440.797" timestamp="1603178765685" />
-    <state width="1398" height="174" key="GridCell.Tab.0.left/0.23.1440.797@0.23.1440.797" timestamp="1607189978403" />
-    <state width="1398" height="174" key="GridCell.Tab.0.right" timestamp="1607189978404">
+    <state width="1398" height="151" key="GridCell.Tab.0.left/0.23.1440.797@0.23.1440.797" timestamp="1607711637075" />
+    <state width="1398" height="151" key="GridCell.Tab.0.right" timestamp="1607711637076">
       <screen x="0" y="23" width="1440" height="797" />
     </state>
     <state width="1398" height="362" key="GridCell.Tab.0.right/0.23.1440.797/1440.23.1600.877/-1050.-195.1050.1657@0.23.1440.797" timestamp="1603178765686" />
-    <state width="1398" height="174" key="GridCell.Tab.0.right/0.23.1440.797@0.23.1440.797" timestamp="1607189978404" />
-    <state x="320" y="191" key="Vcs.Push.Dialog.v2" timestamp="1602335946503">
+    <state width="1398" height="151" key="GridCell.Tab.0.right/0.23.1440.797@0.23.1440.797" timestamp="1607711637076" />
+    <state x="320" y="191" key="Vcs.Push.Dialog.v2" timestamp="1607190184708">
       <screen x="0" y="23" width="1440" height="797" />
     </state>
-    <state x="320" y="191" key="Vcs.Push.Dialog.v2/0.23.1440.797@0.23.1440.797" timestamp="1602335946503" />
+    <state x="320" y="191" key="Vcs.Push.Dialog.v2/0.23.1440.797@0.23.1440.797" timestamp="1607190184708" />
     <state x="500" y="345" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1607188309220">
       <screen x="0" y="23" width="1440" height="797" />
     </state>
     <state x="500" y="345" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1440.797@0.23.1440.797" timestamp="1607188309220" />
-    <state x="1854" y="224" width="975" height="486" key="find.popup" timestamp="1601992759568">
-      <screen x="1440" y="23" width="1600" height="877" />
+    <state x="373" y="206" width="878" height="499" key="find.popup" timestamp="1607672123549">
+      <screen x="0" y="0" width="1440" height="900" />
     </state>
+    <state x="373" y="206" width="878" height="499" key="find.popup/0.0.1440.900/-1680.-267.1680.1050@0.0.1440.900" timestamp="1607672123549" />
     <state x="1854" y="224" width="975" height="486" key="find.popup/0.23.1440.797/1440.23.1600.877/-1050.-195.1050.1657@1440.23.1600.877" timestamp="1601992759568" />
     <state x="1905" y="213" width="670" height="676" key="search.everywhere.popup" timestamp="1601992800399">
       <screen x="1440" y="23" width="1600" height="877" />

@@ -1,3 +1,7 @@
+## 1.0.19
+- (Android) Added option to set custom title & message for Disclosure dialog
+- (Android) FIxed dialog always shown issue
+
 ## 1.0.18
 - (Android) Removed ACCESS_BACKGROUND_LOCATION permission from plugin to prevent App Rejection
 - (iOS) Removed UIBackgroundModes key from info.pList from Plugin to prevent App Rejection

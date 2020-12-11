@@ -166,6 +166,22 @@ import 'package:beacons_plugin/beacons_plugin.dart';
     await BeaconsPlugin.setDebugLevel(int value);
 ```
 
+## Set Prominent Disclosure message (Android 10)
+See: [Link](https://developer.android.com/training/location/permissions)
+
+```dart
+    if (Platform.isAndroid) {
+    
+      //Prominent disclosure
+      await BeaconsPlugin.setDisclosureDialogMessage(
+          title: "Need Location Permission",
+          message: "This app collects location data to work with beacons.");
+
+      //Only in case, you want the dialog to be shown again. By Default, dialog will never be shown if permissions are granted.
+      await BeaconsPlugin.clearDisclosureDialogShowFlag(false);
+    }
+```
+
 ## Scan Results
 
 | Data | Android | iOS |

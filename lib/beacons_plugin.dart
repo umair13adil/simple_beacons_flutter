@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:ffi';
 
 import 'package:flutter/services.dart';
 
@@ -46,6 +45,24 @@ class BeaconsPlugin {
       'runInBackground',
       <String, dynamic>{'background': runInBackground},
     );
+    printDebugMessage(result, 2);
+    return result;
+  }
+
+  static Future<String> clearDisclosureDialogShowFlag(bool clearFlag) async {
+    final String result = await channel.invokeMethod(
+      'clearDisclosureDialogShowFlag',
+      <String, dynamic>{'clearFlag': clearFlag},
+    );
+    printDebugMessage(result, 2);
+    return result;
+  }
+
+  static Future<String> setDisclosureDialogMessage(
+      {String title, String message}) async {
+    final String result = await channel.invokeMethod(
+        'setDisclosureDialogMessage',
+        <String, dynamic>{'title': title, 'message': message});
     printDebugMessage(result, 2);
     return result;
   }

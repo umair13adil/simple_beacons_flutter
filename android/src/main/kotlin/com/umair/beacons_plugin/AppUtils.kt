@@ -15,6 +15,8 @@ import androidx.core.app.NotificationCompat
 import java.text.SimpleDateFormat
 import java.util.*
 
+val PREF_PERMISSION_DIALOG_SHOWN = "dialog_shown"
+
 private fun PackageManager.missingSystemFeature(name: String): Boolean = !hasSystemFeature(name)
 
 fun hasBLEFeature(activity: Context): Boolean {
@@ -103,4 +105,16 @@ fun Service.acquireWakeLock(intent: Intent?, wakeLockTAG: String) {
         stopForeground(true)
         stopSelf()
     }
+}
+
+fun isPermissionDialogShown(): Boolean {
+    return BeaconPreferences.getInstance().getBoolean(PREF_PERMISSION_DIALOG_SHOWN, false)
+}
+
+fun setPermissionDialogShown() {
+    BeaconPreferences.getInstance().save(PREF_PERMISSION_DIALOG_SHOWN, true)
+}
+
+fun clearPermissionDialogShownFlag() {
+    BeaconPreferences.getInstance().save(PREF_PERMISSION_DIALOG_SHOWN, false)
 }

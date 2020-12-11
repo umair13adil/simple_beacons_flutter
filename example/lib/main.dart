@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:io' show Platform;
+
 import 'package:beacons_plugin/beacons_plugin.dart';
+import 'package:flutter/material.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,6 +36,16 @@ class _MyAppState extends State<MyApp> {
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
+    if (Platform.isAndroid) {
+      //Prominent disclosure
+      await BeaconsPlugin.setDisclosureDialogMessage(
+          title: "Need Location Permission",
+          message: "This app collects location data to work with beacons.");
+
+      //Only in case, you want the dialog to be shown again. By Default, dialog will never be shown if permissions are granted.
+      //await BeaconsPlugin.clearDisclosureDialogShowFlag(false);
+    }
+
     BeaconsPlugin.listenToBeacons(beaconEventsController);
 
     await BeaconsPlugin.addRegion(
