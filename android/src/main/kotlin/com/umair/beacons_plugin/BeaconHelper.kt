@@ -152,7 +152,7 @@ open class BeaconHelper(var context: Context) : BeaconConsumer, BeaconsPlugin.Co
             beaconManager?.startRangingBeaconsInRegion(region)
         } catch (e: RemoteException) {
             e.printStackTrace()
-            Log.e(TAG, e.message)
+            Log.e(TAG, e.message.toString())
         }
     }
 
