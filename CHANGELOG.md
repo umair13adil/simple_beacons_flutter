@@ -1,3 +1,6 @@
+## 1.0.20
+- Clear added regions feature added
+
 ## 1.0.19
 - (Android) Added option to set custom title & message for Disclosure dialog
 - (Android) FIxed dialog always shown issue

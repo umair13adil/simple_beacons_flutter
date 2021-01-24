@@ -159,6 +159,12 @@ import 'package:beacons_plugin/beacons_plugin.dart';
      await BeaconsPlugin.runInBackground(true);
 ```
 
+## Clear Regions
+
+```dart
+    await BeaconsPlugin.clearRegions();
+```
+
 ## Set the level of debug messages 
 
 ```dart
