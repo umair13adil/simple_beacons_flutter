@@ -31,7 +31,7 @@ open class BeaconHelper(var context: Context) : BeaconConsumer, BeaconsPlugin.Co
     companion object {
 
         @JvmStatic
-        private val listOfRegions = arrayListOf<Region>()
+        private var listOfRegions = arrayListOf<Region>()
     }
 
     private val TAG = "BeaconHelper"
@@ -189,6 +189,13 @@ open class BeaconHelper(var context: Context) : BeaconConsumer, BeaconsPlugin.Co
 
         result.success("Region Added: ${region.uniqueId}, UUID: ${region.id1}")
         Log.i(TAG, "Region Added: ${region.uniqueId}, UUID: ${region.id1}")
+    }
+
+    override fun clearRegions(call: MethodCall, result: MethodChannel.Result) {
+        listOfRegions = arrayListOf<Region>()
+
+        result.success("Regions Cleared")
+        Log.i(TAG, "Regions Cleared")
     }
 
     override fun startScanning() {

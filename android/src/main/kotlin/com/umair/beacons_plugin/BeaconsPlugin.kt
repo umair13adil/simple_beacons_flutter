@@ -113,6 +113,9 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware, PluginRegistry.RequestPermis
                     call.method == "addRegion" -> {
                         callBack?.addRegion(call, result)
                     }
+                    call.method == "clearRegions" -> {
+                        callBack?.clearRegions(call, result)
+                    }
                     call.method == "runInBackground" -> {
                         call.argument<Boolean>("background")?.let {
                             runInBackground = it
@@ -278,6 +281,7 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware, PluginRegistry.RequestPermis
             fun startScanning()
             fun stopMonitoringBeacons()
             fun addRegion(call: MethodCall, result: MethodChannel.Result)
+            fun clearRegions(call: MethodCall, result: MethodChannel.Result)
             fun setEventSink(events: EventChannel.EventSink?)
         }
 

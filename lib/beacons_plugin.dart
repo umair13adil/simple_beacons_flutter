@@ -40,6 +40,12 @@ class BeaconsPlugin {
     return result;
   }
 
+  static Future<String> clearRegions() async {
+    final String result = await channel.invokeMethod('clearRegions');
+    printDebugMessage(result, 2);
+    return result;
+  }
+
   static Future<String> runInBackground(bool runInBackground) async {
     final String result = await channel.invokeMethod(
       'runInBackground',

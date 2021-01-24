@@ -56,6 +56,9 @@ public class SwiftBeaconsPlugin: NSObject, FlutterPlugin {
             } else {
                 result("iOS could not extract flutter arguments in method: (addRegion)")
             }
+        } else if call.method == "clearRegions"{
+            clearRegions()
+            result("Regions cleared.")
         } else if call.method == "startMonitoring"{
             locationManager.delegate = self
             startScanning()
@@ -81,6 +84,10 @@ public class SwiftBeaconsPlugin: NSObject, FlutterPlugin {
         // let newItem = Item(name: name, uuid: uuid, majorValue: major, minorValue: minor)
         let newItem = Item(name: name, uuid: uuid)
         listOfRegions.append(newItem)
+    }
+
+    func clearRegions() {
+        listOfRegions = [Item]()
     }
 
     func startMonitoringItem(_ item: Item) {
