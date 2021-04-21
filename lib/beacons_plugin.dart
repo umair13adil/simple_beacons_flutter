@@ -21,59 +21,52 @@ class BeaconsPlugin {
     }
   }
 
-  static Future<String> get startMonitoring async {
+  static Future<void> startMonitoring() async {
     final String result = await channel.invokeMethod('startMonitoring');
     printDebugMessage(result, 2);
-    return result;
   }
 
-  static Future<String> get stopMonitoring async {
+  static Future<void> stopMonitoring() async {
     final String result = await channel.invokeMethod('stopMonitoring');
     printDebugMessage(result, 2);
-    return result;
   }
 
-  static Future<String> addRegion(String identifier, String uuid) async {
+  static Future<void> addRegion(String identifier, String uuid) async {
     final String result = await channel.invokeMethod(
         'addRegion', <String, dynamic>{'identifier': identifier, 'uuid': uuid});
     printDebugMessage(result, 2);
-    return result;
   }
 
-  static Future<String> clearRegions() async {
+  static Future<void> clearRegions() async {
     final String result = await channel.invokeMethod('clearRegions');
     printDebugMessage(result, 2);
-    return result;
   }
 
-  static Future<String> runInBackground(bool runInBackground) async {
+  static Future<void> runInBackground(bool runInBackground) async {
     final String result = await channel.invokeMethod(
       'runInBackground',
       <String, dynamic>{'background': runInBackground},
     );
     printDebugMessage(result, 2);
-    return result;
   }
 
-  static Future<String> clearDisclosureDialogShowFlag(bool clearFlag) async {
+  static Future<void> clearDisclosureDialogShowFlag(bool clearFlag) async {
     final String result = await channel.invokeMethod(
       'clearDisclosureDialogShowFlag',
       <String, dynamic>{'clearFlag': clearFlag},
     );
     printDebugMessage(result, 2);
-    return result;
   }
 
-  static Future<String> setDisclosureDialogMessage(
+  static Future<void> setDisclosureDialogMessage(
       {String title, String message}) async {
     final String result = await channel.invokeMethod(
         'setDisclosureDialogMessage',
         <String, dynamic>{'title': title, 'message': message});
     printDebugMessage(result, 2);
-    return result;
   }
 
-  static Future<String> addRegionForIOS(
+  static Future<void> addRegionForIOS(
       String uuid, int major, int minor, String name) async {
     final String result = await channel.invokeMethod(
       'addRegionForIOS',
@@ -85,7 +78,6 @@ class BeaconsPlugin {
       },
     );
     printDebugMessage(result, 2);
-    return result;
   }
 
   static listenToBeacons(StreamController controller) async {

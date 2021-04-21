@@ -74,14 +74,14 @@ class _MyAppState extends State<MyApp> {
     if (Platform.isAndroid) {
       BeaconsPlugin.channel.setMethodCallHandler((call) async {
         if (call.method == 'scannerReady') {
-          await BeaconsPlugin.startMonitoring;
+          await BeaconsPlugin.startMonitoring();
           setState(() {
             isRunning = true;
           });
         }
       });
     } else if (Platform.isIOS) {
-      await BeaconsPlugin.startMonitoring;
+      await BeaconsPlugin.startMonitoring();
       setState(() {
         isRunning = true;
       });
@@ -110,38 +110,28 @@ class _MyAppState extends State<MyApp> {
               SizedBox(
                 height: 20.0,
               ),
-              Visibility(
-                visible: isRunning,
-                child: RaisedButton(
-                  onPressed: () async {
-                    if (Platform.isAndroid) {
-                      await BeaconsPlugin.stopMonitoring;
-
-                      setState(() {
-                        isRunning = false;
-                      });
+              ElevatedButton(
+                onPressed: () async {
+                  if (Platform.isAndroid) {
+                    if(isRunning)
+                    {
+                      await BeaconsPlugin.stopMonitoring();
                     }
-                  },
-                  child: Text('Stop Scanning', style: TextStyle(fontSize: 20)),
-                ),
+                    else
+                    {
+                      initPlatformState();
+                      await BeaconsPlugin.startMonitoring();
+                    }
+                    setState(() {
+                      isRunning = !isRunning;
+                    });
+                  }
+                },
+                child: Text(isRunning?'Stop Scanning':'Start Scanning', style: TextStyle(fontSize: 20)),
               ),
               SizedBox(
                 height: 20.0,
               ),
-              Visibility(
-                visible: !isRunning,
-                child: RaisedButton(
-                  onPressed: () async {
-                    initPlatformState();
-                    await BeaconsPlugin.startMonitoring;
-
-                    setState(() {
-                      isRunning = true;
-                    });
-                  },
-                  child: Text('Start Scanning', style: TextStyle(fontSize: 20)),
-                ),
-              )
             ],
           ),
         ),
