@@ -115,11 +115,11 @@ import 'package:beacons_plugin/beacons_plugin.dart';
     if (Platform.isAndroid) {
       BeaconsPlugin.channel.setMethodCallHandler((call) async {
         if (call.method == 'scannerReady') {
-          await BeaconsPlugin.startMonitoring;
+          await BeaconsPlugin.startMonitoring();
         }
       });
     } else if (Platform.isIOS) {
-      await BeaconsPlugin.startMonitoring;
+      await BeaconsPlugin.startMonitoring();
     }
     
 ```
@@ -149,7 +149,7 @@ import 'package:beacons_plugin/beacons_plugin.dart';
 ## Stop Listening to Beacons
 
 ```dart
-     await BeaconsPlugin.stopMonitoring;
+     await BeaconsPlugin.stopMonitoring();
 ```
 
 ## Run in Background
