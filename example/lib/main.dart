@@ -112,20 +112,18 @@ class _MyAppState extends State<MyApp> {
               ),
               ElevatedButton(
                 onPressed: () async {
-                  if (Platform.isAndroid) {
-                    if(isRunning)
-                    {
-                      await BeaconsPlugin.stopMonitoring();
-                    }
-                    else
-                    {
-                      initPlatformState();
-                      await BeaconsPlugin.startMonitoring();
-                    }
-                    setState(() {
-                      isRunning = !isRunning;
-                    });
+                  if(isRunning)
+                  {
+                    await BeaconsPlugin.stopMonitoring();
                   }
+                  else
+                  {
+                    initPlatformState();
+                    await BeaconsPlugin.startMonitoring();
+                  }
+                  setState(() {
+                    isRunning = !isRunning;
+                  });
                 },
                 child: Text(isRunning?'Stop Scanning':'Start Scanning', style: TextStyle(fontSize: 20)),
               ),
