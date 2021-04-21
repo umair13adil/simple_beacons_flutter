@@ -15,35 +15,35 @@ class BeaconsPlugin {
   }
 
   // Send the message [msg] with the [msgDebugLevel] value. 1 = error, 2 = info
-  static void printDebugMessage(String msg, int msgDebugLevel) {
+  static void printDebugMessage(String? msg, int msgDebugLevel) {
     if (_debugLevel >= msgDebugLevel) {
       print('beacons_plugin: $msg');
     }
   }
 
   static Future<void> startMonitoring() async {
-    final String result = await channel.invokeMethod('startMonitoring');
+    final String? result = await channel.invokeMethod('startMonitoring');
     printDebugMessage(result, 2);
   }
 
   static Future<void> stopMonitoring() async {
-    final String result = await channel.invokeMethod('stopMonitoring');
+    final String? result = await channel.invokeMethod('stopMonitoring');
     printDebugMessage(result, 2);
   }
 
   static Future<void> addRegion(String identifier, String uuid) async {
-    final String result = await channel.invokeMethod(
+    final String? result = await channel.invokeMethod(
         'addRegion', <String, dynamic>{'identifier': identifier, 'uuid': uuid});
     printDebugMessage(result, 2);
   }
 
   static Future<void> clearRegions() async {
-    final String result = await channel.invokeMethod('clearRegions');
+    final String? result = await channel.invokeMethod('clearRegions');
     printDebugMessage(result, 2);
   }
 
   static Future<void> runInBackground(bool runInBackground) async {
-    final String result = await channel.invokeMethod(
+    final String? result = await channel.invokeMethod(
       'runInBackground',
       <String, dynamic>{'background': runInBackground},
     );
@@ -51,7 +51,7 @@ class BeaconsPlugin {
   }
 
   static Future<void> clearDisclosureDialogShowFlag(bool clearFlag) async {
-    final String result = await channel.invokeMethod(
+    final String? result = await channel.invokeMethod(
       'clearDisclosureDialogShowFlag',
       <String, dynamic>{'clearFlag': clearFlag},
     );
@@ -59,8 +59,8 @@ class BeaconsPlugin {
   }
 
   static Future<void> setDisclosureDialogMessage(
-      {String title, String message}) async {
-    final String result = await channel.invokeMethod(
+      {String? title, String? message}) async {
+    final String? result = await channel.invokeMethod(
         'setDisclosureDialogMessage',
         <String, dynamic>{'title': title, 'message': message});
     printDebugMessage(result, 2);
@@ -68,7 +68,7 @@ class BeaconsPlugin {
 
   static Future<void> addRegionForIOS(
       String uuid, int major, int minor, String name) async {
-    final String result = await channel.invokeMethod(
+    final String? result = await channel.invokeMethod(
       'addRegionForIOS',
       <String, dynamic>{
         'uuid': uuid,
