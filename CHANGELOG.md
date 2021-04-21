@@ -1,3 +1,6 @@
+## 2.0.0
+- Migrated to null safety
+
 ## 1.0.20
 - Clear added regions feature added
 
