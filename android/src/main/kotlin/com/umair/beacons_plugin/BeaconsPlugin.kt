@@ -18,14 +18,18 @@ import timber.log.Timber
 
 
 /** BeaconsPlugin */
-class BeaconsPlugin : FlutterPlugin, ActivityAware, PluginRegistry.RequestPermissionsResultListener {
+class BeaconsPlugin : FlutterPlugin, ActivityAware,
+    PluginRegistry.RequestPermissionsResultListener {
 
     private var context: Context? = null
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         Timber.i("onAttachedToEngine")
         messenger = flutterPluginBinding.binaryMessenger
-        setUpPluginMethods(flutterPluginBinding.applicationContext, flutterPluginBinding.binaryMessenger)
+        setUpPluginMethods(
+            flutterPluginBinding.applicationContext,
+            flutterPluginBinding.binaryMessenger
+        )
         context = flutterPluginBinding.applicationContext
         beaconHelper = BeaconHelper(flutterPluginBinding.applicationContext)
         context?.let {
@@ -44,7 +48,8 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware, PluginRegistry.RequestPermis
         private var beaconHelper: BeaconHelper? = null
 
         private var defaultPermissionDialogTitle = "This app needs background location access"
-        private var defaultPermissionDialogMessage = "Please grant location access so this app can detect beacons in the background."
+        private var defaultPermissionDialogMessage =
+            "Please grant location access so this app can detect beacons in the background."
 
         @JvmStatic
         internal var messenger: BinaryMessenger? = null
@@ -142,6 +147,50 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware, PluginRegistry.RequestPermis
                         }
                         result.success("Disclosure message Set: $defaultPermissionDialogMessage")
                     }
+                    call.method == "addBeaconLayoutForAndroid" -> {
+                        call.argument<String>("layout")?.let {
+                            callBack?.addBeaconLayout(it)
+                            result.success("Beacon layout added: $it")
+                        }
+                    }
+                    call.method == "setForegroundScanPeriodForAndroid" -> {
+                        var foregroundScanPeriod = 1100L
+                        var foregroundBetweenScanPeriod = 0L
+                        call.argument<Int>("foregroundScanPeriod")?.let {
+                            if (it > foregroundScanPeriod) {
+                                foregroundScanPeriod = it.toLong()
+                            }
+                        }
+                        call.argument<Int>("foregroundBetweenScanPeriod")?.let {
+                            if (it > foregroundBetweenScanPeriod) {
+                                foregroundBetweenScanPeriod = it.toLong()
+                            }
+                        }
+                        callBack?.setForegroundScanPeriod(
+                            foregroundScanPeriod = foregroundScanPeriod,
+                            foregroundBetweenScanPeriod = foregroundBetweenScanPeriod
+                        )
+                        result.success("setForegroundScanPeriod updated.")
+                    }
+                    call.method == "setBackgroundScanPeriodForAndroid" -> {
+                        var backgroundScanPeriod = 1100L
+                        var backgroundBetweenScanPeriod = 0L
+                        call.argument<Int>("backgroundScanPeriod")?.let {
+                            if (it > backgroundScanPeriod) {
+                                backgroundScanPeriod = it.toLong()
+                            }
+                        }
+                        call.argument<Int>("backgroundBetweenScanPeriod")?.let {
+                            if (it > backgroundBetweenScanPeriod) {
+                                backgroundBetweenScanPeriod = it.toLong()
+                            }
+                        }
+                        callBack?.setBackgroundScanPeriod(
+                            backgroundScanPeriod = backgroundScanPeriod,
+                            backgroundBetweenScanPeriod = backgroundBetweenScanPeriod
+                        )
+                        result.success("setBackgroundScanPeriod updated.")
+                    }
                     else -> result.notImplemented()
                 }
             }
@@ -168,8 +217,14 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware, PluginRegistry.RequestPermis
 
         @JvmStatic
         fun permissionsGranted(context: Context): Boolean {
-            return ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
-                    ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
+            return ContextCompat.checkSelfPermission(
+                context,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED &&
+                    ContextCompat.checkSelfPermission(
+                        context,
+                        Manifest.permission.ACCESS_COARSE_LOCATION
+                    ) == PackageManager.PERMISSION_GRANTED
         }
 
         @JvmStatic
@@ -177,7 +232,12 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware, PluginRegistry.RequestPermis
             Timber.i("doIfPermissionsGranted")
 
             if (beaconHelper == null) {
-                Timber.i(String.format("doIfPermissionsGranted, %s", "Unable to start beacons plugin service."))
+                Timber.i(
+                    String.format(
+                        "doIfPermissionsGranted, %s",
+                        "Unable to start beacons plugin service."
+                    )
+                )
                 return
             }
 
@@ -196,18 +256,43 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware, PluginRegistry.RequestPermis
 
         private fun requestLocationPermissions() {
             if (!arePermissionsGranted()) {
-                Timber.i(String.format("requestLocationPermissions, %s", "Requesting location permissions.."))
+                Timber.i(
+                    String.format(
+                        "requestLocationPermissions, %s",
+                        "Requesting location permissions.."
+                    )
+                )
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                         currentActivity?.let {
-                            ActivityCompat.requestPermissions(it, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_BACKGROUND_LOCATION), REQUEST_LOCATION_PERMISSIONS)
+                            ActivityCompat.requestPermissions(
+                                it,
+                                arrayOf(
+                                    Manifest.permission.ACCESS_FINE_LOCATION,
+                                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                                    Manifest.permission.ACCESS_BACKGROUND_LOCATION
+                                ),
+                                REQUEST_LOCATION_PERMISSIONS
+                            )
                         }
                     } else {
                         currentActivity?.let {
-                            ActivityCompat.requestPermissions(it, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION), REQUEST_LOCATION_PERMISSIONS)
+                            ActivityCompat.requestPermissions(
+                                it,
+                                arrayOf(
+                                    Manifest.permission.ACCESS_FINE_LOCATION,
+                                    Manifest.permission.ACCESS_COARSE_LOCATION
+                                ),
+                                REQUEST_LOCATION_PERMISSIONS
+                            )
                         }
                     }
-                            ?: Timber.e(String.format("requestLocationPermissions, %s", "Unable to request location permissions."))
+                        ?: Timber.e(
+                            String.format(
+                                "requestLocationPermissions, %s",
+                                "Unable to request location permissions."
+                            )
+                        )
                 } else {
                     doIfPermissionsGranted()
                 }
@@ -222,7 +307,12 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware, PluginRegistry.RequestPermis
                 currentActivity?.let {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                         //if (it.shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_BACKGROUND_LOCATION)) {
-                        Timber.i(String.format("requestBackgroundPermission, %s", "Requesting background location permissions.."))
+                        Timber.i(
+                            String.format(
+                                "requestBackgroundPermission, %s",
+                                "Requesting background location permissions.."
+                            )
+                        )
                         val builder: AlertDialog.Builder = AlertDialog.Builder(it)
                         builder.setTitle(defaultPermissionDialogTitle)
                         builder.setMessage(defaultPermissionDialogMessage)
@@ -253,8 +343,14 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware, PluginRegistry.RequestPermis
         @JvmStatic
         private fun arePermissionsGranted(): Boolean {
             currentActivity?.let {
-                return ContextCompat.checkSelfPermission(it, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
-                        ContextCompat.checkSelfPermission(it, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                return ContextCompat.checkSelfPermission(
+                    it,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                ) == PackageManager.PERMISSION_GRANTED &&
+                        ContextCompat.checkSelfPermission(
+                            it,
+                            Manifest.permission.ACCESS_COARSE_LOCATION
+                        ) == PackageManager.PERMISSION_GRANTED
             }
             return false
         }
@@ -263,7 +359,10 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware, PluginRegistry.RequestPermis
         private fun areBackgroundScanPermissionsGranted(): Boolean {
             currentActivity?.let {
                 return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                    ContextCompat.checkSelfPermission(it, Manifest.permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED
+                    ContextCompat.checkSelfPermission(
+                        it,
+                        Manifest.permission.ACCESS_BACKGROUND_LOCATION
+                    ) == PackageManager.PERMISSION_GRANTED
                 } else {
                     return true
                 }
@@ -283,6 +382,16 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware, PluginRegistry.RequestPermis
             fun addRegion(call: MethodCall, result: MethodChannel.Result)
             fun clearRegions(call: MethodCall, result: MethodChannel.Result)
             fun setEventSink(events: EventChannel.EventSink?)
+            fun addBeaconLayout(layout: String)
+            fun setForegroundScanPeriod(
+                foregroundScanPeriod: Long,
+                foregroundBetweenScanPeriod: Long
+            )
+
+            fun setBackgroundScanPeriod(
+                backgroundScanPeriod: Long,
+                backgroundBetweenScanPeriod: Long
+            )
         }
 
         private var callBack: PluginImpl? = null
@@ -357,7 +466,11 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware, PluginRegistry.RequestPermis
     }
 
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>?, grantResults: IntArray?): Boolean {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>?,
+        grantResults: IntArray?
+    ): Boolean {
         if (requestCode == REQUEST_LOCATION_PERMISSIONS && grantResults?.isNotEmpty()!! && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             setPermissionDialogShown()
             doIfPermissionsGranted()

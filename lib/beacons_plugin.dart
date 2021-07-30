@@ -58,6 +58,34 @@ class BeaconsPlugin {
     printDebugMessage(result, 2);
   }
 
+  static Future<void> addBeaconLayoutForAndroid(String layout) async {
+    final String? result = await channel.invokeMethod(
+        'addBeaconLayoutForAndroid', <String, dynamic>{'layout': layout});
+    printDebugMessage(result, 2);
+  }
+
+  static Future<void> setForegroundScanPeriodForAndroid(
+      {int foregroundScanPeriod = 1100,
+      int foregroundBetweenScanPeriod = 0}) async {
+    final String? result = await channel
+        .invokeMethod('setForegroundScanPeriodForAndroid', <String, dynamic>{
+      'foregroundScanPeriod': foregroundScanPeriod,
+      'foregroundBetweenScanPeriod': foregroundBetweenScanPeriod
+    });
+    printDebugMessage(result, 2);
+  }
+
+  static Future<void> setBackgroundScanPeriodForAndroid(
+      {int backgroundScanPeriod = 1100,
+      int backgroundBetweenScanPeriod = 0}) async {
+    final String? result = await channel
+        .invokeMethod('setBackgroundScanPeriodForAndroid', <String, dynamic>{
+      'backgroundScanPeriod': backgroundScanPeriod,
+      'backgroundBetweenScanPeriod': backgroundBetweenScanPeriod
+    });
+    printDebugMessage(result, 2);
+  }
+
   static Future<void> setDisclosureDialogMessage(
       {String? title, String? message}) async {
     final String? result = await channel.invokeMethod(

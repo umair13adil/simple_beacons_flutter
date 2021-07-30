@@ -1,3 +1,9 @@
+## 2.0.1
+- Added method to add custom beacons layout (Android)
+- Added method to set foreground scan periods (Android)
+- Added method to set background scan periods (Android)
+- Updated example app, added list of monitored beacons
+
 ## 2.0.0
 - Migrated to null safety
 
