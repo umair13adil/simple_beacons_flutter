@@ -1,3 +1,6 @@
+## 2.0.2
+- Updated flow for showing the prominent disclosure message to be only shown when invoked from method channel
+
 ## 2.0.1
 - Added method to add custom beacons layout (Android)
 - Added method to set foreground scan periods (Android)
