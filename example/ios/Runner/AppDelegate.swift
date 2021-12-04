@@ -1,6 +1,7 @@
 import UIKit
 import Flutter
 import CoreLocation
+import CoreBluetooth
 
 @UIApplicationMain
 @objc class AppDelegate: FlutterAppDelegate {

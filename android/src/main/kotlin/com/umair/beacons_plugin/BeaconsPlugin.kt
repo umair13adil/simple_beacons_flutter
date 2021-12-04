@@ -63,7 +63,7 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware,
             }
             val instance = BeaconsPlugin()
             registrar.addRequestPermissionsResultListener(instance)
-            requestPermission()
+            //requestPermission()
             setUpPluginMethods(registrar.activity(), registrar.messenger())
         }
 
@@ -75,7 +75,7 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware,
                 this.beaconHelper = BeaconHelper(context)
             }
             val instance = BeaconsPlugin()
-            requestPermission()
+            //requestPermission()
             setUpPluginMethods(context, messenger)
         }
 
@@ -85,7 +85,7 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware,
             BeaconPreferences.init(context)
             this.beaconHelper = beaconHelper
             val instance = BeaconsPlugin()
-            requestPermission()
+            //requestPermission()
             setUpPluginMethods(context, messenger)
         }
 
@@ -145,6 +145,7 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware,
                         call.argument<String>("message")?.let {
                             defaultPermissionDialogMessage = it
                         }
+                        requestPermission()
                         result.success("Disclosure message Set: $defaultPermissionDialogMessage")
                     }
                     call.method == "addBeaconLayoutForAndroid" -> {
@@ -313,7 +314,8 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware,
                                 "Requesting background location permissions.."
                             )
                         )
-                        val builder: AlertDialog.Builder = AlertDialog.Builder(it)
+                        val builder: AlertDialog.Builder =
+                            AlertDialog.Builder(it, R.style.AlertDialogStyle)
                         builder.setTitle(defaultPermissionDialogTitle)
                         builder.setMessage(defaultPermissionDialogMessage)
                         builder.setPositiveButton("Ok", null)
@@ -439,7 +441,7 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware,
         currentActivity = activityPluginBinding.activity
         BeaconPreferences.init(currentActivity)
         activityPluginBinding.addRequestPermissionsResultListener(this)
-        requestPermission()
+        //requestPermission()
 
         if (arePermissionsGranted()) {
             sendBLEScannerReadyCallback()
@@ -477,8 +479,8 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware,
             return true
         }
         if (requestCode == PERMISSION_REQUEST_BACKGROUND_LOCATION && grantResults?.isNotEmpty()!! && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            setPermissionDialogShown()
-            requestPermission()
+            //setPermissionDialogShown()
+            //requestPermission()
             return true
         }
         return false
