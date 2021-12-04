@@ -233,12 +233,6 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware,
             Timber.i("doIfPermissionsGranted")
 
             if (beaconHelper == null) {
-                Timber.i(
-                    String.format(
-                        "doIfPermissionsGranted, %s",
-                        "Unable to start beacons plugin service."
-                    )
-                )
                 return
             }
 
@@ -257,12 +251,6 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware,
 
         private fun requestLocationPermissions() {
             if (!arePermissionsGranted()) {
-                Timber.i(
-                    String.format(
-                        "requestLocationPermissions, %s",
-                        "Requesting location permissions.."
-                    )
-                )
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                         currentActivity?.let {
@@ -288,12 +276,6 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware,
                             )
                         }
                     }
-                        ?: Timber.e(
-                            String.format(
-                                "requestLocationPermissions, %s",
-                                "Unable to request location permissions."
-                            )
-                        )
                 } else {
                     doIfPermissionsGranted()
                 }
@@ -308,35 +290,17 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware,
                 currentActivity?.let {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                         //if (it.shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_BACKGROUND_LOCATION)) {
-                        Timber.i(
-                            String.format(
-                                "requestBackgroundPermission, %s",
-                                "Requesting background location permissions.."
-                            )
-                        )
-                        val builder: AlertDialog.Builder =
-                            AlertDialog.Builder(it, R.style.AlertDialogStyle)
-                        builder.setTitle(defaultPermissionDialogTitle)
-                        builder.setMessage(defaultPermissionDialogMessage)
-                        builder.setPositiveButton("Ok", null)
-                        builder.setOnDismissListener {
-                            requestLocationPermissions()
-                        }
-                        builder.show()
-                        /*} else {
-                        Timber.i(String.format("requestBackgroundPermission, %s", "Background location permissions are not granted!"))
-                        val builder: AlertDialog.Builder = AlertDialog.Builder(it)
-                        builder.setTitle("Functionality limited")
-                        builder.setMessage("Since background location access has not been granted, this app will not be able to discover beacons in the background.  Please go to Settings -> Applications -> Permissions and grant background location access to this app.")
-                        builder.setPositiveButton("OK", null)
-                        builder.setOnDismissListener {
-                            currentActivity?.let {
-                                ActivityCompat.requestPermissions(it, arrayOf(Manifest.permission.ACCESS_BACKGROUND_LOCATION), PERMISSION_REQUEST_BACKGROUND_LOCATION)
+                            val builder: AlertDialog.Builder =
+                                AlertDialog.Builder(it, R.style.AlertDialogStyle)
+                            builder.setTitle(defaultPermissionDialogTitle)
+                            builder.setMessage(defaultPermissionDialogMessage)
+                            builder.setPositiveButton("Ok", null)
+                            builder.setOnDismissListener {
+                                setPermissionDialogShown()
+                                requestLocationPermissions()
                             }
-                                    ?: Timber.e(String.format("requestBackgroundPermission, %s", "Unable to request background location permissions."))
-                        }
-                        builder.show()
-                    }*/
+                            builder.show()
+                        //}
                     }
                 }
             }
@@ -474,7 +438,6 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware,
         grantResults: IntArray?
     ): Boolean {
         if (requestCode == REQUEST_LOCATION_PERMISSIONS && grantResults?.isNotEmpty()!! && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            setPermissionDialogShown()
             doIfPermissionsGranted()
             return true
         }

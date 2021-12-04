@@ -1,4 +1,4 @@
-## 2.0.2
+## 2.0.3
 - Updated flow for showing the prominent disclosure message to be only shown when invoked from method channel
 
 ## 2.0.1
