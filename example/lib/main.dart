@@ -68,10 +68,33 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       //Prominent disclosure
       await BeaconsPlugin.setDisclosureDialogMessage(
           title: "Background Locations",
-          message: "[This app] collects location data to enable [feature], [feature], & [feature] even when the app is closed or not in use");
+          message:
+              "[This app] collects location data to enable [feature], [feature], & [feature] even when the app is closed or not in use");
 
       //Only in case, you want the dialog to be shown again. By Default, dialog will never be shown if permissions are granted.
       //await BeaconsPlugin.clearDisclosureDialogShowFlag(false);
+    }
+
+    if (Platform.isAndroid) {
+      BeaconsPlugin.channel.setMethodCallHandler((call) async {
+        print("Method: ${call.method}");
+        if (call.method == 'scannerReady') {
+          _showNotification("Beacons monitoring started..");
+          await BeaconsPlugin.startMonitoring();
+          setState(() {
+            isRunning = true;
+          });
+        } else if (call.method == 'isPermissionDialogShown') {
+          _showNotification(
+              "Prominent disclosure message is shown to the user!");
+        }
+      });
+    } else if (Platform.isIOS) {
+      _showNotification("Beacons monitoring started..");
+      await BeaconsPlugin.startMonitoring();
+      setState(() {
+        isRunning = true;
+      });
     }
 
     BeaconsPlugin.listenToBeacons(beaconEventsController);
@@ -115,24 +138,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
     //Send 'true' to run in background
     await BeaconsPlugin.runInBackground(true);
-
-    if (Platform.isAndroid) {
-      BeaconsPlugin.channel.setMethodCallHandler((call) async {
-        if (call.method == 'scannerReady') {
-          _showNotification("Beacons monitoring started..");
-          await BeaconsPlugin.startMonitoring();
-          setState(() {
-            isRunning = true;
-          });
-        }
-      });
-    } else if (Platform.isIOS) {
-      _showNotification("Beacons monitoring started..");
-      await BeaconsPlugin.startMonitoring();
-      setState(() {
-        isRunning = true;
-      });
-    }
 
     if (!mounted) return;
   }

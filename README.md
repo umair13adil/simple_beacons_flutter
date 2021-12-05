@@ -207,6 +207,12 @@ See: [Link](https://developer.android.com/training/location/permissions)
       //Only in case, you want the dialog to be shown again. By Default, dialog will never be shown if permissions are granted.
       await BeaconsPlugin.clearDisclosureDialogShowFlag(false);
     }
+
+    BeaconsPlugin.channel.setMethodCallHandler((call) async {
+        if (call.method == 'isPermissionDialogShown') {
+          //Do something here
+        }
+    });
 ```
 
 ## Scan Results

@@ -1,3 +1,6 @@
+## 2.0.4
+- Added callback for prominent disclosure message, to notify Flutter app
+
 ## 2.0.3
 - Updated flow for showing the prominent disclosure message to be only shown when invoked from method channel
 

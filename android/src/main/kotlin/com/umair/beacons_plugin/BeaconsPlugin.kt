@@ -290,16 +290,18 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware,
                 currentActivity?.let {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                         //if (it.shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_BACKGROUND_LOCATION)) {
-                            val builder: AlertDialog.Builder =
-                                AlertDialog.Builder(it, R.style.AlertDialogStyle)
-                            builder.setTitle(defaultPermissionDialogTitle)
-                            builder.setMessage(defaultPermissionDialogMessage)
-                            builder.setPositiveButton("Ok", null)
-                            builder.setOnDismissListener {
-                                setPermissionDialogShown()
-                                requestLocationPermissions()
-                            }
-                            builder.show()
+                        val builder: AlertDialog.Builder =
+                            AlertDialog.Builder(it)
+                        builder.setTitle(defaultPermissionDialogTitle)
+                        builder.setMessage(defaultPermissionDialogMessage)
+                        builder.setPositiveButton("Ok", null)
+                        builder.setOnDismissListener {
+                            setPermissionDialogShown()
+                            requestLocationPermissions()
+                            channel?.invokeMethod("isPermissionDialogShown", "true")
+                            Timber.i("backgroundPermissionDialogIsShown")
+                        }
+                        builder.show()
                         //}
                     }
                 }
