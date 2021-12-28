@@ -56,7 +56,6 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware,
 
         @JvmStatic
         fun registerWith(registrar: PluginRegistry.Registrar) {
-            Timber.i("registerWith: registrar")
             BeaconPreferences.init(registrar.context())
             if (beaconHelper == null) {
                 this.beaconHelper = BeaconHelper(registrar.context())
@@ -69,7 +68,6 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware,
 
         @JvmStatic
         fun registerWith(messenger: BinaryMessenger, context: Context) {
-            Timber.i("registerWith: messenger")
             BeaconPreferences.init(context)
             if (beaconHelper == null) {
                 this.beaconHelper = BeaconHelper(context)
@@ -81,7 +79,6 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware,
 
         @JvmStatic
         fun registerWith(messenger: BinaryMessenger, beaconHelper: BeaconHelper, context: Context) {
-            Timber.i("registerWith: messenger background")
             BeaconPreferences.init(context)
             this.beaconHelper = beaconHelper
             val instance = BeaconsPlugin()
@@ -91,7 +88,6 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware,
 
         @JvmStatic
         private fun setUpPluginMethods(context: Context, messenger: BinaryMessenger) {
-            Timber.i("setUpPluginMethods")
             Timber.plant(Timber.DebugTree())
 
             channel = MethodChannel(messenger, "beacons_plugin")
@@ -210,7 +206,6 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware,
 
         @JvmStatic
         private fun notifyIfPermissionsGranted(context: Context) {
-            Timber.i("notifyIfPermissionsGranted")
             if (permissionsGranted(context)) {
                 doIfPermissionsGranted()
             }
@@ -237,6 +232,8 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware,
             }
 
             this.callBack = beaconHelper
+
+            sendBLEScannerReadyCallback()
         }
 
 
@@ -299,7 +296,6 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware,
                             setPermissionDialogShown()
                             requestLocationPermissions()
                             channel?.invokeMethod("isPermissionDialogShown", "true")
-                            Timber.i("backgroundPermissionDialogIsShown")
                         }
                         builder.show()
                         //}
@@ -365,12 +361,10 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware,
         private var callBack: PluginImpl? = null
 
         fun sendBLEScannerReadyCallback() {
-            Timber.i("sendBLEScannerReadyCallback")
             channel?.invokeMethod("scannerReady", "")
         }
 
         fun startBackgroundService(context: Context) {
-            Timber.i("startBackgroundService")
             if (runInBackground && !stopService) {
                 val serviceIntent1 = Intent(context, BeaconsDiscoveryService::class.java)
                 context.startService(serviceIntent1)
@@ -378,7 +372,6 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware,
         }
 
         fun stopBackgroundService(context: Context) {
-            Timber.i("stopBackgroundService")
             if (runInBackground && !stopService) {
                 val serviceIntent = Intent(context, BeaconsDiscoveryService::class.java)
                 context.stopService(serviceIntent)
@@ -387,7 +380,6 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware,
     }
 
     override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
-        Timber.i("onDetachedFromEngine")
         currentActivity = null
         channel?.setMethodCallHandler(null)
         event_channel?.setStreamHandler(null)
@@ -403,7 +395,6 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware,
     }
 
     override fun onAttachedToActivity(activityPluginBinding: ActivityPluginBinding) {
-        Timber.i("onAttachedToActivity")
         currentActivity = activityPluginBinding.activity
         BeaconPreferences.init(currentActivity)
         activityPluginBinding.addRequestPermissionsResultListener(this)

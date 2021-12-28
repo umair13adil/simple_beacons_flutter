@@ -24,7 +24,7 @@ class BeaconsDiscoveryService : Service() {
         beaconHelper = BeaconHelper(this)
 
         BeaconsPlugin.messenger?.let {
-            Log.i(TAG, "$TAG service running.")
+            Log.i(TAG, "$TAG service running. Send Callback")
             BeaconsPlugin.registerWith(it, beaconHelper, this)
             BeaconsPlugin.sendBLEScannerReadyCallback()
             serviceRunning = true
