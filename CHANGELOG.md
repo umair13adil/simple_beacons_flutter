@@ -1,3 +1,6 @@
+## 2.0.5
+- Fixed issue with callback on 'scannerReady' event
+
 ## 2.0.4
 - Added callback for prominent disclosure message, to notify Flutter app
 
