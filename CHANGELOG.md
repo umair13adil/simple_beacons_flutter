@@ -1,3 +1,9 @@
+## 2.0.7
+- Added support for Android 12 OS (BroadCast receiver)
+
+## 2.0.6
+- Added support for Android 12 OS
+
 ## 2.0.5
 - Fixed issue with callback on 'scannerReady' event
 
