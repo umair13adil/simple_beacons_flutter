@@ -36,17 +36,33 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b7b9ec39-f1d6-4277-a85a-8c6c793e0ff7" name="Default Changelist" comment="Released v1.18&#10;&#10;- (Android) Removed ACCESS_BACKGROUND_LOCATION permission from plugin to prevent App Rejection&#10;- (iOS) Removed UIBackgroundModes key from info.pList from Plugin to prevent App Rejection">
-      <change afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/umair/beacons_plugin/BeaconPreferences.java" afterDir="false" />
+    <list default="true" id="b7b9ec39-f1d6-4277-a85a-8c6c793e0ff7" name="Default Changelist" comment="## 2.0.7&#10;- Added support for Android 12 OS (BroadCast receiver)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.idea/runConfigurations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/android/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/com/umair/beacons_plugin/AppUtils.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/umair/beacons_plugin/AppUtils.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/com/umair/beacons_plugin/BeaconsPlugin.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/umair/beacons_plugin/BeaconsPlugin.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/ios/Classes/SwiftBeaconsPlugin.swift" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/ios/Classes/SwiftBeaconsPlugin.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/android/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/android/.idea/runConfigurations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/android/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/android/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/android/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/example/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/example/android/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/example/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/example/android/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/example/android/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/example/android/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/example/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/example/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/example/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/example/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/example/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/beacons_plugin/pubspec.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/beacons_plugin.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/beacons_plugin.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/example/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -57,11 +73,20 @@
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
   </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[/Users/umairadil/.android/avd/Pixel_4_API_31.avd]" />
   <component name="Git.Settings">
     <option name="RECENT_COMMON_BRANCH" value="version_2" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="ROOT_SYNC" value="SYNC" />
     <option name="UPDATE_TYPE" value="MERGE" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="ProjectId" id="1cEC7QViSNbceQmqfUdiFosqSb6" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -71,22 +96,28 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="com.developerphil.adbidea.ui.ModuleChooserDialogHelper-SELECTED_MODULE" value="beacons_plugin_example_android" />
     <property name="dart.analysis.tool.window.force.activate" value="false" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/example/android/app/src/main/res/drawable" />
       <recent name="$PROJECT_DIR$/ios/Classes" />
       <recent name="$PROJECT_DIR$/lib" />
       <recent name="$PROJECT_DIR$/android/src/main/kotlin/com/umair/beacons_plugin" />
     </key>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -357,7 +388,56 @@
       <option name="project" value="LOCAL" />
       <updated>1607190178099</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="Released 1.0.19&#10;&#10;- (Android) Added option to set custom title &amp; message for Disclosure dialog&#10;- (Android) Fixed dialog always shown issue">
+      <created>1607711953430</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1607711953430</updated>
+    </task>
+    <task id="LOCAL-00039" summary="Released 1.0.20&#10;&#10;- Merged PR #39">
+      <created>1611475423222</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1611475423222</updated>
+    </task>
+    <task id="LOCAL-00040" summary="Released 2.0.0&#10;&#10;- Merged PR #45">
+      <created>1618982716977</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1618982716978</updated>
+    </task>
+    <task id="LOCAL-00041" summary="- Added method to add custom beacons layout (Android)&#10;- Added method to set foreground scan periods (Android)&#10;- Added method to set background scan periods (Android)&#10;- Updated example app, added list of monitored beacons">
+      <created>1627631304633</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1627631304633</updated>
+    </task>
+    <task id="LOCAL-00042" summary="## 2.0.2&#10;- Updated flow for showing the prominent disclosure message to be only shown when invoked from method channel">
+      <created>1638597392318</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1638597392318</updated>
+    </task>
+    <task id="LOCAL-00043" summary="## 2.0.5&#10;- Fixed issue with callback on 'scannerReady' event">
+      <created>1640681942208</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1640681942208</updated>
+    </task>
+    <task id="LOCAL-00044" summary="## 2.0.7&#10;- Added support for Android 12 OS (BroadCast receiver)">
+      <created>1643885064652</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1643885064652</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -389,8 +469,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="Added iOS implementation." />
-    <MESSAGE value="Updated plugin implementation for iOS." />
     <MESSAGE value="Final commit." />
     <MESSAGE value="Updated Android code." />
     <MESSAGE value="Updated iOS code." />
@@ -407,53 +485,15 @@
     <MESSAGE value="Released v1.15" />
     <MESSAGE value="Released v1.0.17" />
     <MESSAGE value="Released v1.18&#10;&#10;- (Android) Removed ACCESS_BACKGROUND_LOCATION permission from plugin to prevent App Rejection&#10;- (iOS) Removed UIBackgroundModes key from info.pList from Plugin to prevent App Rejection" />
-    <option name="LAST_COMMIT_MESSAGE" value="Released v1.18&#10;&#10;- (Android) Removed ACCESS_BACKGROUND_LOCATION permission from plugin to prevent App Rejection&#10;- (iOS) Removed UIBackgroundModes key from info.pList from Plugin to prevent App Rejection" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="254" y="23" key="CommitChangelistDialog2" timestamp="1602335943107">
-      <screen x="0" y="23" width="1440" height="797" />
-    </state>
-    <state x="254" y="23" key="CommitChangelistDialog2/0.23.1440.797@0.23.1440.797" timestamp="1602335943107" />
-    <state x="100" y="123" width="1240" height="597" key="DiffContextDialog" timestamp="1602335894948">
-      <screen x="0" y="23" width="1440" height="797" />
-    </state>
-    <state x="100" y="123" width="1240" height="597" key="DiffContextDialog/0.23.1440.797@0.23.1440.797" timestamp="1602335894948" />
-    <state width="1398" height="151" key="GridCell.Tab.0.bottom" timestamp="1607711637076">
-      <screen x="0" y="23" width="1440" height="797" />
-    </state>
-    <state width="1398" height="362" key="GridCell.Tab.0.bottom/0.23.1440.797/1440.23.1600.877/-1050.-195.1050.1657@0.23.1440.797" timestamp="1603178765686" />
-    <state width="1398" height="151" key="GridCell.Tab.0.bottom/0.23.1440.797@0.23.1440.797" timestamp="1607711637076" />
-    <state width="1398" height="151" key="GridCell.Tab.0.center" timestamp="1607711637075">
-      <screen x="0" y="23" width="1440" height="797" />
-    </state>
-    <state width="1398" height="362" key="GridCell.Tab.0.center/0.23.1440.797/1440.23.1600.877/-1050.-195.1050.1657@0.23.1440.797" timestamp="1603178765685" />
-    <state width="1398" height="151" key="GridCell.Tab.0.center/0.23.1440.797@0.23.1440.797" timestamp="1607711637075" />
-    <state width="1398" height="151" key="GridCell.Tab.0.left" timestamp="1607711637075">
-      <screen x="0" y="23" width="1440" height="797" />
-    </state>
-    <state width="1398" height="362" key="GridCell.Tab.0.left/0.23.1440.797/1440.23.1600.877/-1050.-195.1050.1657@0.23.1440.797" timestamp="1603178765685" />
-    <state width="1398" height="151" key="GridCell.Tab.0.left/0.23.1440.797@0.23.1440.797" timestamp="1607711637075" />
-    <state width="1398" height="151" key="GridCell.Tab.0.right" timestamp="1607711637076">
-      <screen x="0" y="23" width="1440" height="797" />
-    </state>
-    <state width="1398" height="362" key="GridCell.Tab.0.right/0.23.1440.797/1440.23.1600.877/-1050.-195.1050.1657@0.23.1440.797" timestamp="1603178765686" />
-    <state width="1398" height="151" key="GridCell.Tab.0.right/0.23.1440.797@0.23.1440.797" timestamp="1607711637076" />
-    <state x="320" y="191" key="Vcs.Push.Dialog.v2" timestamp="1607190184708">
-      <screen x="0" y="23" width="1440" height="797" />
-    </state>
-    <state x="320" y="191" key="Vcs.Push.Dialog.v2/0.23.1440.797@0.23.1440.797" timestamp="1607190184708" />
-    <state x="500" y="345" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1607188309220">
-      <screen x="0" y="23" width="1440" height="797" />
-    </state>
-    <state x="500" y="345" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1440.797@0.23.1440.797" timestamp="1607188309220" />
-    <state x="373" y="206" width="878" height="499" key="find.popup" timestamp="1607672123549">
-      <screen x="0" y="0" width="1440" height="900" />
-    </state>
-    <state x="373" y="206" width="878" height="499" key="find.popup/0.0.1440.900/-1680.-267.1680.1050@0.0.1440.900" timestamp="1607672123549" />
-    <state x="1854" y="224" width="975" height="486" key="find.popup/0.23.1440.797/1440.23.1600.877/-1050.-195.1050.1657@1440.23.1600.877" timestamp="1601992759568" />
-    <state x="1905" y="213" width="670" height="676" key="search.everywhere.popup" timestamp="1601992800399">
-      <screen x="1440" y="23" width="1600" height="877" />
-    </state>
-    <state x="1905" y="213" width="670" height="676" key="search.everywhere.popup/0.23.1440.797/1440.23.1600.877/-1050.-195.1050.1657@1440.23.1600.877" timestamp="1601992800399" />
+    <MESSAGE value="Released 1.0.19&#10;&#10;- (Android) Added option to set custom title &amp; message for Disclosure dialog&#10;- (Android) Fixed dialog always shown issue" />
+    <MESSAGE value="Released 1.0.20&#10;&#10;- Merged PR #39" />
+    <MESSAGE value="Released 2.0.0&#10;&#10;- Merged PR #45" />
+    <MESSAGE value="- Added method to add custom beacons layout (Android)&#10;- Added method to set foreground scan periods (Android)&#10;- Added method to set background scan periods (Android)&#10;- Updated example app, added list of monitored beacons" />
+    <MESSAGE value="## 2.0.2&#10;- Updated flow for showing the prominent disclosure message to be only shown when invoked from method channel" />
+    <MESSAGE value="## 2.0.3&#10;- Updated flow for showing the prominent disclosure message to be only shown when invoked from method channel" />
+    <MESSAGE value="## 2.0.4&#10;- Added callback for prominent disclosure message, to notify Flutter app" />
+    <MESSAGE value="## 2.0.5&#10;- Fixed issue with callback on 'scannerReady' event" />
+    <MESSAGE value="## 2.0.7&#10;- Added support for Android 12 OS (BroadCast receiver)" />
+    <option name="LAST_COMMIT_MESSAGE" value="## 2.0.7&#10;- Added support for Android 12 OS (BroadCast receiver)" />
   </component>
 </project>

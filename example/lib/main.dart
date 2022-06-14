@@ -35,7 +35,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance?.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
     initPlatformState();
 
     // initialise the plugin. app_icon needs to be a added as a drawable resource to the Android head project
@@ -58,7 +58,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   void dispose() {
     beaconEventsController.close();
-    WidgetsBinding.instance?.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
@@ -213,7 +213,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     var rng = new Random();
     Future.delayed(Duration(seconds: 5)).then((result) async {
       var androidPlatformChannelSpecifics = AndroidNotificationDetails(
-          'your channel id', 'your channel name', 'your channel description',
+          'your channel id', 'your channel name',
           importance: Importance.high,
           priority: Priority.high,
           ticker: 'ticker');
