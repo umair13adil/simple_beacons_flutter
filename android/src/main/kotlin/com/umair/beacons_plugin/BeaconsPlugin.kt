@@ -63,7 +63,7 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware,
             val instance = BeaconsPlugin()
             registrar.addRequestPermissionsResultListener(instance)
             //requestPermission()
-            setUpPluginMethods(registrar.activity(), registrar.messenger())
+            registrar.activity()?.let { setUpPluginMethods(it, registrar.messenger()) }
         }
 
         @JvmStatic
@@ -427,14 +427,14 @@ class BeaconsPlugin : FlutterPlugin, ActivityAware,
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
-        permissions: Array<out String>?,
-        grantResults: IntArray?
+        permissions: Array<out String>,
+        grantResults: IntArray
     ): Boolean {
-        if (requestCode == REQUEST_LOCATION_PERMISSIONS && grantResults?.isNotEmpty()!! && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        if (requestCode == REQUEST_LOCATION_PERMISSIONS && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             doIfPermissionsGranted()
             return true
         }
-        if (requestCode == PERMISSION_REQUEST_BACKGROUND_LOCATION && grantResults?.isNotEmpty()!! && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        if (requestCode == PERMISSION_REQUEST_BACKGROUND_LOCATION && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             //setPermissionDialogShown()
             //requestPermission()
             return true

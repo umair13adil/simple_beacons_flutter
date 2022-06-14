@@ -1,3 +1,7 @@
+## 2.0.8
+- Updated AltBeacon library
+- Added support for Flutter 3.0.0
+
 ## 2.0.7
 - Added support for Android 12 OS (BroadCast receiver)
 
