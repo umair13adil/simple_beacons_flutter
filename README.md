@@ -238,3 +238,9 @@ See: [Link](https://developer.android.com/training/location/permissions)
 # Author
 
 Flutter Beacons plugin is developed by Umair Adil. You can email me at <m.umair.adil@gmail.com> for any queries.
+
+# Support
+
+Buy a coffe to [Umair Adil](https://twitter.com/umair13adil), creator of this plugin.
+
+[![Buy me a coffee](https://www.buymeacoffee.com/assets/img/guidelines/download-assets-sm-1.svg)](https://www.buymeacoffee.com/umairadil)
